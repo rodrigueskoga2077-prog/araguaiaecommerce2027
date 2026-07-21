@@ -85,7 +85,6 @@
             background: rgba(22,163,74,0.12);
         }
         
-        /* Ajuste do botão adicionar ao carrinho */
         .btn-cart {
             border-radius: 8px;
         }
@@ -134,7 +133,7 @@
             <a href="index.html" class="inline-block bg-araguaia-yellow text-araguaia-dark px-8 py-4 font-bold uppercase hover:bg-white transition-colors duration-300 rounded-lg">Voltar para a Loja</a>
         </div>
 
-        <!-- Seção Principal (Oculta até o JS carregar os dados) -->
+        <!-- Seção Principal (Exibida dinamicamente) -->
         <div id="conteudo-produto" class="hidden">
             
             <!-- Breadcrumbs -->
@@ -154,29 +153,28 @@
             <div class="container mx-auto px-4 py-8 md:py-12">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
 
-                    <!-- Galeria com Efeito Glassmorphism Premium -->
+                    <!-- Lado Esquerdo: Galeria com Efeito Glassmorphism Premium -->
                     <div class="lg:col-span-7 flex flex-col gap-4 relative">
                         
                         <!-- Efeito de "Glow" colorido sutil por trás do vidro -->
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-araguaia-yellow/10 blur-[100px] rounded-full z-0 pointer-events-none"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-araguaia-yellow/15 blur-[120px] rounded-full z-0 pointer-events-none"></div>
 
                         <!-- Main Card - Glassmorphism -->
-                        <div class="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-2xl flex items-center justify-center overflow-hidden group" style="min-height: 500px;">
+                        <div class="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] rounded-2xl flex items-center justify-center overflow-hidden group aspect-square lg:aspect-auto lg:h-[500px]">
                             
-                            <!-- Carimbo ajustado para glass -->
-                            <span id="tag-produto" class="stamp-badge hidden absolute top-6 left-6 text-red-400 text-xs font-bold uppercase px-3 py-1.5 z-20 font-mono-tech rounded-md backdrop-blur-md bg-black/50"></span>
+                            <!-- Carimbo -->
+                            <span id="tag-produto" class="stamp-badge hidden absolute top-6 left-6 text-xs font-bold uppercase px-3 py-1.5 z-20 font-mono-tech rounded-md backdrop-blur-md bg-black/50 border border-white/10"></span>
                             
-                            <!-- Imagem preenchendo o card -->
+                            <!-- Imagem preenchendo o card (object-cover + rounded) -->
                             <img id="img-produto" src="" alt="Produto" class="w-full h-full absolute inset-0 object-cover transition-transform duration-700 group-hover:scale-105">
                         </div>
 
-                        <!-- Miniaturas - Container -->
-                        <div id="miniaturas-container" class="grid grid-cols-4 sm:grid-cols-5 gap-4 relative z-10">
-                            <!-- JS vai popular as fotos aqui -->
+                        <!-- Miniaturas - JS vai gerar os cards menores aqui -->
+                        <div id="miniaturas-container" class="grid grid-cols-4 sm:grid-cols-5 gap-4 relative z-10 mt-2">
                         </div>
                     </div>
 
-                    <!-- Buy Box -->
+                    <!-- Lado Direito: Buy Box -->
                     <div class="lg:col-span-5 flex flex-col relative z-10">
                         <span id="id-ref" class="text-xs text-gray-500 font-mono-tech font-bold uppercase tracking-widest mb-2"></span>
                         <h1 id="nome-produto" class="text-3xl lg:text-4xl font-anton text-white uppercase leading-tight mb-4 tracking-wide">Nome do Produto</h1>
@@ -282,17 +280,17 @@
                     "./Motosserra_a_bateria_MSA_70_202607211228.webp",
                     "./Motosserra_a_bateria_MSA_70_202607211229.webp"
                 ],
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
                 id: "fs-120", ativo: true, nome: "Roçadeira a combustão FS 120", precoOriginal: "2.219,00", precoDesconto: "2.041,48", parcelamento: "10x de R$ 221,90", 
                 imagens: ["https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp"], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 1 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 1 
             },
             { 
                 id: "br-420", ativo: true, nome: "Soprador costal a combustão BR 420", precoOriginal: "2.929,00", precoDesconto: "2.694,68", parcelamento: "10x de R$ 292,90", 
                 imagens: ["https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp"], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
                 id: "re-110-plus", ativo: true, nome: "Lavadora de Alta Pressão RE 110 Plus", precoOriginal: "2.739,00", precoDesconto: "2.519,88", parcelamento: "10x de R$ 273,90", 
@@ -301,7 +299,7 @@
                     "./Lavadora_de_Alta_Pressão_RE_202607211214.webp",
                     "./Lavadora_de_Alta_Pressão_RE_202607211219.webp"
                 ], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
                 id: "rm-253-t", ativo: true, nome: "Cortador de Grama a Combustão RM 253 T", precoOriginal: "5.439,00", precoDesconto: "5.003,88", parcelamento: "10x de R$ 543,90", 
@@ -310,12 +308,12 @@
                     "./Cortador_de_Grama_a_Combustão_202607211142.webp",
                     "./Cortador_de_Grama_a_Combustão_202607211144.webp"
                 ], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
                 id: "oleo-castrol-8017h", ativo: true, nome: "Óleo Castrol STIHL 8017 H", precoOriginal: "50,00", precoDesconto: "46,00", parcelamento: "1x de R$ 50,00", 
                 imagens: ["https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/55f42c38-c74e-487c-ae01-0ac4a1092685.webp"], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
                 id: "bateria-ak-30s", ativo: true, nome: "Bateria AK 30 S", precoOriginal: "1.358,00", precoDesconto: "1.249,36", parcelamento: "10x de R$ 135,80", 
@@ -324,17 +322,17 @@
                     "./bateria_ak_30_stihl.png_202607211155 (1).webp",
                     "./bateria_ak_30_stihl.png_202607211155.webp"
                 ], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
                 id: "ms-172", ativo: true, nome: "Motosserra a combustão MS 172", precoOriginal: "1.599,00", precoDesconto: "1.471,08", parcelamento: "10x de R$ 159,90", 
                 imagens: ["https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp"], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
                 id: "fr-410", ativo: true, nome: "Roçadeira a combustão FR 410", precoOriginal: "4.589,00", precoDesconto: "4.221,88", parcelamento: "10x de R$ 458,90", 
                 imagens: ["https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp"], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
                 id: "ehc-705-s", ativo: true, nome: "Motor Estacionário a combustão EHC 705 S", precoOriginal: "1.739,00", precoDesconto: "1.599,88", parcelamento: "10x de R$ 173,90", 
@@ -343,12 +341,18 @@
                     "./Motor_Estacionário_a_combustão_EHC_202607211222.webp",
                     "./Motor_Estacionário_a_combustão_EHC_202607211223.webp"
                 ], 
-                tag: "-8% OFF PIX", tagColor: "text-red-400", estrelas: 5, avaliacoes: 0 
+                tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             }
         ];
 
         const urlParams = new URLSearchParams(window.location.search);
-        const produtoId = urlParams.get('id');
+        let produtoId = urlParams.get('id');
+        
+        // PADRÃO: Se a pessoa abrir a página sem ID, mostra a Motosserra MSA 70 para funcionar a galeria
+        if (!produtoId) {
+            produtoId = "msa-70-cb"; 
+        }
+        
         const produto = produtos.find(p => p.id === produtoId);
 
         if (produto) {
@@ -365,7 +369,7 @@
             document.getElementById('id-ref').textContent = `CÓD: REF-${produto.id.toUpperCase()}`;
             document.getElementById('desc-curta').textContent = `A ${produto.nome} é o equipamento ideal para quem exige força e confiabilidade.`;
 
-            // Imagens e Miniaturas
+            // Imagens e Miniaturas (Cards em baixo)
             const imgPrincipal = document.getElementById('img-produto');
             const containerMiniaturas = document.getElementById('miniaturas-container');
             
@@ -376,23 +380,24 @@
                 produto.imagens.forEach((imgSrc, index) => {
                     const div = document.createElement('div');
                     
-                    // Classes para miniatura com cantos arredondados e efeito glass
+                    // Design escuro glassmorphism para as miniaturas
                     let borderClass = index === 0 ? 'border-araguaia-yellow/80' : 'border-white/10';
-                    div.className = `bg-white/5 backdrop-blur-md border-2 ${borderClass} rounded-xl p-1 cursor-pointer h-24 flex items-center justify-center overflow-hidden hover:border-araguaia-yellow/50 transition-colors shadow-lg`;
+                    div.className = `bg-white/5 backdrop-blur-md border-2 ${borderClass} rounded-xl p-1 cursor-pointer aspect-square flex items-center justify-center overflow-hidden hover:border-araguaia-yellow/50 transition-colors shadow-lg`;
                     
                     const img = document.createElement('img');
                     img.src = imgSrc;
-                    // Object-cover para as miniaturas preencherem todo o espaço
+                    // Preenche o card por completo e arredonda
                     img.className = "w-full h-full object-cover rounded-lg";
                     div.appendChild(img);
                     
+                    // Evento de clique
                     div.onclick = () => {
                         imgPrincipal.src = imgSrc;
-                        // Reseta bordas
+                        // Reseta bordas para cinza
                         Array.from(containerMiniaturas.children).forEach(child => {
                             child.classList.replace('border-araguaia-yellow/80', 'border-white/10');
                         });
-                        // Coloca borda amarela na miniatura clicada
+                        // Borda amarela no ativo
                         div.classList.replace('border-white/10', 'border-araguaia-yellow/80');
                     };
                     containerMiniaturas.appendChild(div);
@@ -406,6 +411,7 @@
             if (produto.tag) {
                 const tagElement = document.getElementById('tag-produto');
                 tagElement.textContent = produto.tag;
+                tagElement.className = `stamp-badge absolute top-6 left-6 text-xs font-bold uppercase px-3 py-1.5 z-20 font-mono-tech rounded-md backdrop-blur-md bg-black/50 border border-white/10 ${produto.tagColor}`;
                 tagElement.classList.remove('hidden');
             }
 
