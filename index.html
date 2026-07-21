@@ -19,19 +19,22 @@
     <style type="text/tailwindcss">
         @theme {
             --color-araguaia-yellow: #FFB800;
-            --color-araguaia-yellow-dark: #A87C00; /* Cor ajustada da imagem */
-            --color-araguaia-dark: #111111;
-            --color-araguaia-darker: #0a0a0a;
-            --color-araguaia-gray-light: #f4f4f4;
-            --color-araguaia-gray-mid: #e5e5e5;
+            --color-araguaia-yellow-dark: #A87C00;
+            
+            /* Paleta Dark Baseada na Imagem */
+            --color-araguaia-darker: #000000;      /* Topbar e Rodapé */
+            --color-araguaia-dark: #121212;        /* Fundo do site */
+            --color-araguaia-surface: #1a1a1a;     /* Fundo do Header e Cards */
+            --color-araguaia-surface-light: #242424; /* Barra de Busca */
+            --color-araguaia-border: #2a2a2a;      /* Bordas em geral */
         }
     </style>
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-araguaia-gray-light);
-            color: var(--color-araguaia-dark);
+            background-color: var(--color-araguaia-dark);
+            color: #f4f4f4;
         }
         
         .font-anton {
@@ -39,14 +42,14 @@
             letter-spacing: 0.02em;
         }
 
-        /* Scrollbar customizada */
+        /* Scrollbar customizada Dark */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f4f4f4; }
+        ::-webkit-scrollbar-track { background: #121212; }
         ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #e6a600; }
-        * { scrollbar-width: thin; scrollbar-color: #FFB800 #f4f4f4; }
+        * { scrollbar-width: thin; scrollbar-color: #FFB800 #121212; }
 
-        /* Animações em Cascata (Staggered) para o Texto */
+        /* Animações em Cascata */
         .animate-fade-in-up {
             opacity: 0;
             animation: fadeInUp 0.8s ease-out forwards;
@@ -70,48 +73,52 @@
 <body class="flex flex-col min-h-screen">
 
     <!-- Top Bar -->
-    <div class="bg-araguaia-dark text-center py-1.5 px-4 text-xs sm:text-sm font-semibold tracking-wide">
-        <span class="text-white">COMPRE ONLINE COM </span>
+    <div class="bg-araguaia-darker text-center py-1.5 px-4 text-xs sm:text-sm font-semibold tracking-wide">
+        <span class="text-gray-300">COMPRE ONLINE COM </span>
         <span class="text-araguaia-yellow">FRETE GRÁTIS</span>
-        <span class="text-white"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
+        <span class="text-gray-300"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
     </div>
 
-    <!-- Header Principal -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
+    <!-- Header Principal (Baseado na Captura de Tela) -->
+    <header class="bg-araguaia-surface border-b border-araguaia-border sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 md:py-5">
             <div class="flex items-center justify-between gap-4 md:gap-8">
                 
-                <button id="mobile-menu-btn" class="md:hidden text-araguaia-dark hover:text-araguaia-yellow transition-colors" aria-label="Abrir menu">
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-araguaia-yellow transition-colors" aria-label="Abrir menu">
                     <i data-lucide="menu" class="w-7 h-7"></i>
                 </button>
 
+                <!-- Logo -->
                 <a href="#" class="flex-shrink-0 flex items-center">
-                    <img src="https://placehold.co/240x60/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-10 sm:h-12 w-auto object-contain">
+                    <!-- Substitua pela sua logo com fundo escuro se houver -->
+                    <img src="https://placehold.co/240x60/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-9 sm:h-11 w-auto object-contain">
                 </a>
 
+                <!-- Barra de Busca -->
                 <div class="hidden md:block flex-1 max-w-2xl">
                     <form action="#" method="GET" class="relative w-full">
                         <input type="search" name="busca" placeholder="O que você está procurando? (Ex: Motosserra MS 170)" 
-                            class="w-full bg-araguaia-gray-light border border-transparent focus:bg-white focus:border-araguaia-yellow focus:ring-0 rounded-sm py-3 px-5 pr-12 text-sm transition-all outline-none">
-                        <button type="submit" class="absolute right-0 top-0 h-full px-4 text-gray-500 hover:text-araguaia-dark transition-colors">
+                            class="w-full bg-araguaia-surface-light border border-transparent focus:border-gray-500 focus:ring-0 rounded-sm py-3 px-5 pr-12 text-sm text-white placeholder-gray-400 transition-all outline-none">
+                        <button type="submit" class="absolute right-0 top-0 h-full px-4 text-gray-400 hover:text-white transition-colors">
                             <i data-lucide="search" class="w-5 h-5"></i>
                         </button>
                     </form>
                 </div>
 
-                <div class="flex items-center gap-4 sm:gap-6 text-araguaia-dark">
+                <!-- Ícones de Ação -->
+                <div class="flex items-center gap-6 sm:gap-8 text-white">
                     <a href="#login" class="hidden sm:flex flex-col items-center hover:text-araguaia-yellow transition-colors group">
-                        <i data-lucide="user" class="w-6 h-6 stroke-[1.5]"></i>
+                        <i data-lucide="user" class="w-[22px] h-[22px] stroke-[1.5]"></i>
                         <span class="text-[10px] font-bold uppercase mt-1 group-hover:text-araguaia-yellow">Entrar</span>
                     </a>
                     <a href="#favoritos" class="hidden sm:flex flex-col items-center hover:text-araguaia-yellow transition-colors group">
-                        <i data-lucide="heart" class="w-6 h-6 stroke-[1.5]"></i>
+                        <i data-lucide="heart" class="w-[22px] h-[22px] stroke-[1.5]"></i>
                         <span class="text-[10px] font-bold uppercase mt-1 group-hover:text-araguaia-yellow">Favoritos</span>
                     </a>
                     <a href="#carrinho" class="flex flex-col items-center hover:text-araguaia-yellow transition-colors group relative">
                         <div class="relative">
-                            <i data-lucide="shopping-cart" class="w-6 h-6 stroke-[1.5]"></i>
-                            <span class="absolute -top-2 -right-2 bg-araguaia-yellow text-araguaia-dark text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full">2</span>
+                            <i data-lucide="shopping-cart" class="w-[22px] h-[22px] stroke-[1.5]"></i>
+                            <span class="absolute -top-2 -right-2 bg-araguaia-yellow text-black text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full">2</span>
                         </div>
                         <span class="text-[10px] font-bold uppercase mt-1 hidden sm:block group-hover:text-araguaia-yellow">Carrinho</span>
                     </a>
@@ -122,8 +129,8 @@
             <div class="mt-4 md:hidden">
                 <form action="#" method="GET" class="relative w-full">
                     <input type="search" name="busca_mobile" placeholder="Buscar produtos..." 
-                        class="w-full bg-araguaia-gray-light border border-gray-200 rounded-sm py-2.5 px-4 pr-12 text-sm outline-none focus:border-araguaia-yellow">
-                    <button type="submit" class="absolute right-0 top-0 h-full px-4 text-gray-500">
+                        class="w-full bg-araguaia-surface-light border border-transparent text-white placeholder-gray-400 rounded-sm py-2.5 px-4 pr-12 text-sm outline-none focus:border-gray-500">
+                    <button type="submit" class="absolute right-0 top-0 h-full px-4 text-gray-400">
                         <i data-lucide="search" class="w-5 h-5"></i>
                     </button>
                 </form>
@@ -131,48 +138,44 @@
         </div>
 
         <!-- Nav Menu (Desktop) -->
-        <nav class="hidden md:block bg-white border-t border-gray-100">
+        <nav class="hidden md:block bg-araguaia-surface border-t border-araguaia-border/50">
             <div class="container mx-auto px-4">
-                <ul class="flex items-center justify-center gap-8 py-3">
-                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider hover:text-araguaia-yellow transition-colors relative after:content-[''] after:absolute after:-bottom-3 after:left-0 after:w-0 after:h-0.5 after:bg-araguaia-yellow hover:after:w-full after:transition-all">Motosserras</a></li>
-                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider hover:text-araguaia-yellow transition-colors relative after:content-[''] after:absolute after:-bottom-3 after:left-0 after:w-0 after:h-0.5 after:bg-araguaia-yellow hover:after:w-full after:transition-all">Roçadeiras</a></li>
-                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider hover:text-araguaia-yellow transition-colors relative after:content-[''] after:absolute after:-bottom-3 after:left-0 after:w-0 after:h-0.5 after:bg-araguaia-yellow hover:after:w-full after:transition-all">Sopradores</a></li>
-                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider hover:text-araguaia-yellow transition-colors relative after:content-[''] after:absolute after:-bottom-3 after:left-0 after:w-0 after:h-0.5 after:bg-araguaia-yellow hover:after:w-full after:transition-all">Lavadoras</a></li>
-                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider hover:text-araguaia-yellow transition-colors relative after:content-[''] after:absolute after:-bottom-3 after:left-0 after:w-0 after:h-0.5 after:bg-araguaia-yellow hover:after:w-full after:transition-all">Baterias</a></li>
-                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider text-red-600 hover:text-red-700 transition-colors">Ofertas</a></li>
+                <ul class="flex items-center justify-center gap-10 py-3.5">
+                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Motosserras</a></li>
+                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Roçadeiras</a></li>
+                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Sopradores</a></li>
+                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Lavadoras</a></li>
+                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Baterias</a></li>
+                    <li><a href="#destaques" class="text-sm font-bold uppercase tracking-wider text-red-500 hover:text-red-400 transition-colors">Ofertas</a></li>
                 </ul>
             </div>
         </nav>
 
-        <!-- Mobile Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-200 z-40">
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-araguaia-surface shadow-xl border-t border-araguaia-border z-40">
             <ul class="flex flex-col py-2">
-                <li><a href="#destaques" class="block px-6 py-4 border-b border-gray-100 font-bold uppercase text-sm hover:bg-araguaia-gray-light hover:text-araguaia-yellow">Motosserras</a></li>
-                <li><a href="#destaques" class="block px-6 py-4 border-b border-gray-100 font-bold uppercase text-sm hover:bg-araguaia-gray-light hover:text-araguaia-yellow">Roçadeiras</a></li>
-                <li><a href="#destaques" class="block px-6 py-4 border-b border-gray-100 font-bold uppercase text-sm hover:bg-araguaia-gray-light hover:text-araguaia-yellow">Sopradores</a></li>
-                <li><a href="#destaques" class="block px-6 py-4 border-b border-gray-100 font-bold uppercase text-sm hover:bg-araguaia-gray-light hover:text-araguaia-yellow">Lavadoras</a></li>
-                <li><a href="#destaques" class="block px-6 py-4 border-b border-gray-100 font-bold uppercase text-sm hover:bg-araguaia-gray-light hover:text-araguaia-yellow">Baterias</a></li>
-                <li><a href="#destaques" class="block px-6 py-4 text-red-600 font-bold uppercase text-sm hover:bg-gray-50">Ofertas Especiais</a></li>
+                <li><a href="#destaques" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Motosserras</a></li>
+                <li><a href="#destaques" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Roçadeiras</a></li>
+                <li><a href="#destaques" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Sopradores</a></li>
+                <li><a href="#destaques" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Lavadoras</a></li>
+                <li><a href="#destaques" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Baterias</a></li>
+                <li><a href="#destaques" class="block px-6 py-4 text-red-500 font-bold uppercase text-sm hover:bg-araguaia-surface-light">Ofertas</a></li>
             </ul>
         </div>
     </header>
 
     <main class="flex-grow">
-        <!-- Hero Section ATUALIZADA COM TIPOGRAFIA E ANIMAÇÕES -->
-        <section id="hero" class="relative bg-araguaia-dark w-full overflow-hidden" style="min-height: 80vh;">
-            
-            <!-- Imagem de Fundo -->
+        <!-- Hero Section -->
+        <section id="hero" class="relative bg-black w-full overflow-hidden border-b border-araguaia-border" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full">
                 <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/098848dd-eed3-47bc-b5c5-2d18bff8ac3a.webp" 
                      alt="Operador florestal" 
-                     class="w-full h-full object-cover object-center opacity-60">
-                <div class="absolute inset-0 bg-gradient-to-r from-araguaia-darker/95 via-araguaia-darker/70 to-transparent"></div>
+                     class="w-full h-full object-cover object-center opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-transparent"></div>
             </div>
 
-            <!-- Conteúdo com Animações -->
             <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32">
                 <div class="max-w-3xl mt-12 md:mt-0">
-                    
                     <span class="animate-fade-in-up delay-100 inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-6 md:mb-8 uppercase tracking-widest shadow-lg">
                         Nova Geração
                     </span>
@@ -184,11 +187,11 @@
                         </span>
                     </h1>
                     
-                    <p class="animate-fade-in-up delay-500 text-gray-200 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                    <p class="animate-fade-in-up delay-500 text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
                         Equipamentos robustos desenvolvidos para encarar o trabalho mais pesado no campo, na floresta ou no jardim.
                     </p>
                     
-                    <a href="#destaques" class="animate-fade-in-up delay-700 inline-flex items-center justify-center bg-araguaia-yellow-dark text-white font-anton text-lg md:text-xl px-8 py-4 uppercase tracking-wide hover:bg-white hover:text-araguaia-dark transition-colors duration-300 group shadow-xl">
+                    <a href="#destaques" class="animate-fade-in-up delay-700 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase tracking-wide hover:bg-white transition-colors duration-300 group shadow-xl">
                         Ver Linha Completa
                         <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                     </a>
@@ -197,58 +200,58 @@
         </section>
 
         <!-- Categories Grid -->
-        <section id="categorias" class="py-12 bg-white border-b border-gray-200">
+        <section id="categorias" class="py-12 bg-araguaia-dark border-b border-araguaia-border">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8">
                     <a href="#destaques" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-100">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-gray-light flex items-center justify-center mb-3 group-hover:bg-araguaia-yellow group-hover:text-araguaia-dark transition-all duration-300">
+                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="axe" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-700 group-hover:text-araguaia-dark">Motosserras</span>
+                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Motosserras</span>
                     </a>
                     <a href="#destaques" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-300">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-gray-light flex items-center justify-center mb-3 group-hover:bg-araguaia-yellow group-hover:text-araguaia-dark transition-all duration-300">
+                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="scissors" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-700 group-hover:text-araguaia-dark">Roçadeiras</span>
+                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Roçadeiras</span>
                     </a>
                     <a href="#destaques" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-500">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-gray-light flex items-center justify-center mb-3 group-hover:bg-araguaia-yellow group-hover:text-araguaia-dark transition-all duration-300">
+                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="wind" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-700 group-hover:text-araguaia-dark">Sopradores</span>
+                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Sopradores</span>
                     </a>
                     <a href="#destaques" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-700">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-gray-light flex items-center justify-center mb-3 group-hover:bg-araguaia-yellow group-hover:text-araguaia-dark transition-all duration-300">
+                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="droplets" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-700 group-hover:text-araguaia-dark">Lavadoras</span>
+                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Lavadoras</span>
                     </a>
                     <a href="#destaques" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-700">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-gray-light flex items-center justify-center mb-3 group-hover:bg-araguaia-yellow group-hover:text-araguaia-dark transition-all duration-300">
+                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="battery-charging" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-700 group-hover:text-araguaia-dark">Bateria</span>
+                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Bateria</span>
                     </a>
                     <a href="#destaques" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-700">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-gray-light flex items-center justify-center mb-3 group-hover:bg-araguaia-yellow group-hover:text-araguaia-dark transition-all duration-300">
+                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="settings" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-700 group-hover:text-araguaia-dark">Acessórios</span>
+                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Acessórios</span>
                     </a>
                 </div>
             </div>
         </section>
 
         <!-- Vitrine de Produtos -->
-        <section id="destaques" class="py-16 md:py-24 bg-araguaia-gray-light">
+        <section id="destaques" class="py-16 md:py-24 bg-araguaia-dark">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
                     <div>
-                        <h2 class="font-anton text-3xl md:text-5xl text-araguaia-dark uppercase tracking-wide">Destaques da Semana</h2>
-                        <p class="text-gray-600 mt-2 font-medium">Equipamentos campeões de vendas com condições especiais.</p>
+                        <h2 class="font-anton text-3xl md:text-5xl text-white uppercase tracking-wide">Destaques da Semana</h2>
+                        <p class="text-gray-400 mt-2 font-medium">Equipamentos campeões de vendas com condições especiais.</p>
                     </div>
-                    <a href="#todos" class="text-sm font-bold uppercase text-araguaia-dark border-b-2 border-araguaia-yellow pb-1 hover:text-araguaia-yellow transition-colors inline-block w-max">
+                    <a href="#todos" class="text-sm font-bold uppercase text-white border-b-2 border-araguaia-yellow pb-1 hover:text-araguaia-yellow transition-colors inline-block w-max">
                         Ver todos os produtos
                     </a>
                 </div>
@@ -260,28 +263,28 @@
         </section>
 
         <!-- Trust Features -->
-        <section class="bg-white border-y border-gray-200 py-8">
+        <section class="bg-araguaia-surface border-y border-araguaia-border py-8">
             <div class="container mx-auto px-4">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-gray-100">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-araguaia-border">
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="shield-check" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
-                        <h4 class="font-bold text-sm uppercase text-araguaia-dark">Garantia Original</h4>
-                        <p class="text-xs text-gray-500 mt-1">Produtos 100% autênticos</p>
+                        <h4 class="font-bold text-sm uppercase text-white">Garantia Original</h4>
+                        <p class="text-xs text-gray-400 mt-1">Produtos 100% autênticos</p>
                     </div>
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="truck" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
-                        <h4 class="font-bold text-sm uppercase text-araguaia-dark">Entrega Rápida</h4>
-                        <p class="text-xs text-gray-500 mt-1">Para todo o território nacional</p>
+                        <h4 class="font-bold text-sm uppercase text-white">Entrega Rápida</h4>
+                        <p class="text-xs text-gray-400 mt-1">Para todo o território nacional</p>
                     </div>
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="credit-card" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
-                        <h4 class="font-bold text-sm uppercase text-araguaia-dark">Em até 10x S/ Juros</h4>
-                        <p class="text-xs text-gray-500 mt-1">No cartão de crédito</p>
+                        <h4 class="font-bold text-sm uppercase text-white">Em até 10x S/ Juros</h4>
+                        <p class="text-xs text-gray-400 mt-1">No cartão de crédito</p>
                     </div>
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="headphones" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
-                        <h4 class="font-bold text-sm uppercase text-araguaia-dark">Suporte Técnico</h4>
-                        <p class="text-xs text-gray-500 mt-1">Especializado pré e pós venda</p>
+                        <h4 class="font-bold text-sm uppercase text-white">Suporte Técnico</h4>
+                        <p class="text-xs text-gray-400 mt-1">Especializado pré e pós venda</p>
                     </div>
                 </div>
             </div>
@@ -290,20 +293,20 @@
     </main>
 
     <!-- Footer -->
-    <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t-4 border-araguaia-yellow">
+    <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t border-araguaia-border">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 <div class="lg:col-span-1">
-                    <img src="https://placehold.co/200x50/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-10 w-auto object-contain mb-6 grayscale brightness-200">
-                    <p class="text-sm mb-6 leading-relaxed text-gray-300">
+                    <img src="https://placehold.co/200x50/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-10 w-auto object-contain mb-6">
+                    <p class="text-sm mb-6 leading-relaxed text-gray-400">
                         A força que o campo precisa com a tecnologia que você confia. Especialistas em equipamentos motorizados para agro, floresta e jardim.
                     </p>
                     <h4 class="text-white font-bold uppercase text-sm mb-4">Receba Ofertas</h4>
                     <form action="#" method="POST" class="flex flex-col gap-2">
                         <div class="flex">
                             <input type="email" name="email_newsletter" placeholder="Seu melhor e-mail" required 
-                                class="w-full bg-white/10 border border-white/20 text-white px-4 py-2 text-sm focus:outline-none focus:border-araguaia-yellow rounded-l-sm">
-                            <button type="submit" class="bg-araguaia-yellow text-araguaia-dark px-4 py-2 font-bold uppercase text-sm hover:bg-white transition-colors rounded-r-sm">
+                                class="w-full bg-araguaia-surface border border-araguaia-border text-white px-4 py-2 text-sm focus:outline-none focus:border-araguaia-yellow rounded-l-sm">
+                            <button type="submit" class="bg-araguaia-yellow text-black px-4 py-2 font-bold uppercase text-sm hover:bg-white transition-colors rounded-r-sm">
                                 <i data-lucide="arrow-right" class="w-5 h-5"></i>
                             </button>
                         </div>
@@ -350,7 +353,7 @@
                 </div>
             </div>
 
-            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <div class="pt-8 border-t border-araguaia-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
                 <p>&copy; 2026 Araguaia Máquinas. Todos os direitos reservados.</p>
                 <div class="flex gap-4">
                     <i data-lucide="facebook" class="w-5 h-5 hover:text-white cursor-pointer transition-colors"></i>
@@ -385,16 +388,16 @@
         });
     </script>
 
-    <!-- Banco de Dados e Vitrine (AGORA COM OS 10 PRODUTOS!) -->
+    <!-- Banco de Dados e Vitrine -->
     <script>
         const produtos = [
             { id: "ms-170", ativo: true, nome: "Motosserra a Combustão MS 170 Sabre 30cm", precoOriginal: "1.149,00", precoDesconto: "976,65", parcelamento: "10x de R$ 97,66 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "-15% OFF", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 124 },
-            { id: "fs-120", ativo: true, nome: "Roçadeira a Combustão FS 120 Uso Intensivo", precoOriginal: "", precoDesconto: "1.899,00", parcelamento: "10x de R$ 189,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "Lançamento", tagColor: "bg-araguaia-dark text-araguaia-yellow", estrelas: 5, avaliacoes: 89 },
+            { id: "fs-120", ativo: true, nome: "Roçadeira a Combustão FS 120 Uso Intensivo", precoOriginal: "", precoDesconto: "1.899,00", parcelamento: "10x de R$ 189,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "Lançamento", tagColor: "bg-white text-black", estrelas: 5, avaliacoes: 89 },
             { id: "bg-50", ativo: true, nome: "Soprador Manual a Combustão BG 50 Leve", precoOriginal: "", precoDesconto: "849,00", parcelamento: "10x de R$ 84,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp", tag: "", tagColor: "", estrelas: 4, avaliacoes: 45 },
-            { id: "re-90", ativo: true, nome: "Lavadora de Alta Pressão RE 90 Elétrica 110V", precoOriginal: "999,00", precoDesconto: "799,00", parcelamento: "10x de R$ 79,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/9e403c40-fb60-4c46-b6ce-1853e3497c53.webp", tag: "Frete Grátis", tagColor: "bg-araguaia-yellow text-araguaia-dark", estrelas: 5, avaliacoes: 210 },
+            { id: "re-90", ativo: true, nome: "Lavadora de Alta Pressão RE 90 Elétrica 110V", precoOriginal: "999,00", precoDesconto: "799,00", parcelamento: "10x de R$ 79,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/9e403c40-fb60-4c46-b6ce-1853e3497c53.webp", tag: "Frete Grátis", tagColor: "bg-araguaia-yellow text-black", estrelas: 5, avaliacoes: 210 },
             { id: "rma-460", ativo: true, nome: "Cortador de Grama a Bateria RMA 460", precoOriginal: "", precoDesconto: "2.499,00", parcelamento: "10x de R$ 249,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/805bfd2e-0d30-45a5-a732-eb79112f46c9.webp", tag: "", tagColor: "", estrelas: 4, avaliacoes: 32 },
             { id: "oleo-2t", ativo: true, nome: "Óleo Lubrificante 2 Tempos 8017 H 500ml", precoOriginal: "", precoDesconto: "45,90", parcelamento: "À vista no PIX", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/55f42c38-c74e-487c-ae01-0ac4a1092685.webp", tag: "", tagColor: "", estrelas: 5, avaliacoes: 540 },
-            { id: "ap-300", ativo: true, nome: "Bateria de Íons de Lítio AP 300 S", precoOriginal: "1.999,00", precoDesconto: "1.749,00", parcelamento: "10x de R$ 174,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/f0c516f1-0617-4cee-b0dc-19a5a018c053.webp", tag: "Alta Autonomia", tagColor: "bg-araguaia-dark text-araguaia-yellow", estrelas: 5, avaliacoes: 77 },
+            { id: "ap-300", ativo: true, nome: "Bateria de Íons de Lítio AP 300 S", precoOriginal: "1.999,00", precoDesconto: "1.749,00", parcelamento: "10x de R$ 174,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/f0c516f1-0617-4cee-b0dc-19a5a018c053.webp", tag: "Alta Autonomia", tagColor: "bg-white text-black", estrelas: 5, avaliacoes: 77 },
             { id: "ms-250", ativo: true, nome: "Motosserra a Combustão MS 250 Sabre 40cm", precoOriginal: "", precoDesconto: "1.549,00", parcelamento: "10x de R$ 154,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "", tagColor: "", estrelas: 4, avaliacoes: 112 },
             { id: "fs-220", ativo: true, nome: "Roçadeira a Combustão FS 220 Profissional", precoOriginal: "2.699,00", precoDesconto: "2.429,10", parcelamento: "10x de R$ 242,91 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "-10% OFF", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 201 },
             { id: "br-430", ativo: true, nome: "Soprador de Costado BR 430 Potência Máxima", precoOriginal: "", precoDesconto: "2.899,00", parcelamento: "10x de R$ 289,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp", tag: "", tagColor: "", estrelas: 5, avaliacoes: 68 }
@@ -404,28 +407,33 @@
         
         const htmlDosProdutos = produtos.filter(p => p.ativo).map(p => {
             const estrelasCheias = '<i data-lucide="star" class="w-3 h-3 fill-current"></i>'.repeat(p.estrelas);
-            const estrelasVazias = '<i data-lucide="star" class="w-3 h-3 text-gray-300"></i>'.repeat(5 - p.estrelas);
+            const estrelasVazias = '<i data-lucide="star" class="w-3 h-3 text-gray-600"></i>'.repeat(5 - p.estrelas);
 
             return `
-            <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
-                ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} text-white text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
-                <a href="produto.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4 block">
+            <article class="product-card bg-araguaia-surface border border-araguaia-border p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-yellow transition-all duration-300">
+                ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} ${p.tagColor.includes('bg-white') ? '' : 'text-white'} text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
+                
+                <!-- Mantivemos o fundo da imagem branco para não perder o destaque dos produtos (que normalmente possuem fundo transparente ou branco de estúdio) -->
+                <a href="produto.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-sm flex items-center justify-center p-4 block">
                     <img src="${p.imagem}" alt="${p.nome}" class="product-img w-full h-full object-contain transition-transform duration-500">
                 </a>
+                
                 <div class="flex items-center mb-2">
                     <div class="flex text-araguaia-yellow">${estrelasCheias}${estrelasVazias}</div>
                     <span class="text-[10px] text-gray-500 ml-1">(${p.avaliacoes})</span>
                 </div>
-                <a href="produto.html?id=${p.id}" class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors block">
+                
+                <a href="produto.html?id=${p.id}" class="text-sm font-bold text-gray-200 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors block">
                     ${p.nome}
                 </a>
-                <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                    <span class="text-xs ${p.precoOriginal ? 'text-gray-400 line-through' : 'text-white select-none'}">
+                
+                <div class="mt-auto pt-4 border-t border-araguaia-border flex flex-col">
+                    <span class="text-xs ${p.precoOriginal ? 'text-gray-500 line-through' : 'text-transparent select-none'}">
                         ${p.precoOriginal ? 'R$ ' + p.precoOriginal : 'R$ 0,00'}
                     </span>
-                    <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ ${p.precoDesconto}</span>
+                    <span class="font-anton text-2xl text-white tracking-wide">R$ ${p.precoDesconto}</span>
                     <span class="text-[10px] text-gray-500 mb-4">${p.parcelamento}</span>
-                    <a href="produto.html?id=${p.id}" class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs text-center hover:bg-araguaia-dark hover:text-white transition-colors duration-300 block">
+                    <a href="produto.html?id=${p.id}" class="w-full border-2 border-araguaia-yellow text-araguaia-yellow font-bold uppercase py-2.5 text-xs text-center hover:bg-araguaia-yellow hover:text-black transition-colors duration-300 block">
                         Ver Detalhes
                     </a>
                 </div>
