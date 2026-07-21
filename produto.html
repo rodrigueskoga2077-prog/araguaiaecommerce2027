@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto - Araguaia Máquinas</title>
+    
+    <!-- Google Fonts: Inter for reading, Anton for impact/prices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style type="text/tailwindcss">
+        @theme {
+            --color-araguaia-yellow: #FFB800;
+            --color-araguaia-yellow-hover: #e6a600;
+            --color-araguaia-dark: #111111;
+            --color-araguaia-darker: #0a0a0a;
+            --color-araguaia-gray-light: #f4f4f4;
+            --color-araguaia-gray-mid: #e5e5e5;
+        }
+    </style>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-araguaia-gray-light);
+            color: var(--color-araguaia-dark);
+        }
+        .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f4f4f4; }
+        ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 4px; }
+        * { scrollbar-width: thin; scrollbar-color: #FFB800 #f4f4f4; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Top Bar & Header (Idênticos ao da Index) -->
+    <div class="bg-araguaia-dark text-center py-1.5 px-4 text-xs sm:text-sm font-semibold tracking-wide">
+        <span class="text-white">COMPRE ONLINE COM </span>
+        <span class="text-araguaia-yellow">FRETE GRÁTIS</span>
+        <span class="text-white"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
+    </div>
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between gap-4 md:gap-8">
+                <a href="index.html" class="flex-shrink-0 flex items-center">
+                    <img src="https://placehold.co/240x60/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-10 sm:h-12 w-auto object-contain">
+                </a>
+                
+                <div class="flex items-center gap-4 sm:gap-6 text-araguaia-dark ml-auto">
+                    <a href="index.html" class="flex flex-col items-center hover:text-araguaia-yellow transition-colors group">
+                        <i data-lucide="home" class="w-6 h-6 stroke-[1.5]"></i>
+                        <span class="text-[10px] font-bold uppercase mt-1 group-hover:text-araguaia-yellow">Início</span>
+                    </a>
+                    <a href="#carrinho" class="flex flex-col items-center hover:text-araguaia-yellow transition-colors group relative">
+                        <div class="relative">
+                            <i data-lucide="shopping-cart" class="w-6 h-6 stroke-[1.5]"></i>
+                            <span class="absolute -top-2 -right-2 bg-araguaia-yellow text-araguaia-dark text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full">2</span>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase mt-1 hidden sm:block group-hover:text-araguaia-yellow">Carrinho</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-8 md:py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+            
+            <!-- Link de Voltar -->
+            <a href="index.html" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-araguaia-yellow transition-colors mb-6 uppercase">
+                <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Voltar para a loja
+            </a>
+
+            <!-- MENSAGEM DE ERRO (Oculta por padrão) -->
+            <div id="erro-produto" class="hidden text-center py-20">
+                <i data-lucide="alert-circle" class="w-16 h-16 text-red-500 mx-auto mb-4"></i>
+                <h2 class="text-3xl font-bold text-araguaia-dark mb-2">Produto não encontrado</h2>
+                <p class="text-gray-500 mb-6">O produto que você está procurando não existe ou foi removido.</p>
+                <a href="index.html" class="bg-araguaia-yellow text-araguaia-dark px-6 py-3 font-bold uppercase">Ver outros produtos</a>
+            </div>
+
+            <!-- CONTAINER DO PRODUTO (Oculto até o JS carregar os dados) -->
+            <div id="detalhes-produto" class="hidden grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
+                
+                <!-- Coluna da Esquerda: Imagem -->
+                <div class="bg-white border border-gray-200 p-8 flex items-center justify-center relative min-h-[400px]">
+                    <span id="tag-produto" class="hidden absolute top-4 left-4 text-white text-[10px] font-bold uppercase px-3 py-1.5 z-10"></span>
+                    <img id="img-produto" src="" alt="Imagem do Produto" class="w-full max-w-md h-auto object-contain">
+                </div>
+
+                <!-- Coluna da Direita: Informações -->
+                <div class="flex flex-col justify-center">
+                    <h1 id="nome-produto" class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 leading-tight">Nome</h1>
+                    
+                    <div class="flex items-center mb-6 pb-6 border-b border-gray-200">
+                        <div id="estrelas-produto" class="flex text-araguaia-yellow mr-2"></div>
+                        <span id="avaliacoes-produto" class="text-sm text-gray-500"></span>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <span id="preco-antigo" class="text-lg text-gray-400 line-through block mb-1"></span>
+                        <div class="flex items-end gap-3">
+                            <span class="text-xl font-bold text-gray-700 pb-1">R$</span>
+                            <span id="preco-novo" class="font-anton text-5xl lg:text-6xl text-araguaia-dark tracking-wide"></span>
+                        </div>
+                        <span id="parcelamento-produto" class="text-sm text-gray-600 block mt-2 font-medium"></span>
+                    </div>
+
+                    <button class="w-full bg-araguaia-yellow text-araguaia-dark font-anton text-2xl uppercase py-5 hover:bg-araguaia-dark hover:text-white transition-colors duration-300 mb-6 flex items-center justify-center gap-3">
+                        <i data-lucide="shopping-cart" class="w-7 h-7"></i> Comprar Agora
+                    </button>
+                    
+                    <!-- Benefícios -->
+                    <div class="bg-gray-50 border border-gray-200 p-5 grid grid-cols-1 gap-4 text-sm font-medium">
+                         <div class="flex items-center gap-3 text-gray-700"><i data-lucide="truck" class="text-araguaia-yellow w-5 h-5"></i> Cálculo de frete na próxima etapa</div>
+                         <div class="flex items-center gap-3 text-gray-700"><i data-lucide="shield-check" class="text-araguaia-yellow w-5 h-5"></i> Garantia original de fábrica</div>
+                         <div class="flex items-center gap-3 text-gray-700"><i data-lucide="credit-card" class="text-araguaia-yellow w-5 h-5"></i> Pagamento seguro via PIX ou Cartão</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Simples -->
+    <footer class="bg-araguaia-darker text-gray-400 py-8 border-t-4 border-araguaia-yellow text-center text-sm mt-auto">
+        <p>&copy; 2023 Araguaia Máquinas. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT DE CARREGAMENTO DO PRODUTO -->
+    <script>
+        // 1. O MESMO BANCO DE DADOS DA SUA INDEX
+        const produtos = [
+            { id: "ms-170", nome: "Motosserra a Combustão MS 170 Sabre 30cm", precoOriginal: "1.149,00", precoDesconto: "976,65", parcelamento: "10x de R$ 97,66 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "-15% OFF", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 124 },
+            { id: "fs-120", nome: "Roçadeira a Combustão FS 120 Uso Intensivo", precoOriginal: "", precoDesconto: "1.899,00", parcelamento: "10x de R$ 189,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "Lançamento", tagColor: "bg-araguaia-dark text-araguaia-yellow", estrelas: 5, avaliacoes: 89 },
+            { id: "bg-50", nome: "Soprador Manual a Combustão BG 50 Leve", precoOriginal: "", precoDesconto: "849,00", parcelamento: "10x de R$ 84,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp", tag: "", tagColor: "", estrelas: 4, avaliacoes: 45 },
+            { id: "re-90", nome: "Lavadora de Alta Pressão RE 90 Elétrica 110V", precoOriginal: "999,00", precoDesconto: "799,00", parcelamento: "10x de R$ 79,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/9e403c40-fb60-4c46-b6ce-1853e3497c53.webp", tag: "Frete Grátis", tagColor: "bg-araguaia-yellow text-araguaia-dark", estrelas: 5, avaliacoes: 210 },
+            { id: "rma-460", nome: "Cortador de Grama a Bateria RMA 460", precoOriginal: "", precoDesconto: "2.499,00", parcelamento: "10x de R$ 249,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/805bfd2e-0d30-45a5-a732-eb79112f46c9.webp", tag: "", tagColor: "", estrelas: 4, avaliacoes: 32 },
+            { id: "oleo-2t", nome: "Óleo Lubrificante 2 Tempos 8017 H 500ml", precoOriginal: "", precoDesconto: "45,90", parcelamento: "À vista no PIX", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/55f42c38-c74e-487c-ae01-0ac4a1092685.webp", tag: "", tagColor: "", estrelas: 5, avaliacoes: 540 },
+            { id: "ap-300", nome: "Bateria de Íons de Lítio AP 300 S", precoOriginal: "1.999,00", precoDesconto: "1.749,00", parcelamento: "10x de R$ 174,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/f0c516f1-0617-4cee-b0dc-19a5a018c053.webp", tag: "Alta Autonomia", tagColor: "bg-araguaia-dark text-araguaia-yellow", estrelas: 5, avaliacoes: 77 },
+            { id: "ms-250", nome: "Motosserra a Combustão MS 250 Sabre 40cm", precoOriginal: "", precoDesconto: "1.549,00", parcelamento: "10x de R$ 154,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "", tagColor: "", estrelas: 4, avaliacoes: 112 },
+            { id: "fs-220", nome: "Roçadeira a Combustão FS 220 Profissional", precoOriginal: "2.699,00", precoDesconto: "2.429,10", parcelamento: "10x de R$ 242,91 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "-10% OFF", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 201 },
+            { id: "br-430", nome: "Soprador de Costado BR 430 Potência Máxima", precoOriginal: "", precoDesconto: "2.899,00", parcelamento: "10x de R$ 289,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp", tag: "", tagColor: "", estrelas: 5, avaliacoes: 68 }
+        ];
+
+        // 2. LÊ O ID DA URL (Ex: produto.html?id=ms-170)
+        const urlParams = new URLSearchParams(window.location.search);
+        const produtoId = urlParams.get('id');
+        
+        // 3. BUSCA O PRODUTO NO BANCO DE DADOS
+        const produto = produtos.find(p => p.id === produtoId);
+
+        if (produto) {
+            // Se achou o produto, preenche os dados no HTML
+            document.getElementById('detalhes-produto').classList.remove('hidden');
+            
+            document.title = `${produto.nome} - Araguaia Máquinas`;
+            document.getElementById('nome-produto').textContent = produto.nome;
+            document.getElementById('img-produto').src = produto.imagem;
+            document.getElementById('preco-novo').textContent = produto.precoDesconto;
+            document.getElementById('parcelamento-produto').textContent = produto.parcelamento;
+            document.getElementById('avaliacoes-produto').textContent = `(${produto.avaliacoes} avaliações)`;
+
+            if (produto.precoOriginal) {
+                document.getElementById('preco-antigo').textContent = `R$ ${produto.precoOriginal}`;
+            }
+
+            if (produto.tag) {
+                const tagElement = document.getElementById('tag-produto');
+                tagElement.textContent = produto.tag;
+                tagElement.className = `absolute top-4 left-4 text-[10px] font-bold uppercase px-3 py-1.5 z-10 ${produto.tagColor}`;
+                tagElement.classList.remove('hidden');
+            }
+
+            // Desenha as estrelas
+            const estrelasHTML = 
+                '<i data-lucide="star" class="w-4 h-4 fill-current"></i>'.repeat(produto.estrelas) + 
+                '<i data-lucide="star" class="w-4 h-4 text-gray-300"></i>'.repeat(5 - produto.estrelas);
+            document.getElementById('estrelas-produto').innerHTML = estrelasHTML;
+
+        } else {
+            // Se o ID não existir (ou entrarem sem ID), mostra erro
+            document.getElementById('erro-produto').classList.remove('hidden');
+        }
+
+        // Inicializa os ícones
+        if(window.lucide) { lucide.createIcons(); }
+    </script>
+</body>
+</html>
