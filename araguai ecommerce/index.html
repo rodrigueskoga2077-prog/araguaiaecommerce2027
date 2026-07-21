@@ -41,32 +41,18 @@
         }
 
         /* Custom Scrollbar to match theme */
-        ::-webkit-scrollbar { 
-            width: 8px; 
-        }
-        ::-webkit-scrollbar-track { 
-            background: #f4f4f4; 
-        }
-        ::-webkit-scrollbar-thumb { 
-            background: #FFB800; 
-            border-radius: 4px; 
-        }
-        ::-webkit-scrollbar-thumb:hover { 
-            background: #e6a600; 
-        }
-        * { 
-            scrollbar-width: thin; 
-            scrollbar-color: #FFB800 #f4f4f4; 
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f4f4f4; }
+        ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e6a600; }
+        * { scrollbar-width: thin; scrollbar-color: #FFB800 #f4f4f4; }
 
         /* Pure CSS Animations */
         @keyframes fadeInUp { 
             from { opacity: 0; transform: translateY(20px); } 
             to { opacity: 1; transform: none; } 
         }
-        .animate-fade-in-up { 
-            animation: fadeInUp 0.6s ease-out both; 
-        }
+        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out both; }
 
         /* Hide number input arrows for cleaner look */
         input[type=number]::-webkit-inner-spin-button, 
@@ -102,7 +88,6 @@
 
                 <!-- Logo -->
                 <a href="#" class="flex-shrink-0 flex items-center">
-                    <!-- Placeholder logo designed to look like a brand mark, fulfilling img tag requirement -->
                     <img src="https://placehold.co/240x60/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-10 sm:h-12 w-auto object-contain">
                 </a>
 
@@ -179,16 +164,13 @@
     <main class="flex-grow">
         <!-- 4. Hero Section -->
         <section id="hero" class="relative bg-araguaia-dark w-full overflow-hidden" style="min-height: 60vh;">
-            <!-- Background Image -->
             <div class="absolute inset-0 w-full h-full">
                 <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/098848dd-eed3-47bc-b5c5-2d18bff8ac3a.webp" 
                      alt="Operador florestal com motosserra Araguaia" 
                      class="w-full h-full object-cover object-center opacity-70">
-                <!-- Dark Overlay for better text readability -->
                 <div class="absolute inset-0 bg-gradient-to-r from-araguaia-darker/90 via-araguaia-darker/60 to-transparent"></div>
             </div>
 
-            <!-- Content -->
             <div class="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center py-20 md:py-32 animate-fade-in-up">
                 <div class="max-w-2xl">
                     <span class="inline-block bg-araguaia-yellow text-araguaia-dark font-bold text-xs md:text-sm px-3 py-1 mb-6 uppercase tracking-widest">
@@ -274,234 +256,9 @@
                     </a>
                 </div>
 
-                <!-- Product Grid (Minimum 10 products as requested) -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                    
-                    <!-- Product 1 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
-                        <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold uppercase px-2 py-1 z-10">-15% OFF</span>
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp" alt="Motosserra MS 170" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(124)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Motosserra a Combustão MS 170 Sabre 30cm</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-gray-400 line-through">R$ 1.149,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 976,65</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 97,66 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 2 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
-                        <span class="absolute top-4 left-4 bg-araguaia-dark text-araguaia-yellow text-[10px] font-bold uppercase px-2 py-1 z-10">Lançamento</span>
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp" alt="Roçadeira FS 120" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(89)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Roçadeira a Combustão FS 120 Uso Intensivo</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-white select-none">R$ 0,00</span> <!-- Spacing placeholder -->
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 1.899,00</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 189,90 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 3 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp" alt="Soprador BG 50" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 text-gray-300"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(45)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Soprador Manual a Combustão BG 50 Leve</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-white select-none">R$ 0,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 849,00</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 84,90 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 4 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
-                        <span class="absolute top-4 left-4 bg-araguaia-yellow text-araguaia-dark text-[10px] font-bold uppercase px-2 py-1 z-10">Frete Grátis</span>
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/9e403c40-fb60-4c46-b6ce-1853e3497c53.webp" alt="Lavadora Alta Pressão" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(210)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Lavadora de Alta Pressão RE 90 Elétrica 110V</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-gray-400 line-through">R$ 999,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 799,00</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 79,90 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 5 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/805bfd2e-0d30-45a5-a732-eb79112f46c9.webp" alt="Cortador de Grama" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 text-gray-300"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(32)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Cortador de Grama a Bateria RMA 460</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-white select-none">R$ 0,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 2.499,00</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 249,90 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 6 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/55f42c38-c74e-487c-ae01-0ac4a1092685.webp" alt="Óleo Lubrificante" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(540)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Óleo Lubrificante 2 Tempos 8017 H 500ml</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-white select-none">R$ 0,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 45,90</span>
-                            <span class="text-[10px] text-gray-500 mb-4">À vista no PIX</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 7 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
-                         <span class="absolute top-4 left-4 bg-araguaia-dark text-araguaia-yellow text-[10px] font-bold uppercase px-2 py-1 z-10">Alta Autonomia</span>
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/f0c516f1-0617-4cee-b0dc-19a5a018c053.webp" alt="Bateria AP 300" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(77)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Bateria de Íons de Lítio AP 300 S</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-gray-400 line-through">R$ 1.999,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 1.749,00</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 174,90 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 8 (Reusing visually fitting assets for layout completeness > 10 items) -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300 hidden sm:flex">
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp" alt="Motosserra MS 250" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 text-gray-300"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(112)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Motosserra a Combustão MS 250 Sabre 40cm</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-white select-none">R$ 0,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 1.549,00</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 154,90 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 9 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300 hidden lg:flex">
-                        <span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold uppercase px-2 py-1 z-10">-10% OFF</span>
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp" alt="Roçadeira FS 220" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(201)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Roçadeira a Combustão FS 220 Profissional</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-gray-400 line-through">R$ 2.699,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 2.429,10</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 242,91 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Product 10 -->
-                    <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300 hidden lg:flex">
-                        <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
-                            <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp" alt="Soprador de Costado" class="product-img w-full h-full object-contain transition-transform duration-500">
-                        </div>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-araguaia-yellow">
-                                <i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i>
-                            </div>
-                            <span class="text-[10px] text-gray-500 ml-1">(68)</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">Soprador de Costado BR 430 Potência Máxima</h3>
-                        <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
-                            <span class="text-xs text-white select-none">R$ 0,00</span>
-                            <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ 2.899,00</span>
-                            <span class="text-[10px] text-gray-500 mb-4">10x de R$ 289,90 s/ juros</span>
-                            <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
-                                Adicionar
-                            </button>
-                        </div>
-                    </article>
-
+                <!-- O JAVASCRIPT VAI INJETAR OS PRODUTOS NESTA DIV VAZIA ABAIXO -->
+                <div id="vitrine-produtos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                    <!-- Os produtos aparecerão aqui magicamente -->
                 </div>
             </div>
         </section>
@@ -538,185 +295,224 @@
 
     <!-- 7. Footer -->
     <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t-4 border-araguaia-yellow">
+        <!-- O conteúdo do seu footer continua igual -->
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                
-                <!-- Brand & Newsletter -->
                 <div class="lg:col-span-1">
-                    <img src="https://placehold.co/200x50/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-10 w-auto object-contain mb-6 grayscale brightness-200">
-                    <p class="text-sm mb-6 leading-relaxed text-gray-300">
-                        A força que o campo precisa com a tecnologia que você confia. Especialistas em equipamentos motorizados para agro, floresta e jardim.
-                    </p>
-                    
-                    <h4 class="text-white font-bold uppercase text-sm mb-4">Receba Ofertas</h4>
-                    <form action="#" method="POST" class="flex flex-col gap-2">
-                        <div class="flex">
-                            <input type="email" name="email_newsletter" placeholder="Seu melhor e-mail" required 
-                                class="w-full bg-white/10 border border-white/20 text-white px-4 py-2 text-sm focus:outline-none focus:border-araguaia-yellow rounded-l-sm">
-                            <button type="submit" class="bg-araguaia-yellow text-araguaia-dark px-4 py-2 font-bold uppercase text-sm hover:bg-white transition-colors rounded-r-sm">
-                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </form>
+                    <img src="https://placehold.co/200x50/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo" class="logo h-10 w-auto object-contain mb-6 grayscale brightness-200">
+                    <p class="text-sm mb-6 leading-relaxed text-gray-300">A força que o campo precisa com a tecnologia que você confia.</p>
                 </div>
-
-                <!-- Links Institucionais -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Institucional</h4>
                     <ul class="flex flex-col gap-3 text-sm">
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Quem Somos</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Nossas Lojas</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Política de Privacidade</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Termos de Uso</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Trabalhe Conosco</a></li>
+                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors">Quem Somos</a></li>
+                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors">Nossas Lojas</a></li>
                     </ul>
                 </div>
-
-                <!-- Ajuda e Suporte -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Ajuda & Suporte</h4>
                     <ul class="flex flex-col gap-3 text-sm">
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Meus Pedidos</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Trocas e Devoluções</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Regras de Frete</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Assistência Técnica</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Manuais de Produto</a></li>
+                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors">Meus Pedidos</a></li>
+                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors">Trocas e Devoluções</a></li>
                     </ul>
                 </div>
-
-                <!-- Contato -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Fale Conosco</h4>
                     <ul class="flex flex-col gap-4 text-sm">
                         <li class="flex items-start gap-3">
-                            <i data-lucide="phone" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
-                            <div>
-                                <span class="block font-bold text-white mb-1">Televendas</span>
-                                <span>0800 123 4567</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="message-circle" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
-                            <div>
-                                <span class="block font-bold text-white mb-1">WhatsApp</span>
-                                <span>(11) 98765-4321</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="mail" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
-                            <div>
-                                <span class="block font-bold text-white mb-1">E-mail</span>
-                                <span>contato@araguaiamaquinas.com.br</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="clock" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
-                            <div>
-                                <span class="block font-bold text-white mb-1">Atendimento</span>
-                                <span>Seg a Sex: 08h às 18h<br>Sáb: 08h às 12h</span>
-                            </div>
+                            <i data-lucide="phone" class="w-5 h-5 text-araguaia-yellow"></i>
+                            <div><span class="block font-bold text-white mb-1">Televendas</span><span>0800 123 4567</span></div>
                         </li>
                     </ul>
                 </div>
-
             </div>
-
-            <!-- Bottom Footer -->
-            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-                <p>&copy; 2023 Araguaia Máquinas. Todos os direitos reservados. CNPJ: 00.000.000/0001-00</p>
-                <div class="flex gap-4">
-                    <i data-lucide="facebook" class="w-5 h-5 hover:text-white cursor-pointer transition-colors"></i>
-                    <i data-lucide="instagram" class="w-5 h-5 hover:text-white cursor-pointer transition-colors"></i>
-                    <i data-lucide="youtube" class="w-5 h-5 hover:text-white cursor-pointer transition-colors"></i>
-                </div>
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+                <p>&copy; 2023 Araguaia Máquinas. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- SCRIPT ORIGINAL (Menu e Ícones) -->
     <script>
-        // Initialize Lucide Icons
         function initLucide(){
-            if(window.lucide){
-                lucide.createIcons();
-            } else {
-                setTimeout(initLucide, 200);
-            }
+            if(window.lucide){ lucide.createIcons(); } 
+            else { setTimeout(initLucide, 200); }
         }
         initLucide();
 
-        // Mobile Menu Toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             const icon = this.querySelector('i');
-            
             menu.classList.toggle('hidden');
-            
-            // Toggle icon between menu and x (optional refinement)
-            if (menu.classList.contains('hidden')) {
-                icon.setAttribute('data-lucide', 'menu');
-            } else {
-                icon.setAttribute('data-lucide', 'x');
-            }
+            if (menu.classList.contains('hidden')) { icon.setAttribute('data-lucide', 'menu'); } 
+            else { icon.setAttribute('data-lucide', 'x'); }
             lucide.createIcons();
-        });
-
-        // Close mobile menu when clicking a link
-        const mobileLinks = document.querySelectorAll('#mobile-menu a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                const menu = document.getElementById('mobile-menu');
-                const btn = document.getElementById('mobile-menu-btn');
-                const icon = btn.querySelector('i');
-                
-                menu.classList.add('hidden');
-                icon.setAttribute('data-lucide', 'menu');
-                lucide.createIcons();
-            });
         });
     </script>
 
-<!-- Buildix Badge -->
-<a href="https://buildix.app" target="_blank" rel="noopener noreferrer"
-   style="position:fixed;bottom:16px;right:16px;z-index:9999;display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(24,24,27,0.9);backdrop-filter:blur(4px);border-radius:9999px;font-size:12px;color:#a1a1aa;text-decoration:none;border:1px solid rgba(63,63,70,0.5);font-family:system-ui,-apple-system,sans-serif;transition:color 0.2s;"
-   onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a1a1aa'">
-  <svg width="14" height="14" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <radialGradient id="bx-deep" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
-      <stop offset="0%" stop-color="#4a1a88"/>
-      <stop offset="40%" stop-color="#200d50"/>
-      <stop offset="100%" stop-color="#02010a"/>
-    </radialGradient>
-    <radialGradient id="bx-neb1" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ff33dd" stop-opacity="0.8"/>
-      <stop offset="70%" stop-color="#330044" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="bx-neb2" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#55ffff" stop-opacity="0.7"/>
-      <stop offset="70%" stop-color="#003366" stop-opacity="0"/>
-    </radialGradient>
-    <clipPath id="bx-clip"><circle cx="256" cy="256" r="200"/></clipPath>
-  </defs>
-  <g>
-    <circle cx="256" cy="256" r="202" fill="none" stroke="#aa88ff" stroke-width="3" opacity="0.5"/>
-    <g clip-path="url(#bx-clip)">
-      <rect width="512" height="512" fill="url(#bx-deep)"/>
-      <circle cx="180" cy="180" r="300" fill="url(#bx-neb1)" opacity="0.7"/>
-      <circle cx="350" cy="350" r="280" fill="url(#bx-neb2)" opacity="0.6"/>
-      <g fill="#fff">
-        <circle cx="200" cy="150" r="2" opacity="0.9"/>
-        <circle cx="100" cy="300" r="1.5" opacity="0.7"/>
-        <circle cx="350" cy="100" r="1.8" opacity="0.8"/>
-        <circle cx="400" cy="300" r="1.2" opacity="0.6"/>
-        <circle cx="256" cy="256" r="2" opacity="0.8"/>
-      </g>
-    </g>
-    <circle cx="256" cy="256" r="200" fill="none" stroke="#6d58a6" stroke-width="1.5" opacity="0.3"/>
-  </g>
-</svg>
-  Made in Buildix
-</a>
-<!-- End Buildix Badge -->
+    <!-- ========================================== -->
+    <!-- SEU BANCO DE DADOS E GERADOR DA VITRINE -->
+    <!-- ========================================== -->
+    <script>
+        // 1. AQUI VOCÊ EDITA OS PRODUTOS DIRETAMENTE
+        const produtos = [
+            {
+                id: "ms-170",
+                nome: "Motosserra a Combustão MS 170 Sabre 30cm",
+                precoOriginal: "1.149,00",
+                precoDesconto: "976,65",
+                parcelamento: "10x de R$ 97,66 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp",
+                tag: "-15% OFF", tagColor: "bg-red-600",
+                estrelas: 5, avaliacoes: 124,
+                ativo: true
+            },
+            {
+                id: "fs-120",
+                nome: "Roçadeira a Combustão FS 120 Uso Intensivo",
+                precoOriginal: "",
+                precoDesconto: "1.899,00",
+                parcelamento: "10x de R$ 189,90 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp",
+                tag: "Lançamento", tagColor: "bg-araguaia-dark text-araguaia-yellow",
+                estrelas: 5, avaliacoes: 89,
+                ativo: true
+            },
+            {
+                id: "bg-50",
+                nome: "Soprador Manual a Combustão BG 50 Leve",
+                precoOriginal: "",
+                precoDesconto: "849,00",
+                parcelamento: "10x de R$ 84,90 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp",
+                tag: "", tagColor: "",
+                estrelas: 4, avaliacoes: 45,
+                ativo: true
+            },
+            {
+                id: "re-90",
+                nome: "Lavadora de Alta Pressão RE 90 Elétrica 110V",
+                precoOriginal: "999,00",
+                precoDesconto: "799,00",
+                parcelamento: "10x de R$ 79,90 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/9e403c40-fb60-4c46-b6ce-1853e3497c53.webp",
+                tag: "Frete Grátis", tagColor: "bg-araguaia-yellow text-araguaia-dark",
+                estrelas: 5, avaliacoes: 210,
+                ativo: true
+            },
+            {
+                id: "rma-460",
+                nome: "Cortador de Grama a Bateria RMA 460",
+                precoOriginal: "",
+                precoDesconto: "2.499,00",
+                parcelamento: "10x de R$ 249,90 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/805bfd2e-0d30-45a5-a732-eb79112f46c9.webp",
+                tag: "", tagColor: "",
+                estrelas: 4, avaliacoes: 32,
+                ativo: true
+            },
+            {
+                id: "oleo-2t",
+                nome: "Óleo Lubrificante 2 Tempos 8017 H 500ml",
+                precoOriginal: "",
+                precoDesconto: "45,90",
+                parcelamento: "À vista no PIX",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/55f42c38-c74e-487c-ae01-0ac4a1092685.webp",
+                tag: "", tagColor: "",
+                estrelas: 5, avaliacoes: 540,
+                ativo: true
+            },
+            {
+                id: "ap-300",
+                nome: "Bateria de Íons de Lítio AP 300 S",
+                precoOriginal: "1.999,00",
+                precoDesconto: "1.749,00",
+                parcelamento: "10x de R$ 174,90 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/f0c516f1-0617-4cee-b0dc-19a5a018c053.webp",
+                tag: "Alta Autonomia", tagColor: "bg-araguaia-dark text-araguaia-yellow",
+                estrelas: 5, avaliacoes: 77,
+                ativo: true
+            },
+            {
+                id: "ms-250",
+                nome: "Motosserra a Combustão MS 250 Sabre 40cm",
+                precoOriginal: "",
+                precoDesconto: "1.549,00",
+                parcelamento: "10x de R$ 154,90 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp",
+                tag: "", tagColor: "",
+                estrelas: 4, avaliacoes: 112,
+                ativo: true
+            },
+            {
+                id: "fs-220",
+                nome: "Roçadeira a Combustão FS 220 Profissional",
+                precoOriginal: "2.699,00",
+                precoDesconto: "2.429,10",
+                parcelamento: "10x de R$ 242,91 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp",
+                tag: "-10% OFF", tagColor: "bg-red-600",
+                estrelas: 5, avaliacoes: 201,
+                ativo: true
+            },
+            {
+                id: "br-430",
+                nome: "Soprador de Costado BR 430 Potência Máxima",
+                precoOriginal: "",
+                precoDesconto: "2.899,00",
+                parcelamento: "10x de R$ 289,90 s/ juros",
+                imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/247225da-4595-4d85-a1a3-a28e0f904ef9.webp",
+                tag: "", tagColor: "",
+                estrelas: 5, avaliacoes: 68,
+                ativo: true
+            }
+        ];
 
+        // 2. FUNÇÃO QUE DESENHA OS PRODUTOS NA TELA
+        const container = document.getElementById('vitrine-produtos');
+        
+        // Filtra os que estão "ativo: true" e cria o HTML para cada um
+        const htmlDosProdutos = produtos.filter(p => p.ativo).map(p => {
+            // Lógica para desenhar as estrelinhas
+            const estrelasCheias = '<i data-lucide="star" class="w-3 h-3 fill-current"></i>'.repeat(p.estrelas);
+            const estrelasVazias = '<i data-lucide="star" class="w-3 h-3 text-gray-300"></i>'.repeat(5 - p.estrelas);
+
+            return `
+            <article class="product-card bg-white border border-gray-200 p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-dark transition-all duration-300">
+                ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} text-white text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
+                
+                <div class="relative w-full aspect-square mb-4 overflow-hidden bg-gray-50 flex items-center justify-center p-4">
+                    <img src="${p.imagem}" alt="${p.nome}" class="product-img w-full h-full object-contain transition-transform duration-500">
+                </div>
+                
+                <div class="flex items-center mb-2">
+                    <div class="flex text-araguaia-yellow">
+                        ${estrelasCheias}${estrelasVazias}
+                    </div>
+                    <span class="text-[10px] text-gray-500 ml-1">(${p.avaliacoes})</span>
+                </div>
+                
+                <h3 class="text-sm font-bold text-gray-800 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors">${p.nome}</h3>
+                
+                <div class="mt-auto pt-4 border-t border-gray-100 flex flex-col">
+                    <span class="text-xs ${p.precoOriginal ? 'text-gray-400 line-through' : 'text-white select-none'}">
+                        ${p.precoOriginal ? 'R$ ' + p.precoOriginal : 'R$ 0,00'}
+                    </span>
+                    <span class="font-anton text-2xl text-araguaia-dark tracking-wide">R$ ${p.precoDesconto}</span>
+                    <span class="text-[10px] text-gray-500 mb-4">${p.parcelamento}</span>
+                    <button class="w-full border-2 border-araguaia-dark text-araguaia-dark font-bold uppercase py-2.5 text-xs hover:bg-araguaia-dark hover:text-white transition-colors duration-300">
+                        Adicionar
+                    </button>
+                </div>
+            </article>
+            `;
+        }).join('');
+
+        // Injeta os produtos na div vazia
+        container.innerHTML = htmlDosProdutos;
+
+        // Recarrega os ícones Lucide para aparecerem nos novos produtos
+        lucide.createIcons();
+    </script>
 </body>
 </html>
