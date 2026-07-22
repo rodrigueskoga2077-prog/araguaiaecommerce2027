@@ -171,7 +171,7 @@
                 <!-- Grid que mantém os slides empilhados exatamente no mesmo lugar -->
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
-                    <!-- Slide 1 (CORRIGIDO ESPAÇAMENTO E ALTURA DE LINHA DA TIPOGRAFIA) -->
+                    <!-- Slide 1 -->
                     <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-100 max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             NOVA GERAÇÃO
@@ -572,14 +572,18 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script de Loop do Vídeo do Hero Banner (CORRIGIDO PARA ELIMINAR O PISCA) -->
+    <!-- Script de Loop do Vídeo do Hero Banner (ATUALIZADO COM OS FRAMES DO SLIDE 1) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const framesSlide1 = [];
-            for (let i = 1; i <= 34; i++) {
-                let num = i.toString().padStart(4, '0');
-                framesSlide1.push(`${num}.webp`);
-            }
+            const framesSlide1 = [
+                "0001.webp", "0004.webp", "0007.webp", "0010.webp", "0013.webp",
+                "0016.webp", "0019.webp", "0022.webp", "0025.webp", "0028.webp",
+                "0031.webp", "0034.webp", "0037.webp", "0040.webp", "0043.webp",
+                "0046.webp", "0049.webp", "0052.webp", "0055.webp", "0058.webp",
+                "0061.webp", "0064.webp", "0067.webp", "0070.webp", "0073.webp",
+                "0076.webp", "0079.webp", "0082.webp", "0085.webp", "0088.webp",
+                "0091.webp", "0094.webp", "0097.webp"
+            ];
 
             const framesSlide2 = [];
             for (let i = 1; i <= 99; i++) {
@@ -601,7 +605,7 @@
             let currentFrameIndex = 0;
             const frameDelay = 90; 
 
-            // Pre-carrega todos os frames do Slide 1 imediatamente no boot para eliminar o "pisca"
+            // Pre-carrega todos os frames do Slide 1 imediatamente no boot
             framesSlide1.forEach(src => {
                 const img = new Image();
                 img.src = src;
@@ -641,7 +645,6 @@
                     changeSlide(nextSlide); 
                 }
                 
-                // Pre-carregamento contínuo dos próximos frames para garantir fluidez perfeita
                 let preFrameIndex = currentFrameIndex;
                 if (preFrameIndex < currentFrames.length) {
                     const nextImg = new Image();
