@@ -165,36 +165,95 @@
 
     <main class="flex-grow">
         <!-- Hero Section -->
-        <section id="hero" class="relative bg-black w-full overflow-hidden border-b border-araguaia-border" style="min-height: 80vh;">
+        <section id="hero" class="relative bg-black w-full overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full">
-                <img src="https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/098848dd-eed3-47bc-b5c5-2d18bff8ac3a.webp" 
-                     alt="Operador florestal" 
-                     class="w-full h-full object-cover object-center opacity-40">
+                <!-- Frame dinâmico para simular o vídeo -->
+                <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" class="w-full h-full object-cover object-center opacity-40">
                 <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-transparent"></div>
             </div>
 
-            <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32">
-                <div class="max-w-3xl mt-12 md:mt-0">
-                    <span class="animate-fade-in-up delay-100 inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-6 md:mb-8 uppercase tracking-widest shadow-lg">
-                        Nova Geração
-                    </span>
+            <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32 flex-grow">
+                
+                <!-- Grid que mantém os slides empilhados exatamente no mesmo lugar -->
+                <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
-                    <h1 class="animate-fade-in-up delay-300 font-anton text-6xl md:text-8xl lg:text-[7.5rem] text-white uppercase tracking-normal leading-[0.9] mb-8">
-                        Potência Bruta.<br>
-                        <span class="text-transparent block mt-1 md:mt-2" style="-webkit-text-stroke: 2px #FFB800;">
-                            Precisão<br>Absoluta.
+                    <!-- Slide 1 -->
+                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 opacity-100 max-w-3xl mt-12 md:mt-0">
+                        <span class="animate-fade-in-up delay-100 inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-6 md:mb-8 uppercase tracking-widest shadow-lg">
+                            Nova Geração
                         </span>
-                    </h1>
-                    
-                    <p class="animate-fade-in-up delay-500 text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                        Equipamentos robustos desenvolvidos para encarar o trabalho mais pesado no campo, na floresta ou no jardim.
-                    </p>
-                    
-                    <a href="#destaques" onclick="renderizarVitrine('todos')" class="animate-fade-in-up delay-700 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase tracking-wide hover:bg-white transition-colors duration-300 group shadow-xl">
-                        Ver Linha Completa
-                        <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                        
+                        <h1 class="animate-fade-in-up delay-300 font-anton text-6xl md:text-8xl lg:text-[7.5rem] text-white uppercase tracking-normal leading-[0.9] mb-8">
+                            Potência Bruta.<br>
+                            <span class="text-transparent block mt-1 md:mt-2" style="-webkit-text-stroke: 2px #FFB800;">
+                                Precisão<br>Absoluta.
+                            </span>
+                        </h1>
+                        
+                        <p class="animate-fade-in-up delay-500 text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                            Equipamentos robustos desenvolvidos para encarar o trabalho mais pesado no campo, na floresta ou no jardim.
+                        </p>
+                        
+                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="animate-fade-in-up delay-700 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase tracking-wide hover:bg-white transition-colors duration-300 group shadow-xl">
+                            Ver Linha Completa
+                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 opacity-0 pointer-events-none max-w-3xl mt-12 md:mt-0">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-6 md:mb-8 uppercase tracking-widest shadow-lg">
+                            Alta Performance
+                        </span>
+                        
+                        <h1 class="font-anton text-6xl md:text-8xl lg:text-[7.5rem] text-white uppercase tracking-normal leading-[0.9] mb-8">
+                            Tecnologia.<br>
+                            <span class="text-transparent block mt-1 md:mt-2" style="-webkit-text-stroke: 2px #FFB800;">
+                                Inovação<br>No Campo.
+                            </span>
+                        </h1>
+                        
+                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                            Aumente sua produtividade com máquinas desenvolvidas para entregar o máximo rendimento em qualquer terreno.
+                        </p>
+                        
+                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase tracking-wide hover:bg-white transition-colors duration-300 group shadow-xl">
+                            Ver Ofertas
+                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 opacity-0 pointer-events-none max-w-3xl mt-12 md:mt-0">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-6 md:mb-8 uppercase tracking-widest shadow-lg">
+                            Durabilidade
+                        </span>
+                        
+                        <h1 class="font-anton text-6xl md:text-8xl lg:text-[7.5rem] text-white uppercase tracking-normal leading-[0.9] mb-8">
+                            Feito Para.<br>
+                            <span class="text-transparent block mt-1 md:mt-2" style="-webkit-text-stroke: 2px #FFB800;">
+                                Durar<br>Muito Mais.
+                            </span>
+                        </h1>
+                        
+                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                            Assistência técnica especializada e peças originais para manter seu equipamento sempre novo, pronto para o uso.
+                        </p>
+                        
+                        <a href="#footer" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase tracking-wide hover:bg-white transition-colors duration-300 group shadow-xl">
+                            Fale Conosco
+                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
                 </div>
+
+            </div>
+
+            <!-- Indicadores do Slide -->
+            <div class="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
+                <button class="w-12 h-1.5 bg-araguaia-yellow rounded-full slide-indicator transition-colors duration-300 cursor-pointer"></button>
+                <button class="w-12 h-1.5 bg-white/30 rounded-full slide-indicator transition-colors duration-300 cursor-pointer"></button>
+                <button class="w-12 h-1.5 bg-white/30 rounded-full slide-indicator transition-colors duration-300 cursor-pointer"></button>
             </div>
         </section>
 
@@ -291,7 +350,7 @@
 
     </main>
 
-    <!-- Footer Atualizado com Dados da Empresa -->
+    <!-- Footer -->
     <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t border-araguaia-border">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
@@ -520,6 +579,86 @@
 
         const inputMobile = document.querySelector('input[name="busca_mobile"]');
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
+    </script>
+
+    <!-- Script de Animação do "Vídeo" e Slider (Hero Section) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Arrays com todos os frames do seu vídeo ordenados cronologicamente
+            const frames = [
+                "0001.webp", "0004.webp", "0007.webp", "0010.webp", "0013.webp", 
+                "0016.webp", "0019.webp", "0022.webp", "0025.webp", "0028.webp", 
+                "0031.webp", "0034.webp", "0037.webp", "0040.webp", "0043.webp", 
+                "0046.webp", "0049.webp", "0052.webp", "0055.webp", "0058.webp", 
+                "0061.webp", "0064.webp", "0067.webp", "0070.webp", "0073.webp", 
+                "0076.webp", "0079.webp", "0082.webp", "0085.webp", "0088.webp", 
+                "0091.webp", "0094.webp", "0097.webp", "0100.webp"
+            ];
+
+            // Pré-carrega as imagens no cache para evitar piscar quando for atualizar o src
+            frames.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+
+            const bgImageElement = document.getElementById('hero-bg-frame');
+            const slides = document.querySelectorAll('.slide-content');
+            const indicators = document.querySelectorAll('.slide-indicator');
+            
+            let currentFrameIndex = 0;
+            let currentSlide = 0;
+            const frameDelay = 90; // Velocidade do vídeo. Quanto menor, mais rápido. (~11fps)
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.remove('opacity-0', 'pointer-events-none');
+                        slide.classList.add('opacity-100');
+                        if(indicators[i]) indicators[i].classList.replace('bg-white/30', 'bg-araguaia-yellow');
+                    } else {
+                        slide.classList.remove('opacity-100');
+                        slide.classList.add('opacity-0', 'pointer-events-none');
+                        if(indicators[i]) indicators[i].classList.replace('bg-araguaia-yellow', 'bg-white/30');
+                    }
+                });
+            }
+
+            // Permite clicar nas bolinhas do slider
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                });
+            });
+
+            function playVideoLoop() {
+                currentFrameIndex++;
+                
+                // Exatamente quando o "vídeo" estiver prestes a finalizar (3 frames do fim), avança o slider
+                if (currentFrameIndex === frames.length - 3) {
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    showSlide(currentSlide);
+                }
+
+                // Reseta os frames quando chega ao fim, criando o loop do vídeo
+                if (currentFrameIndex >= frames.length) {
+                    currentFrameIndex = 0;
+                }
+                
+                // Aplica a nova imagem
+                if (bgImageElement) {
+                    bgImageElement.src = frames[currentFrameIndex];
+                }
+                
+                // Chama a si mesmo continuamente
+                setTimeout(playVideoLoop, frameDelay);
+            }
+
+            // Inicia o motor
+            if (bgImageElement && frames.length > 0) {
+                setTimeout(playVideoLoop, frameDelay);
+            }
+        });
     </script>
 </body>
 </html>
