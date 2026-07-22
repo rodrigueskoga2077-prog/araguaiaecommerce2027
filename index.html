@@ -157,7 +157,7 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section com Slides e Correção de Tipografia (Sem display block no texto vazado) -->
+        <!-- Hero Section com Slides e Correção de Tipografia -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
                 <!-- Frame dinâmico para simular o vídeo -->
@@ -172,16 +172,16 @@
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
                     <!-- Slide 1 -->
-                    <!-- transform-gpu adicionado para não piscar no Safari/Chrome mobile ao usar text-stroke -->
+                    <!-- transform-gpu mantido na base do slide -->
                     <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-100 max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             NOVA GERAÇÃO
                         </span>
                         
-                        <!-- Correção crucial: tag <span> sem 'block mt-1' para evitar salto de linha renderizado atrasado -->
+                        <!-- CORREÇÃO 1: Adicionado inline-block, mt-2 (para restaurar o espaçamento) e transform inline (para evitar flicker do webkit-text-stroke) -->
                         <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[7.5rem] text-white uppercase leading-[0.85] mb-6">
                             POTÊNCIA BRUTA.<br>
-                            <span class="text-transparent" style="-webkit-text-stroke: 2px #FFB800;">
+                            <span class="inline-block mt-2 md:mt-3 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
                                 PRECISÃO<br>ABSOLUTA.
                             </span>
                         </h1>
@@ -202,9 +202,10 @@
                             ALTA PERFORMANCE
                         </span>
                         
+                        <!-- CORREÇÃO 1 (Mesmo ajuste do texto 1) -->
                         <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[7.5rem] text-white uppercase leading-[0.85] mb-6">
                             TECNOLOGIA.<br>
-                            <span class="text-transparent" style="-webkit-text-stroke: 2px #FFB800;">
+                            <span class="inline-block mt-2 md:mt-3 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
                                 INOVAÇÃO<br>NO CAMPO.
                             </span>
                         </h1>
@@ -225,9 +226,10 @@
                             DURABILIDADE
                         </span>
                         
+                        <!-- CORREÇÃO 1 (Mesmo ajuste do texto 1) -->
                         <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[7.5rem] text-white uppercase leading-[0.85] mb-6">
                             FEITO PARA.<br>
-                            <span class="text-transparent" style="-webkit-text-stroke: 2px #FFB800;">
+                            <span class="inline-block mt-2 md:mt-3 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
                                 DURAR<br>MUITO MAIS.
                             </span>
                         </h1>
@@ -459,7 +461,6 @@
 
     <!-- Banco de Dados e Função de Vitrine Restaurados -->
     <script>
-        // TODOS OS 10 PRODUTOS DO SEU BACKUP RESTAURADOS EXATAMENTE COMO VOCÊ MANDOU
         const produtos = [
             { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 0 },
             { id: "fs-120", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FS 120", precoOriginal: "2.219,00", precoDesconto: "2.041,48", parcelamento: "10x de R$ 221,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 1 },
@@ -575,7 +576,7 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script de Loop do Vídeo do Hero Banner Adicionado e Corrigido -->
+    <!-- Script de Loop do Vídeo do Hero Banner -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const framesSlide1 = [];
@@ -623,6 +624,7 @@
 
             function playVideoLoop() {
                 let currentFrames = allVideos[currentSlide];
+                
                 if (bgImageElement && currentFrames[currentFrameIndex]) {
                     bgImageElement.src = currentFrames[currentFrameIndex];
                 }
@@ -631,6 +633,15 @@
                 if (currentFrameIndex >= currentFrames.length) {
                     let nextSlide = (currentSlide + 1) % slides.length;
                     changeSlide(nextSlide); 
+                }
+                
+                // CORREÇÃO 2: Pre-carrega silenciosamente o próximo frame para a imagem não piscar branco/preto ao carregar
+                let preFrameIndex = currentFrameIndex;
+                if (preFrameIndex < currentFrames.length) {
+                    new Image().src = currentFrames[preFrameIndex];
+                } else {
+                    let preSlide = (currentSlide + 1) % slides.length;
+                    new Image().src = allVideos[preSlide][0];
                 }
                 
                 setTimeout(playVideoLoop, frameDelay);
