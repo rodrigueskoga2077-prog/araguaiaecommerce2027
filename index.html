@@ -171,16 +171,16 @@
                 <!-- Grid que mantém os slides empilhados exatamente no mesmo lugar -->
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
-                    <!-- Slide 1 -->
+                    <!-- Slide 1 (CORRIGIDO ESPAÇAMENTO E ALTURA DE LINHA DA TIPOGRAFIA) -->
                     <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-100 max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             NOVA GERAÇÃO
                         </span>
                         
-                        <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[7.5rem] text-white uppercase leading-[0.85] mb-6">
+                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-none mb-6">
                             POTÊNCIA BRUTA.<br>
-                            <span class="inline-block mt-2 md:mt-3 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
-                                PRECISÃO<br>ABSOLUTA.
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                                PRECISÃO ABSOLUTA.
                             </span>
                         </h1>
                         
@@ -572,7 +572,7 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script de Loop do Vídeo do Hero Banner (ATUALIZADO) -->
+    <!-- Script de Loop do Vídeo do Hero Banner (CORRIGIDO PARA ELIMINAR O PISCA) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const framesSlide1 = [];
@@ -586,7 +586,6 @@
                 framesSlide2.push(`slide2 (${i}).webp`);
             }
 
-            // ATUALIZADO: Inserindo as 100 imagens do Slide 3
             const framesSlide3 = [];
             for (let i = 1; i <= 100; i++) {
                 framesSlide3.push(`SLIDE3 (${i}).webp`);
@@ -601,6 +600,12 @@
             let currentSlide = 0;
             let currentFrameIndex = 0;
             const frameDelay = 90; 
+
+            // Pre-carrega todos os frames do Slide 1 imediatamente no boot para eliminar o "pisca"
+            framesSlide1.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
 
             function changeSlide(index) {
                 currentSlide = index;
@@ -636,13 +641,15 @@
                     changeSlide(nextSlide); 
                 }
                 
-                // Pre-carrega silenciosamente o próximo frame para a imagem não piscar branco/preto ao carregar
+                // Pre-carregamento contínuo dos próximos frames para garantir fluidez perfeita
                 let preFrameIndex = currentFrameIndex;
                 if (preFrameIndex < currentFrames.length) {
-                    new Image().src = currentFrames[preFrameIndex];
+                    const nextImg = new Image();
+                    nextImg.src = currentFrames[preFrameIndex];
                 } else {
                     let preSlide = (currentSlide + 1) % slides.length;
-                    new Image().src = allVideos[preSlide][0];
+                    const firstImg = new Image();
+                    firstImg.src = allVideos[preSlide][0];
                 }
                 
                 setTimeout(playVideoLoop, frameDelay);
