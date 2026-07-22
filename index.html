@@ -89,10 +89,10 @@
                     <i data-lucide="menu" class="w-7 h-7"></i>
                 </button>
 
-                <!-- Logo Ajustada para Cross-Browser Integrado -->
+                <!-- Logo Ajustada (Proporção Maior e Presença de Marca Inspirada na STIHL) -->
                 <a href="index.html" class="flex-shrink-0 flex flex-col justify-center items-start bg-transparent select-none transition-opacity hover:opacity-90">
-                    <span class="text-[#FFB800] uppercase font-normal text-[20px] tracking-wide" style="font-family: 'Anton', sans-serif; line-height: 0.9; -webkit-font-smoothing: antialiased;">ARAGUAIA</span>
-                    <span class="text-[#E6E6E6] uppercase text-[10px] sm:text-[11px] tracking-[0.22em] mt-[3px]" style="font-family: 'DM Sans', sans-serif; line-height: 1; -webkit-font-smoothing: antialiased;">MÁQUINAS</span>
+                    <span class="text-[#FFB800] uppercase font-normal text-[28px] sm:text-[34px] md:text-[42px] tracking-[0.02em]" style="font-family: 'Anton', sans-serif; line-height: 0.85; -webkit-font-smoothing: antialiased;">ARAGUAIA</span>
+                    <span class="text-[#E6E6E6] uppercase font-bold text-[11px] sm:text-[13px] md:text-[16px] tracking-[0.32em] md:tracking-[0.34em] mt-[3px] md:mt-[5px] ml-[2px]" style="font-family: 'DM Sans', sans-serif; line-height: 1; -webkit-font-smoothing: antialiased;">MÁQUINAS</span>
                 </a>
 
                 <!-- Barra de Busca -->
@@ -361,7 +361,12 @@
                 
                 <!-- Coluna 1: Sobre & Newsletter -->
                 <div class="lg:col-span-1">
-                    <img src="https://placehold.co/200x50/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-10 w-auto object-contain mb-6">
+                    <!-- Logo no footer (apenas placeholder representativo, ajuste se necessário) -->
+                    <div class="flex flex-col mb-6">
+                        <span class="text-[#FFB800] uppercase font-normal text-[24px] tracking-[0.02em] leading-none font-anton">ARAGUAIA</span>
+                        <span class="text-[#E6E6E6] uppercase font-bold text-[9px] tracking-[0.32em] mt-[2px] font-dm-sans ml-[2px]">MÁQUINAS</span>
+                    </div>
+                    
                     <p class="text-sm mb-6 leading-relaxed text-gray-400">
                         A força que o campo precisa com a tecnologia que você confia. Especialistas em equipamentos motorizados para agro, floresta e jardim.
                     </p>
@@ -465,7 +470,7 @@
         });
     </script>
 
-    <!-- Banco de Dados e Função de Vitrine com os Nomes Corretos das Imagens e Integração WhatsApp -->
+    <!-- Banco de Dados e Função de Vitrine -->
     <script>
         const produtos = [
             { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "Motosserra_a_combustão_MS_172.png_202607221615.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 0 },
