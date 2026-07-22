@@ -40,14 +40,13 @@
         /* CORREÇÃO DO ESPAÇO ENTRE AS LETRAS AQUI */
         .font-anton {
             font-family: 'Anton', sans-serif;
-            letter-spacing: 0.02em; /* Evita que as letras fiquem coladas */
+            letter-spacing: 0.02em; 
         }
 
         /* Estrutura do Banner de Referência */
         .hero-banner-stihl {
             position: relative;
             width: 100%;
-            /* text overlay zones - gerenciadas pelo Grid/Flex do Tailwind */
             --logo-zone: top-left;
             --headline-zone: top-right;
             --rule-zone: bottom;
@@ -60,21 +59,6 @@
         ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #e6a600; }
         * { scrollbar-width: thin; scrollbar-color: #FFB800 #121212; }
-
-        /* Animações em Cascata */
-        .animate-fade-in-up {
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-500 { animation-delay: 0.5s; }
-        .delay-700 { animation-delay: 0.7s; }
-
-        @keyframes fadeInUp { 
-            from { opacity: 0; transform: translateY(30px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
 
         /* Efeito de zoom no card de produto */
         .product-card:hover .product-img {
@@ -166,10 +150,12 @@
     <main class="flex-grow">
         <!-- Hero Section com a classe banner stihl -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
-            <div class="absolute inset-0 w-full h-full">
+            <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
                 <!-- Frame dinâmico para simular o vídeo -->
-                <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" class="w-full h-full object-cover object-center opacity-40">
-                <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-transparent"></div>
+                <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" class="w-full h-full object-cover object-center opacity-50">
+                
+                <!-- CORREÇÃO DO MOBILE ESCURO: Gradiente clareado no mobile, forte no desktop -->
+                <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
             </div>
 
             <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32 flex-grow">
@@ -178,36 +164,36 @@
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
                     <!-- Slide 1 -->
-                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 opacity-100 max-w-3xl mt-12 md:mt-0">
-                        <span class="animate-fade-in-up delay-100 inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-6 uppercase tracking-widest shadow-lg">
+                    <!-- Adicionado transform-gpu para evitar piscos ao renderizar o texto com contorno -->
+                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-100 max-w-3xl mt-12 md:mt-0 transform-gpu">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             NOVA GERAÇÃO
                         </span>
                         
-                        <!-- Removido o tracking-normal que quebrava o espaço das letras -->
-                        <h1 class="animate-fade-in-up delay-300 font-anton text-[4.2rem] md:text-8xl lg:text-[8rem] text-white uppercase leading-[0.85] mb-8">
+                        <!-- Estrutura do H1 e SPAN corrigida (sem display block/margin que causava o pulo/flicker) -->
+                        <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[8rem] text-white uppercase leading-[0.85] mb-6">
                             POTÊNCIA BRUTA.<br>
-                            <span class="text-transparent block mt-1 md:mt-2" style="-webkit-text-stroke: 2px #FFB800;">
+                            <span class="text-transparent" style="-webkit-text-stroke: 2px #FFB800;">
                                 PRECISÃO<br>ABSOLUTA.
                             </span>
                         </h1>
                         
-                        <p class="animate-fade-in-up delay-500 text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                        <p class="text-gray-300 text-base md:text-lg mb-8 max-w-xl font-medium leading-relaxed drop-shadow-md">
                             Equipamentos robustos desenvolvidos para encarar o trabalho mais pesado no campo, na floresta ou no jardim.
                         </p>
                         
-                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="animate-fade-in-up delay-700 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-3.5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
                             VER LINHA COMPLETA
                             <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
 
                     <!-- Slide 2: Exatamente como a imagem de referência -->
-                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 opacity-0 pointer-events-none max-w-3xl mt-12 md:mt-0">
+                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             ALTA PERFORMANCE
                         </span>
                         
-                        <!-- Linhas conectadas e tipografia correta -->
                         <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[8rem] text-white uppercase leading-[0.85] mb-6">
                             TECNOLOGIA.<br>
                             <span class="text-transparent" style="-webkit-text-stroke: 2px #FFB800;">
@@ -219,7 +205,6 @@
                             Aumente sua produtividade com máquinas desenvolvidas para entregar o máximo rendimento em qualquer terreno.
                         </p>
                         
-                        <!-- Botão com a cor escura e seta -->
                         <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow-dark text-white font-anton text-lg md:text-xl px-8 py-3.5 uppercase hover:bg-araguaia-yellow hover:text-black transition-colors duration-300 group shadow-xl">
                             VER OFERTAS
                             <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
@@ -227,23 +212,24 @@
                     </div>
 
                     <!-- Slide 3 -->
-                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 opacity-0 pointer-events-none max-w-3xl mt-12 md:mt-0">
-                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-6 uppercase tracking-widest shadow-lg">
+                    <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none max-w-3xl mt-12 md:mt-0 transform-gpu">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             DURABILIDADE
                         </span>
                         
-                        <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[8rem] text-white uppercase leading-[0.85] mb-8">
+                        <!-- Estrutura do H1 e SPAN corrigida (igual aos outros slides para não piscar) -->
+                        <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[8rem] text-white uppercase leading-[0.85] mb-6">
                             FEITO PARA.<br>
-                            <span class="text-transparent block mt-1 md:mt-2" style="-webkit-text-stroke: 2px #FFB800;">
+                            <span class="text-transparent" style="-webkit-text-stroke: 2px #FFB800;">
                                 DURAR<br>MUITO MAIS.
                             </span>
                         </h1>
                         
-                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                        <p class="text-gray-300 text-base md:text-lg mb-8 max-w-xl font-medium leading-relaxed drop-shadow-md">
                             Assistência técnica especializada e peças originais para manter seu equipamento sempre novo, pronto para o uso.
                         </p>
                         
-                        <a href="#footer" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                        <a href="#footer" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-3.5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
                             FALE CONOSCO
                             <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                         </a>
@@ -265,37 +251,37 @@
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8">
                     <!-- Categorias idênticas... -->
-                    <a href="#destaques" onclick="renderizarVitrine('motosserra')" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-100">
+                    <a href="#destaques" onclick="renderizarVitrine('motosserra')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="axe" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Motosserras</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('rocadeira')" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-300">
+                    <a href="#destaques" onclick="renderizarVitrine('rocadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="scissors" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Roçadeiras</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('soprador')" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-500">
+                    <a href="#destaques" onclick="renderizarVitrine('soprador')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="wind" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Sopradores</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('lavadora')" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-700">
+                    <a href="#destaques" onclick="renderizarVitrine('lavadora')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="droplets" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Lavadoras</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('bateria')" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-700">
+                    <a href="#destaques" onclick="renderizarVitrine('bateria')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="battery-charging" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Bateria</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('acessorio')" class="flex flex-col items-center group cursor-pointer animate-fade-in-up delay-700">
+                    <a href="#destaques" onclick="renderizarVitrine('acessorio')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="settings" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
@@ -351,7 +337,6 @@
         const produtos = [
             { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 0 },
             { id: "fs-120", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FS 120", precoOriginal: "2.219,00", precoDesconto: "2.041,48", parcelamento: "10x de R$ 221,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 1 }
-            // ... (Restante dos produtos permanece igual, encurtado apenas no script final para agilizar a cópia, mas o loop funciona da mesma forma)
         ];
 
         const container = document.getElementById('vitrine-produtos');
@@ -388,7 +373,7 @@
 
         renderizarVitrine('todos');
 
-        // Loop de Vídeo (Seu código dinâmico)
+        // Loop de Vídeo
         document.addEventListener('DOMContentLoaded', function() {
             const framesSlide1 = [];
             for (let i = 1; i <= 34; i++) {
