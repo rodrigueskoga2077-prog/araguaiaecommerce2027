@@ -581,11 +581,12 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script de Animação do "Vídeo" e Slider (Hero Section) -->
+    <!-- Script de Animação de "Vídeo" Dinâmico Múltiplo e Slider -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Arrays com todos os frames do seu vídeo ordenados cronologicamente
-            const frames = [
+            
+            // Array com os frames do Slide 1
+            const framesSlide1 = [
                 "0001.webp", "0004.webp", "0007.webp", "0010.webp", "0013.webp", 
                 "0016.webp", "0019.webp", "0022.webp", "0025.webp", "0028.webp", 
                 "0031.webp", "0034.webp", "0037.webp", "0040.webp", "0043.webp", 
@@ -595,23 +596,43 @@
                 "0091.webp", "0094.webp", "0097.webp", "0100.webp"
             ];
 
-            // Pré-carrega as imagens no cache para evitar piscar quando for atualizar o src
-            frames.forEach(src => {
-                const img = new Image();
-                img.src = src;
+            // Gerando automaticamente a lista de frames do Slide 2: (slide2 (1).webp até slide2 (99).webp)
+            const framesSlide2 = [];
+            for (let i = 1; i <= 99; i++) {
+                framesSlide2.push(`slide2 (${i}).webp`);
+            }
+
+            // ATENÇÃO: Como não há frames para o Slide 3 ainda, estamos repetindo o vídeo do Slide 1.
+            // Quando subir os frames do slide 3, você pode criar a lista (ex: framesSlide3) e substituir aqui abaixo.
+            const framesSlide3 = framesSlide1;
+
+            // Agrupa todos os vídeos para facilitar a troca
+            const allVideos = [framesSlide1, framesSlide2, framesSlide3];
+
+            // Pré-carrega as imagens no cache para evitar piscar quando for trocar o source
+            allVideos.forEach(video => {
+                video.forEach(src => {
+                    const img = new Image();
+                    img.src = src;
+                });
             });
 
             const bgImageElement = document.getElementById('hero-bg-frame');
             const slides = document.querySelectorAll('.slide-content');
             const indicators = document.querySelectorAll('.slide-indicator');
             
-            let currentFrameIndex = 0;
             let currentSlide = 0;
-            const frameDelay = 90; // Velocidade do vídeo. Quanto menor, mais rápido. (~11fps)
+            let currentFrameIndex = 0;
+            const frameDelay = 90; // Velocidade do vídeo (~11fps). Modifique se quiser mais rápido/devagar.
 
-            function showSlide(index) {
+            // Função que executa a troca de slide e reseta o vídeo
+            function changeSlide(index) {
+                currentSlide = index;
+                currentFrameIndex = 0; // Quando troca o slide, o vídeo volta para o início
+                
+                // Animações de texto e bolinhas
                 slides.forEach((slide, i) => {
-                    if (i === index) {
+                    if (i === currentSlide) {
                         slide.classList.remove('opacity-0', 'pointer-events-none');
                         slide.classList.add('opacity-100');
                         if(indicators[i]) indicators[i].classList.replace('bg-white/30', 'bg-araguaia-yellow');
@@ -623,39 +644,36 @@
                 });
             }
 
-            // Permite clicar nas bolinhas do slider
+            // Habilita os botões (bolinhas) para troca manual
             indicators.forEach((indicator, index) => {
                 indicator.addEventListener('click', () => {
-                    currentSlide = index;
-                    showSlide(currentSlide);
+                    changeSlide(index);
                 });
             });
 
+            // Loop principal do Vídeo
             function playVideoLoop() {
+                let currentFrames = allVideos[currentSlide];
+                
+                // Aplica o frame exato no fundo
+                if (bgImageElement && currentFrames[currentFrameIndex]) {
+                    bgImageElement.src = currentFrames[currentFrameIndex];
+                }
+                
+                // Vai para o próximo frame
                 currentFrameIndex++;
                 
-                // Exatamente quando o "vídeo" estiver prestes a finalizar (3 frames do fim), avança o slider
-                if (currentFrameIndex === frames.length - 3) {
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    showSlide(currentSlide);
-                }
-
-                // Reseta os frames quando chega ao fim, criando o loop do vídeo
-                if (currentFrameIndex >= frames.length) {
-                    currentFrameIndex = 0;
+                // Se chegou no fim daquele array específico, pula para o próximo slide
+                if (currentFrameIndex >= currentFrames.length) {
+                    let nextSlide = (currentSlide + 1) % slides.length;
+                    changeSlide(nextSlide); 
                 }
                 
-                // Aplica a nova imagem
-                if (bgImageElement) {
-                    bgImageElement.src = frames[currentFrameIndex];
-                }
-                
-                // Chama a si mesmo continuamente
                 setTimeout(playVideoLoop, frameDelay);
             }
 
-            // Inicia o motor
-            if (bgImageElement && frames.length > 0) {
+            // Inicia o motor, verificando se há imagens cadastradas
+            if (bgImageElement && allVideos[0].length > 0) {
                 setTimeout(playVideoLoop, frameDelay);
             }
         });
