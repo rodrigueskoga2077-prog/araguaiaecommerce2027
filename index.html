@@ -188,7 +188,7 @@
                         </a>
                     </div>
 
-                    <!-- Slide 2: Exatamente como a imagem de referência -->
+                    <!-- Slide 2 -->
                     <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             ALTA PERFORMANCE
@@ -246,11 +246,10 @@
             </div>
         </section>
 
-        <!-- Categories Grid e Vitrine de Produtos (Inalterados) -->
+        <!-- Categories Grid -->
         <section id="categorias" class="py-12 bg-araguaia-dark border-b border-araguaia-border">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8">
-                    <!-- Categorias idênticas... -->
                     <a href="#destaques" onclick="renderizarVitrine('motosserra')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
                             <i data-lucide="axe" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
@@ -291,6 +290,7 @@
             </div>
         </section>
 
+        <!-- Vitrine de Produtos -->
         <section id="destaques" class="py-16 md:py-24 bg-araguaia-dark">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
@@ -313,7 +313,6 @@
 
     <!-- Footer -->
     <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t border-araguaia-border">
-        <!-- O Footer original permanece inalterado -->
         <div class="container mx-auto px-4">
             <div class="pt-8 border-t border-araguaia-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 text-center md:text-left">
                 <p>
@@ -333,10 +332,16 @@
         }
         initLucide();
 
-        // Dados dos produtos
+        // LISTA COMPLETA DE PRODUTOS RESTAURADA
         const produtos = [
-            { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 0 },
-            { id: "fs-120", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FS 120", precoOriginal: "2.219,00", precoDesconto: "2.041,48", parcelamento: "10x de R$ 221,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 1 }
+            { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 12 },
+            { id: "fs-120", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FS 120", precoOriginal: "2.219,00", precoDesconto: "2.041,48", parcelamento: "10x de R$ 221,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 8 },
+            { id: "ms-170", ativo: true, categoria: "motosserra", nome: "Motosserra a combustão MS 170", precoOriginal: "1.299,00", precoDesconto: "1.195,08", parcelamento: "10x de R$ 129,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "MAIS VENDIDO", tagColor: "bg-araguaia-yellow text-black", estrelas: 5, avaliacoes: 45 },
+            { id: "bga-57", ativo: true, categoria: "soprador", nome: "Soprador a bateria BGA 57", precoOriginal: "1.459,00", precoDesconto: "1.342,28", parcelamento: "10x de R$ 145,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "", tagColor: "", estrelas: 4, avaliacoes: 3 },
+            { id: "re-90", ativo: true, categoria: "lavadora", nome: "Lavadora de alta pressão RE 90", precoOriginal: "899,00", precoDesconto: "827,08", parcelamento: "10x de R$ 89,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "LANÇAMENTO", tagColor: "bg-green-600", estrelas: 5, avaliacoes: 15 },
+            { id: "ak-20", ativo: true, categoria: "bateria", nome: "Bateria de Íons de Lítio AK 20", precoOriginal: "649,00", precoDesconto: "597,08", parcelamento: "6x de R$ 108,16 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "", tagColor: "", estrelas: 5, avaliacoes: 22 },
+            { id: "fsa-45", ativo: true, categoria: "rocadeira", nome: "Roçadeira a bateria FSA 45", precoOriginal: "999,00", precoDesconto: "919,08", parcelamento: "10x de R$ 99,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "-10% OFF PIX", tagColor: "bg-red-600", estrelas: 4, avaliacoes: 5 },
+            { id: "ms-250", ativo: true, categoria: "motosserra", nome: "Motosserra a combustão MS 250", precoOriginal: "2.199,00", precoDesconto: "2.023,08", parcelamento: "10x de R$ 219,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "USO PROFISSIONAL", tagColor: "bg-araguaia-yellow-dark", estrelas: 5, avaliacoes: 38 }
         ];
 
         const container = document.getElementById('vitrine-produtos');
