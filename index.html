@@ -515,7 +515,7 @@
                 <article class="product-card bg-araguaia-surface border border-araguaia-border p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-yellow transition-all duration-300">
                     ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} ${p.tagColor.includes('bg-white') ? '' : 'text-white'} text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
                     
-                    <a href="javascript:void(0)" onclick="comprarNoWhatsApp('${p.nome}', '${p.precoDesconto}')" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-sm flex items-center justify-center p-4 block cursor-pointer">
+                    <a href="produto.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-sm flex items-center justify-center p-4 block cursor-pointer">
                         <img src="${p.imagem}" alt="${p.nome}" class="product-img w-full h-full object-contain transition-transform duration-500">
                     </a>
                     
@@ -524,7 +524,7 @@
                         <span class="text-[10px] text-gray-500 ml-1">(${p.avaliacoes})</span>
                     </div>
                     
-                    <a href="javascript:void(0)" onclick="comprarNoWhatsApp('${p.nome}', '${p.precoDesconto}')" class="text-sm font-bold text-gray-200 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors block">
+                    <a href="produto.html?id=${p.id}" class="text-sm font-bold text-gray-200 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors block">
                         ${p.nome}
                     </a>
                     
@@ -534,8 +534,8 @@
                         </span>
                         <span class="font-anton text-2xl text-white tracking-wide">R$ ${p.precoDesconto}</span>
                         <span class="text-[10px] text-gray-500 mb-4">${p.parcelamento}</span>
-                        <a href="javascript:void(0)" onclick="comprarNoWhatsApp('${p.nome}', '${p.precoDesconto}')" class="w-full border-2 border-araguaia-yellow text-araguaia-yellow font-bold uppercase py-2.5 text-xs text-center hover:bg-araguaia-yellow hover:text-black transition-colors duration-300 block">
-                            Comprar no WhatsApp
+                        <a href="produto.html?id=${p.id}" class="w-full border-2 border-araguaia-yellow text-araguaia-yellow font-bold uppercase py-2.5 text-xs text-center hover:bg-araguaia-yellow hover:text-black transition-colors duration-300 block">
+                            Ver Detalhes
                         </a>
                     </div>
                 </article>
@@ -548,7 +548,7 @@
 
         renderizarVitrine('todos');
 
-        // Função de envio para o WhatsApp e Google Planilhas
+        // Função mantida para o caso de ser necessária no futuro
         function comprarNoWhatsApp(nomeProduto, preco) {
             const telefoneLoja = "556230997275";
             const mensagem = `Olá! Gostaria de comprar o seguinte produto:\n*${nomeProduto}*\nValor: R$ ${preco}\n\nPode confirmar a disponibilidade e o frete?`;
@@ -586,7 +586,7 @@
                         const produtoEncontrado = produtos.find(p => p.nome.toLowerCase().includes(termo) && p.ativo);
                         
                         if(produtoEncontrado) {
-                            comprarNoWhatsApp(produtoEncontrado.nome, produtoEncontrado.precoDesconto);
+                            window.location.href = `produto.html?id=${produtoEncontrado.id}`;
                         } else {
                             alert("Produto não encontrado na vitrine.");
                         }
