@@ -198,7 +198,7 @@
             </div>
         </section>
 
-        <!-- Categories Grid (Funcional) -->
+        <!-- Categories Grid -->
         <section id="categorias" class="py-12 bg-araguaia-dark border-b border-araguaia-border">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8">
@@ -250,7 +250,6 @@
                         <h2 id="titulo-vitrine" class="font-anton text-3xl md:text-5xl text-white uppercase tracking-wide">Destaques da Semana</h2>
                         <p class="text-gray-400 mt-2 font-medium">Equipamentos campeões de vendas com condições especiais.</p>
                     </div>
-                    <!-- Botão para limpar os filtros e mostrar tudo -->
                     <a href="javascript:void(0)" onclick="renderizarVitrine('todos')" class="text-sm font-bold uppercase text-white border-b-2 border-araguaia-yellow pb-1 hover:text-araguaia-yellow transition-colors inline-block w-max">
                         Ver todos os produtos
                     </a>
@@ -292,11 +291,12 @@
 
     </main>
 
-    <!-- Footer -->
+    <!-- Footer Atualizado com Dados da Empresa -->
     <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t border-araguaia-border">
-        <!-- Mantido exatamente igual -->
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Coluna 1: Sobre & Newsletter -->
                 <div class="lg:col-span-1">
                     <img src="https://placehold.co/200x50/111111/FFB800?text=ARAGUAIA+MAQUINAS&font=oswald" alt="logo Araguaia Máquinas" class="logo h-10 w-auto object-contain mb-6">
                     <p class="text-sm mb-6 leading-relaxed text-gray-400">
@@ -314,52 +314,68 @@
                     </form>
                 </div>
 
+                <!-- Coluna 2: Endereço -->
                 <div>
-                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Institucional</h4>
-                    <ul class="flex flex-col gap-3 text-sm">
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Quem Somos</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Nossas Lojas</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Política de Privacidade</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Termos de Uso</a></li>
+                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Nossa Loja</h4>
+                    <ul class="flex flex-col gap-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="block font-bold text-white mb-1">Anápolis - GO</span>
+                                Av. Tiradentes, 30<br>
+                                92003.4296 - Centro<br>
+                                CEP: 75043-045
+                            </div>
+                        </li>
                     </ul>
                 </div>
 
+                <!-- Coluna 3: Horário de Funcionamento -->
                 <div>
-                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Ajuda & Suporte</h4>
+                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Atendimento</h4>
                     <ul class="flex flex-col gap-3 text-sm">
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Meus Pedidos</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Trocas e Devoluções</a></li>
-                        <li><a href="#" class="hover:text-araguaia-yellow transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3"></i> Assistência Técnica</a></li>
+                        <li class="flex justify-between items-center border-b border-araguaia-border pb-2">
+                            <span class="text-gray-300">Segunda a Sexta</span>
+                            <span class="font-medium text-white">07:30 – 18:00</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-araguaia-border pb-2">
+                            <span class="text-gray-300">Sábado</span>
+                            <span class="font-medium text-white">07:30 – 12:00</span>
+                        </li>
+                        <li class="flex justify-between items-center pb-2">
+                            <span class="text-gray-300">Domingo</span>
+                            <span class="font-bold text-araguaia-yellow">Fechado</span>
+                        </li>
                     </ul>
                 </div>
 
+                <!-- Coluna 4: Fale Conosco -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Fale Conosco</h4>
                     <ul class="flex flex-col gap-4 text-sm">
                         <li class="flex items-start gap-3">
                             <i data-lucide="phone" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <span class="block font-bold text-white mb-1">Televendas</span>
-                                <span>0800 123 4567</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="message-circle" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
-                            <div>
-                                <span class="block font-bold text-white mb-1">WhatsApp</span>
-                                <span>(11) 98765-4321</span>
+                                <span class="block font-bold text-white mb-1">Telefone / WhatsApp</span>
+                                <a href="https://wa.me/556230997275" target="_blank" class="hover:text-araguaia-yellow transition-colors text-lg font-medium text-gray-200">(62) 3099-7275</a>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="pt-8 border-t border-araguaia-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-                <p>&copy; 2026 Araguaia Máquinas. Todos os direitos reservados.</p>
+            <!-- Bottom Bar com Copyright e CNPJ -->
+            <div class="pt-8 border-t border-araguaia-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 text-center md:text-left">
+                <p>
+                    <span class="font-medium text-gray-400">CNPJ: 10.655.510/0001-50</span>
+                    <br class="md:hidden">
+                    <span class="hidden md:inline mx-2">|</span>
+                    &copy; 2026 Araguaia Máquinas. Todos os direitos reservados.
+                </p>
                 <div class="flex gap-4">
-                    <i data-lucide="facebook" class="w-5 h-5 hover:text-white cursor-pointer transition-colors"></i>
-                    <i data-lucide="instagram" class="w-5 h-5 hover:text-white cursor-pointer transition-colors"></i>
-                    <i data-lucide="youtube" class="w-5 h-5 hover:text-white cursor-pointer transition-colors"></i>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="YouTube"><i data-lucide="youtube" class="w-5 h-5"></i></a>
                 </div>
             </div>
         </div>
@@ -391,7 +407,6 @@
 
     <!-- Banco de Dados e Função de Filtro -->
     <script>
-        // Foi adicionada a propriedade 'categoria' em cada produto
         const produtos = [
             { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/6fd46bee-210a-41ae-8fd5-e0e9727472a3.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 0 },
             { id: "fs-120", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FS 120", precoOriginal: "2.219,00", precoDesconto: "2.041,48", parcelamento: "10x de R$ 221,90 s/ juros", imagem: "https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 1 },
@@ -408,13 +423,9 @@
         const container = document.getElementById('vitrine-produtos');
         const tituloVitrine = document.getElementById('titulo-vitrine');
         
-        // Nova função central de renderização
         function renderizarVitrine(filtroCategoria = 'todos') {
-            
-            // Filtra os produtos com base na categoria escolhida
             const produtosFiltrados = produtos.filter(p => p.ativo && (filtroCategoria === 'todos' || p.categoria === filtroCategoria));
             
-            // Muda o título dinamicamente para informar o cliente sobre o filtro ativo
             if(filtroCategoria === 'todos') {
                 tituloVitrine.textContent = 'Destaques da Semana';
             } else {
@@ -429,7 +440,6 @@
                 tituloVitrine.textContent = nomesFiltros[filtroCategoria] || 'Resultados do Filtro';
             }
 
-            // Exibe mensagem caso não haja produtos naquela categoria
             if (produtosFiltrados.length === 0) {
                 container.innerHTML = `
                     <div class="col-span-full py-16 text-center">
@@ -442,7 +452,6 @@
                 return;
             }
 
-            // Renderiza o HTML dos produtos encontrados
             const htmlDosProdutos = produtosFiltrados.map(p => {
                 const estrelasCheias = '<i data-lucide="star" class="w-3 h-3 fill-current"></i>'.repeat(p.estrelas);
                 const estrelasVazias = '<i data-lucide="star" class="w-3 h-3 text-gray-600"></i>'.repeat(5 - p.estrelas);
@@ -482,7 +491,6 @@
             if(window.lucide) { lucide.createIcons(); }
         }
 
-        // Executa a função pela primeira vez mostrando todos os produtos
         renderizarVitrine('todos');
     </script>
 
