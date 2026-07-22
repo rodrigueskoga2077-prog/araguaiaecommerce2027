@@ -157,7 +157,7 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section com Slides e Correção de Tipografia -->
+        <!-- Hero Section com Slides -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
                 <!-- Frame dinâmico para simular o vídeo -->
@@ -172,7 +172,6 @@
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
                     <!-- Slide 1 -->
-                    <!-- transform-gpu mantido na base do slide -->
                     <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-100 max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             NOVA GERAÇÃO
@@ -195,13 +194,12 @@
                         </a>
                     </div>
 
-                    <!-- Slide 2 (CORRIGIDO) -->
+                    <!-- Slide 2 -->
                     <div class="slide-content col-start-1 row-start-1 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             ALTA PERFORMANCE
                         </span>
                         
-                        <!-- Ajustado o leading-none (espaçamento vertical) e tracking-wide (espaçamento entre letras) -->
                         <h1 class="font-anton text-[4.2rem] md:text-8xl lg:text-[7.5rem] text-white uppercase leading-none tracking-wide mb-6">
                             TECNOLOGIA.<br>
                             <span class="inline-block mt-4 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
@@ -316,7 +314,7 @@
             </div>
         </section>
 
-        <!-- Trust Features (Do seu backup) -->
+        <!-- Trust Features -->
         <section class="bg-araguaia-surface border-y border-araguaia-border py-8">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-araguaia-border">
@@ -346,7 +344,7 @@
 
     </main>
 
-    <!-- Footer Atualizado com Dados da Empresa (Do seu backup) -->
+    <!-- Footer -->
     <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t border-araguaia-border">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
@@ -546,7 +544,7 @@
         renderizarVitrine('todos');
     </script>
 
-    <!-- Script de Busca Restaurado -->
+    <!-- Script de Busca -->
     <script>
         function configurarBusca(formElement, inputElement) {
             if(formElement && inputElement) {
@@ -574,7 +572,7 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script de Loop do Vídeo do Hero Banner -->
+    <!-- Script de Loop do Vídeo do Hero Banner (ATUALIZADO) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const framesSlide1 = [];
@@ -588,7 +586,12 @@
                 framesSlide2.push(`slide2 (${i}).webp`);
             }
 
-            const framesSlide3 = framesSlide1;
+            // ATUALIZADO: Inserindo as 100 imagens do Slide 3
+            const framesSlide3 = [];
+            for (let i = 1; i <= 100; i++) {
+                framesSlide3.push(`SLIDE3 (${i}).webp`);
+            }
+
             const allVideos = [framesSlide1, framesSlide2, framesSlide3];
 
             const bgImageElement = document.getElementById('hero-bg-frame');
@@ -633,7 +636,7 @@
                     changeSlide(nextSlide); 
                 }
                 
-                // CORREÇÃO 2: Pre-carrega silenciosamente o próximo frame para a imagem não piscar branco/preto ao carregar
+                // Pre-carrega silenciosamente o próximo frame para a imagem não piscar branco/preto ao carregar
                 let preFrameIndex = currentFrameIndex;
                 if (preFrameIndex < currentFrames.length) {
                     new Image().src = currentFrames[preFrameIndex];
