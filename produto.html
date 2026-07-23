@@ -6,15 +6,17 @@
     <title>Detalhes do Produto - Araguaia Máquinas</title>
 
     <!-- ================= INÍCIO: SEO E GOOGLE UCP (Base) ================= -->
+    <!-- Essas tags base serão atualizadas dinamicamente pelo JavaScript dependendo do produto -->
     <meta name="description" id="meta-description" content="Compre equipamentos de força, máquinas e ferramentas na Araguaia Máquinas. Concessionária Elite STIHL em Anápolis.">
     <meta name="keywords" content="comprar STIHL, preço motosserra, loja STIHL Anápolis, ferramentas, roçadeiras, Araguaia Máquinas">
     
-    <!-- Open Graph -->
+    <!-- Open Graph (WhatsApp, Facebook, Instagram) -->
     <meta property="og:title" id="og-title" content="Detalhes do Produto - Araguaia Máquinas">
     <meta property="og:description" id="og-description" content="Confira este produto na Araguaia Máquinas. Qualidade, garantia e entrega rápida.">
     <meta property="og:image" id="og-image" content="Araguai.webp">
     <meta property="og:type" content="product">
     <meta property="og:url" id="og-url" content="">
+    <!-- O Código Estruturado (JSON-LD) será injetado pelo JavaScript no final da página -->
     <!-- ================= FIM: SEO E GOOGLE UCP ================= -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,6 +51,7 @@
         ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 0; }
         * { scrollbar-width: thin; scrollbar-color: #FFB800 #111; }
 
+        /* Tabela de especificações estilo ficha técnica */
         .specs-table tr:nth-child(even) { background-color: #202020; }
         .specs-table tr:nth-child(odd) { background-color: #1a1a1a; }
         .specs-table td { padding: 12px 16px; border-bottom: 1px solid #2e2e2e; font-size: 13px; }
@@ -62,6 +65,7 @@
         }
         .specs-table td:last-child { font-family: 'JetBrains Mono', monospace; color: #d4d4d4; }
 
+        /* Caixa de preço com moldura tipo placa metálica */
         .price-plate {
             background: linear-gradient(180deg, #1f1f1f 0%, #171717 100%);
             border: 2px solid var(--color-araguaia-yellow);
@@ -78,9 +82,25 @@
             border-top-right-radius: 10px;
         }
 
+        /* Selo tipo carimbo de fábrica */
         .stamp-badge {
             border: 2px dashed currentColor;
             transform: rotate(-4deg);
+        }
+
+        /* Botão WhatsApp */
+        .btn-whatsapp {
+            background: transparent;
+            border: 2px solid #16a34a;
+            color: #4ade80;
+            border-radius: 8px;
+        }
+        .btn-whatsapp:hover {
+            background: rgba(22,163,74,0.12);
+        }
+        
+        .btn-cart {
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -103,8 +123,8 @@
 
                 <!-- Botão Direto para o WhatsApp no Topo -->
                 <div class="flex items-center ml-auto">
-                    <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2.5 bg-[#25D366] hover:bg-[#128C7E] text-white px-5 py-2.5 rounded-md font-bold uppercase text-xs sm:text-sm transition-all duration-300 shadow-[0_4px_14px_rgba(37,211,102,0.25)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.4)] hover:-translate-y-0.5">
-                        <i data-lucide="message-circle" class="w-5 h-5 fill-current"></i>
+                    <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2 sm:gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-md font-bold uppercase text-[11px] sm:text-sm transition-all duration-300 shadow-[0_4px_14px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] hover:-translate-y-0.5">
+                        <img src="Create_whatsapp_icon_202607231257-removebg-preview.png" alt="WhatsApp" class="w-7 h-7 sm:w-8 sm:h-8 object-contain scale-[1.35] drop-shadow-sm">
                         <span class="hidden sm:inline">Vendas via WhatsApp</span>
                         <span class="sm:hidden">Comprar</span>
                     </a>
@@ -114,7 +134,7 @@
     </header>
 
     <main class="flex-grow">
-        <!-- Tela de Erro -->
+        <!-- Tela de Erro (Oculta por padrão) -->
         <div id="erro-produto" class="hidden text-center py-32">
             <i data-lucide="package-x" class="w-20 h-20 text-gray-600 mx-auto mb-6"></i>
             <h2 class="text-3xl font-anton uppercase text-white mb-3">Produto não localizado</h2>
@@ -122,9 +142,10 @@
             <a href="index.html" class="inline-block bg-araguaia-yellow text-araguaia-dark px-8 py-4 font-bold uppercase hover:bg-white transition-colors duration-300 rounded-lg">Voltar para a Loja</a>
         </div>
 
-        <!-- Seção Principal -->
+        <!-- Seção Principal (Exibida dinamicamente) -->
         <div id="conteudo-produto" class="hidden">
             
+            <!-- Breadcrumbs -->
             <div class="bg-araguaia-darker border-b border-araguaia-border py-3">
                 <div class="container mx-auto px-4">
                     <nav class="flex text-xs text-gray-500 font-mono-tech">
@@ -141,19 +162,28 @@
             <div class="container mx-auto px-4 py-8 md:py-12">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
 
-                    <!-- Galeria -->
+                    <!-- Lado Esquerdo: Galeria com Efeito Glassmorphism Premium -->
                     <div class="lg:col-span-7 flex flex-col gap-4 relative">
+                        
+                        <!-- Efeito de "Glow" colorido sutil por trás do vidro -->
                         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-araguaia-yellow/15 blur-[120px] rounded-full z-0 pointer-events-none"></div>
 
+                        <!-- Main Card - Glassmorphism -->
                         <div class="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] rounded-2xl flex items-center justify-center overflow-hidden group aspect-square lg:aspect-auto lg:h-[600px]">
+                            
+                            <!-- Carimbo -->
                             <span id="tag-produto" class="stamp-badge hidden absolute top-6 left-6 text-xs font-bold uppercase px-3 py-1.5 z-20 font-mono-tech rounded-md backdrop-blur-md bg-black/50 border border-white/10"></span>
+                            
+                            <!-- Imagem preenchendo o card -->
                             <img id="img-produto" src="" alt="Produto" class="w-full h-full absolute inset-0 object-contain p-6 lg:p-10 transition-transform duration-700 group-hover:scale-105">
                         </div>
 
-                        <div id="miniaturas-container" class="grid grid-cols-4 sm:grid-cols-5 gap-4 relative z-10 mt-2"></div>
+                        <!-- Miniaturas -->
+                        <div id="miniaturas-container" class="grid grid-cols-4 sm:grid-cols-5 gap-4 relative z-10 mt-2">
+                        </div>
                     </div>
 
-                    <!-- Buy Box -->
+                    <!-- Lado Direito: Buy Box -->
                     <div class="lg:col-span-5 flex flex-col relative z-10">
                         <span id="id-ref" class="text-xs text-gray-500 font-mono-tech font-bold uppercase tracking-widest mb-2"></span>
                         <h1 id="nome-produto" class="text-3xl lg:text-4xl font-anton text-white uppercase leading-tight mb-4 tracking-wide">Nome do Produto</h1>
@@ -164,6 +194,7 @@
                             <span class="text-green-400 text-sm font-bold flex items-center gap-1 bg-green-950/40 border border-green-800 px-2 py-1 rounded-md"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Em Estoque</span>
                         </div>
 
+                        <!-- Caixa de preço -->
                         <div class="price-plate p-6 mb-8 shadow-lg">
                             <span id="preco-antigo" class="text-base text-gray-500 line-through block mb-1 font-mono-tech"></span>
                             <div class="flex items-start gap-2 mb-2">
@@ -182,8 +213,8 @@
 
                         <!-- Botão Único e Direto para o WhatsApp -->
                         <div class="flex flex-col gap-3 mb-8">
-                            <button id="btn-whatsapp" class="w-full bg-[#25D366] text-white font-anton text-2xl uppercase py-5 hover:bg-[#128C7E] transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_4px_14px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] rounded-lg hover:-translate-y-1">
-                                <i data-lucide="message-circle" class="w-7 h-7 fill-current"></i> Falar com Vendedor
+                            <button id="btn-whatsapp" class="w-full bg-[#25D366] text-white font-anton text-2xl sm:text-3xl uppercase py-4 sm:py-5 hover:bg-[#128C7E] transition-all duration-300 flex items-center justify-center gap-3 sm:gap-4 shadow-[0_4px_14px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] rounded-lg hover:-translate-y-1">
+                                <img src="Create_whatsapp_icon_202607231257-removebg-preview.png" alt="WhatsApp" class="w-10 h-10 sm:w-12 sm:h-12 object-contain scale-[1.25] drop-shadow-md"> Falar com Vendedor
                             </button>
                             <p class="text-xs text-center text-gray-400 font-mono-tech mt-1">
                                 <i data-lucide="zap" class="w-3 h-3 inline text-araguaia-yellow"></i> Atendimento rápido e humanizado
@@ -201,6 +232,7 @@
                             </div>
                         </div>
 
+                        <!-- Trust badges -->
                         <ul class="space-y-3 text-sm text-gray-300 font-medium">
                             <li class="flex items-center gap-3"><i data-lucide="shield-check" class="text-araguaia-yellow w-5 h-5 flex-shrink-0"></i> Produto 100% Original com Garantia de Fábrica</li>
                             <li class="flex items-center gap-3"><i data-lucide="refresh-cw" class="text-araguaia-yellow w-5 h-5 flex-shrink-0"></i> Devolução grátis em até 7 dias após o recebimento</li>
@@ -344,6 +376,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         let produtoId = urlParams.get('id');
         
+        // PADRÃO: Se a pessoa abrir a página sem ID, mostra a Motosserra MSA 70 para funcionar a galeria
         if (!produtoId) {
             produtoId = "msa-70-cb"; 
         }
@@ -351,8 +384,10 @@
         const produto = produtos.find(p => p.id === produtoId);
 
         if (produto) {
+            // Mostra o container principal e esconde erro
             document.getElementById('conteudo-produto').classList.remove('hidden');
 
+            // Textos
             document.title = `${produto.nome} - Araguaia Máquinas`;
             document.getElementById('breadcrumb-nome').textContent = produto.nome.toUpperCase();
             document.getElementById('nome-produto').textContent = produto.nome;
@@ -362,17 +397,20 @@
             document.getElementById('id-ref').textContent = `CÓD: REF-${produto.id.toUpperCase()}`;
             document.getElementById('desc-curta').textContent = `A ${produto.nome} é o equipamento ideal para quem exige força e confiabilidade.`;
 
-            const baseUrl = "https://araguaiamaquinas.com.br";
+            // ================= INÍCIO: INJEÇÃO DINÂMICA DE SEO E GOOGLE UCP =================
+            const baseUrl = "https://araguaiamaquinas.com.br"; // Altere para seu domínio real
             const produtoImgUrl = baseUrl + "/" + produto.imagens[0].replace('./', '');
-            const precoFormatado = produto.precoDesconto.replace(/\./g, '').replace(',', '.'); 
+            const precoFormatado = produto.precoDesconto.replace(/\./g, '').replace(',', '.'); // Converte 2.335,88 para 2335.88
             const pageUrl = window.location.href;
 
+            // 1. Atualizar Meta Tags e Open Graph Dinamicamente
             document.getElementById('meta-description').setAttribute('content', `Compre ${produto.nome} com o melhor preço, pronta entrega e assistência técnica. Produto original com garantia.`);
             document.getElementById('og-title').setAttribute('content', `${produto.nome} - Araguaia Máquinas`);
             document.getElementById('og-description').setAttribute('content', `Garanta a sua ${produto.nome} na Araguaia Máquinas. Qualidade, garantia e entrega rápida.`);
             document.getElementById('og-image').setAttribute('content', produtoImgUrl);
             document.getElementById('og-url').setAttribute('content', pageUrl);
 
+            // 2. Criar e Injetar o JSON-LD (Schema.org de Produto) para IA e Google Shopping
             const schemaData = {
                 "@context": "https://schema.org/",
                 "@type": "Product",
@@ -385,7 +423,7 @@
                     "url": pageUrl,
                     "priceCurrency": "BRL",
                     "price": precoFormatado,
-                    "priceValidUntil": "2026-12-31",
+                    "priceValidUntil": "2026-12-31", // Validade genérica
                     "itemCondition": "https://schema.org/NewCondition",
                     "availability": "https://schema.org/InStock",
                     "seller": {
@@ -395,6 +433,7 @@
                 }
             };
             
+            // Adiciona a nota de review se houver avaliações no sistema
             if (produto.avaliacoes > 0) {
                 schemaData.aggregateRating = {
                     "@type": "AggregateRating",
@@ -407,7 +446,9 @@
             scriptSchema.type = 'application/ld+json';
             scriptSchema.text = JSON.stringify(schemaData);
             document.head.appendChild(scriptSchema);
+            // ================= FIM: INJEÇÃO DINÂMICA DE SEO =================
 
+            // Imagens e Miniaturas (Cards em baixo)
             const imgPrincipal = document.getElementById('img-produto');
             const containerMiniaturas = document.getElementById('miniaturas-container');
             
@@ -417,19 +458,25 @@
                 
                 produto.imagens.forEach((imgSrc, index) => {
                     const div = document.createElement('div');
+                    
+                    // Design escuro glassmorphism para as miniaturas
                     let borderClass = index === 0 ? 'border-araguaia-yellow/80' : 'border-white/10';
                     div.className = `bg-white/5 backdrop-blur-md border-2 ${borderClass} rounded-xl p-1 cursor-pointer aspect-square flex items-center justify-center overflow-hidden hover:border-araguaia-yellow/50 transition-colors shadow-lg`;
                     
                     const img = document.createElement('img');
                     img.src = imgSrc;
+                    // Usando 'object-contain' nas miniaturas para evitar cortes
                     img.className = "w-full h-full object-contain p-2 rounded-lg";
                     div.appendChild(img);
                     
+                    // Evento de clique
                     div.onclick = () => {
                         imgPrincipal.src = imgSrc;
+                        // Reseta bordas para cinza
                         Array.from(containerMiniaturas.children).forEach(child => {
                             child.classList.replace('border-araguaia-yellow/80', 'border-white/10');
                         });
+                        // Borda amarela no ativo
                         div.classList.replace('border-white/10', 'border-araguaia-yellow/80');
                     };
                     containerMiniaturas.appendChild(div);
@@ -447,11 +494,13 @@
                 tagElement.classList.remove('hidden');
             }
 
+            // Estrelas
             const estrelasHTML = 
                 '<i data-lucide="star" class="w-4 h-4 fill-current"></i>'.repeat(produto.estrelas) + 
                 '<i data-lucide="star" class="w-4 h-4 text-araguaia-border"></i>'.repeat(5 - produto.estrelas);
             document.getElementById('estrelas-produto').innerHTML = estrelasHTML;
 
+            // Configuração do Botão do WhatsApp
             document.getElementById('btn-whatsapp').onclick = function() {
                 const telefoneLoja = "556230997275";
                 const mensagem = `Olá! Gostaria de comprar o seguinte produto:\n*${produto.nome}*\nValor: R$ ${produto.precoDesconto}\n\nPode confirmar a disponibilidade e o frete?`;
@@ -477,6 +526,7 @@
             };
 
         } else {
+            // Mostra erro caso não passe nenhum ID na URL
             document.getElementById('erro-produto').classList.remove('hidden');
         }
 
