@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Produto - Araguaia Máquinas</title>
 
+    <!-- ================= INÍCIO: SEO E GOOGLE UCP (Base) ================= -->
+    <!-- Essas tags base serão atualizadas dinamicamente pelo JavaScript dependendo do produto -->
+    <meta name="description" id="meta-description" content="Compre equipamentos de força, máquinas e ferramentas na Araguaia Máquinas. Concessionária Elite STIHL em Anápolis.">
+    <meta name="keywords" content="comprar STIHL, preço motosserra, loja STIHL Anápolis, ferramentas, roçadeiras, Araguaia Máquinas">
+    
+    <!-- Open Graph (WhatsApp, Facebook, Instagram) -->
+    <meta property="og:title" id="og-title" content="Detalhes do Produto - Araguaia Máquinas">
+    <meta property="og:description" id="og-description" content="Confira este produto na Araguaia Máquinas. Qualidade, garantia e entrega rápida.">
+    <meta property="og:image" id="og-image" content="Araguai.webp">
+    <meta property="og:type" content="product">
+    <meta property="og:url" id="og-url" content="">
+    <!-- O Código Estruturado (JSON-LD) será injetado pelo JavaScript no final da página -->
+    <!-- ================= FIM: SEO E GOOGLE UCP ================= -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -165,11 +179,11 @@
                             <!-- Carimbo -->
                             <span id="tag-produto" class="stamp-badge hidden absolute top-6 left-6 text-xs font-bold uppercase px-3 py-1.5 z-20 font-mono-tech rounded-md backdrop-blur-md bg-black/50 border border-white/10"></span>
                             
-                            <!-- Imagem preenchendo o card (object-contain + p-10) -->
+                            <!-- Imagem preenchendo o card -->
                             <img id="img-produto" src="" alt="Produto" class="w-full h-full absolute inset-0 object-contain p-6 lg:p-10 transition-transform duration-700 group-hover:scale-105">
                         </div>
 
-                        <!-- Miniaturas - JS vai gerar os cards menores aqui -->
+                        <!-- Miniaturas -->
                         <div id="miniaturas-container" class="grid grid-cols-4 sm:grid-cols-5 gap-4 relative z-10 mt-2">
                         </div>
                     </div>
@@ -270,7 +284,7 @@
         <p>&copy; 2026 ARAGUAIA MÁQUINAS. TODOS OS DIREITOS RESERVADOS.</p>
     </footer>
 
-    <!-- SCRIPT DE INTEGRAÇÃO DOS PRODUTOS -->
+    <!-- SCRIPT DE INTEGRAÇÃO E INJEÇÃO DE SEO (UCP) -->
     <script>
         const produtos = [
             { 
@@ -318,8 +332,6 @@
                 ], 
                 tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
-            
-            /* AQUI: Imagens do Óleo Castrol STIHL 8017 H substituídas conforme solicitado */
             { 
                 id: "oleo-castrol-8017h", ativo: true, nome: "Óleo Castrol STIHL 8017 H", precoOriginal: "50,00", precoDesconto: "46,00", parcelamento: "1x de R$ 50,00", 
                 imagens: [
@@ -329,7 +341,6 @@
                 ], 
                 tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
-            
             { 
                 id: "bateria-ak-30s", ativo: true, nome: "Bateria AK 30 S", precoOriginal: "1.358,00", precoDesconto: "1.249,36", parcelamento: "10x de R$ 135,80", 
                 imagens: [
@@ -391,6 +402,57 @@
             document.getElementById('avaliacoes-produto').textContent = `(${produto.avaliacoes} avaliações)`;
             document.getElementById('id-ref').textContent = `CÓD: REF-${produto.id.toUpperCase()}`;
             document.getElementById('desc-curta').textContent = `A ${produto.nome} é o equipamento ideal para quem exige força e confiabilidade.`;
+
+            // ================= INÍCIO: INJEÇÃO DINÂMICA DE SEO E GOOGLE UCP =================
+            const baseUrl = "https://araguaiamaquinas.com.br"; // Altere para seu domínio real
+            const produtoImgUrl = baseUrl + "/" + produto.imagens[0].replace('./', '');
+            const precoFormatado = produto.precoDesconto.replace(/\./g, '').replace(',', '.'); // Converte 2.335,88 para 2335.88
+            const pageUrl = window.location.href;
+
+            // 1. Atualizar Meta Tags e Open Graph Dinamicamente
+            document.getElementById('meta-description').setAttribute('content', `Compre ${produto.nome} com o melhor preço, pronta entrega e assistência técnica. Produto original com garantia.`);
+            document.getElementById('og-title').setAttribute('content', `${produto.nome} - Araguaia Máquinas`);
+            document.getElementById('og-description').setAttribute('content', `Garanta a sua ${produto.nome} na Araguaia Máquinas. Qualidade, garantia e entrega rápida.`);
+            document.getElementById('og-image').setAttribute('content', produtoImgUrl);
+            document.getElementById('og-url').setAttribute('content', pageUrl);
+
+            // 2. Criar e Injetar o JSON-LD (Schema.org de Produto) para IA e Google Shopping
+            const schemaData = {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": produto.nome,
+                "image": [ produtoImgUrl ],
+                "description": `Compre ${produto.nome} original na Araguaia Máquinas. Produto com excelente relação peso/potência para uso intensivo.`,
+                "sku": produto.id,
+                "offers": {
+                    "@type": "Offer",
+                    "url": pageUrl,
+                    "priceCurrency": "BRL",
+                    "price": precoFormatado,
+                    "priceValidUntil": "2026-12-31", // Validade genérica
+                    "itemCondition": "https://schema.org/NewCondition",
+                    "availability": "https://schema.org/InStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "Araguaia Máquinas"
+                    }
+                }
+            };
+            
+            // Adiciona a nota de review se houver avaliações no sistema
+            if (produto.avaliacoes > 0) {
+                schemaData.aggregateRating = {
+                    "@type": "AggregateRating",
+                    "ratingValue": produto.estrelas,
+                    "reviewCount": produto.avaliacoes
+                };
+            }
+
+            const scriptSchema = document.createElement('script');
+            scriptSchema.type = 'application/ld+json';
+            scriptSchema.text = JSON.stringify(schemaData);
+            document.head.appendChild(scriptSchema);
+            // ================= FIM: INJEÇÃO DINÂMICA DE SEO =================
 
             // Imagens e Miniaturas (Cards em baixo)
             const imgPrincipal = document.getElementById('img-produto');
