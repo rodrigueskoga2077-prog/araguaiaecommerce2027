@@ -160,13 +160,12 @@
                         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-araguaia-yellow/15 blur-[120px] rounded-full z-0 pointer-events-none"></div>
 
                         <!-- Main Card - Glassmorphism -->
-                        <!-- AQUI: Aumentada a altura máxima para lg:h-[600px] para caber máquinas compridas -->
                         <div class="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] rounded-2xl flex items-center justify-center overflow-hidden group aspect-square lg:aspect-auto lg:h-[600px]">
                             
                             <!-- Carimbo -->
                             <span id="tag-produto" class="stamp-badge hidden absolute top-6 left-6 text-xs font-bold uppercase px-3 py-1.5 z-20 font-mono-tech rounded-md backdrop-blur-md bg-black/50 border border-white/10"></span>
                             
-                            <!-- AQUI: Trocado 'object-cover' por 'object-contain' e adicionado 'p-6 lg:p-10' para evitar cortes -->
+                            <!-- Imagem preenchendo o card (object-contain + p-10) -->
                             <img id="img-produto" src="" alt="Produto" class="w-full h-full absolute inset-0 object-contain p-6 lg:p-10 transition-transform duration-700 group-hover:scale-105">
                         </div>
 
@@ -295,9 +294,9 @@
             { 
                 id: "br-420", ativo: true, nome: "Soprador costal a combustão BR 420", precoOriginal: "2.929,00", precoDesconto: "2.694,68", parcelamento: "10x de R$ 292,90", 
                 imagens: [
-                    "./Soprador_a_combustão_BG_50.png_202607230905.jpeg",
-                    "./Soprador_a_combustão_BG_50.png_202607230907.jpeg",
-                    "./Soprador_a_combustão_BG_50.png_202607230909.jpeg"
+                    "./Soprador_costal_a_combustão_BR_202607231024.webp",
+                    "./Soprador_costal_a_combustão_BR_202607231022.webp",
+                    "./Soprador_costal_a_combustão_BR_202607231023.webp"
                 ], 
                 tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
@@ -340,7 +339,11 @@
             },
             { 
                 id: "fr-410", ativo: true, nome: "Roçadeira a combustão FR 410", precoOriginal: "4.589,00", precoDesconto: "4.221,88", parcelamento: "10x de R$ 458,90", 
-                imagens: ["https://buildix-user-images.s3.us-east-2.amazonaws.com/ai-generated/64eabebd-46aa-4bc3-9769-dd229e4024b5.webp"], 
+                imagens: [
+                    "./Roçadeira_a_combustão_FR_410.png_202607230949.webp",
+                    "./Roçadeira_a_combustão_FR_410.png_202607230952.webp",
+                    "./Roçadeira_a_combustão_FR_410.png_202607230948.webp"
+                ], 
                 tag: "-8% OFF PIX", tagColor: "text-red-400 border-red-400", estrelas: 5, avaliacoes: 0 
             },
             { 
@@ -395,7 +398,7 @@
                     
                     const img = document.createElement('img');
                     img.src = imgSrc;
-                    // AQUI: Usando 'object-contain' também nas miniaturas para evitar cortes nas pontas da roçadeira
+                    // Usando 'object-contain' nas miniaturas para evitar cortes
                     img.className = "w-full h-full object-contain p-2 rounded-lg";
                     div.appendChild(img);
                     
