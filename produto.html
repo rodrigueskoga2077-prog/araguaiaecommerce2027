@@ -160,13 +160,14 @@
                         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-araguaia-yellow/15 blur-[120px] rounded-full z-0 pointer-events-none"></div>
 
                         <!-- Main Card - Glassmorphism -->
-                        <div class="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] rounded-2xl flex items-center justify-center overflow-hidden group aspect-square lg:aspect-auto lg:h-[500px]">
+                        <!-- AQUI: Aumentada a altura máxima para lg:h-[600px] para caber máquinas compridas -->
+                        <div class="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] rounded-2xl flex items-center justify-center overflow-hidden group aspect-square lg:aspect-auto lg:h-[600px]">
                             
                             <!-- Carimbo -->
                             <span id="tag-produto" class="stamp-badge hidden absolute top-6 left-6 text-xs font-bold uppercase px-3 py-1.5 z-20 font-mono-tech rounded-md backdrop-blur-md bg-black/50 border border-white/10"></span>
                             
-                            <!-- Imagem preenchendo o card (object-cover + rounded) -->
-                            <img id="img-produto" src="" alt="Produto" class="w-full h-full absolute inset-0 object-cover transition-transform duration-700 group-hover:scale-105">
+                            <!-- AQUI: Trocado 'object-cover' por 'object-contain' e adicionado 'p-6 lg:p-10' para evitar cortes -->
+                            <img id="img-produto" src="" alt="Produto" class="w-full h-full absolute inset-0 object-contain p-6 lg:p-10 transition-transform duration-700 group-hover:scale-105">
                         </div>
 
                         <!-- Miniaturas - JS vai gerar os cards menores aqui -->
@@ -394,8 +395,8 @@
                     
                     const img = document.createElement('img');
                     img.src = imgSrc;
-                    // Preenche o card por completo e arredonda
-                    img.className = "w-full h-full object-cover rounded-lg";
+                    // AQUI: Usando 'object-contain' também nas miniaturas para evitar cortes nas pontas da roçadeira
+                    img.className = "w-full h-full object-contain p-2 rounded-lg";
                     div.appendChild(img);
                     
                     // Evento de clique
