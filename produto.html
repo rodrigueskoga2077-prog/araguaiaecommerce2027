@@ -155,14 +155,15 @@
                     <!-- Lado Esquerdo (FOTOS ALINHADAS) -->
                     <div class="lg:col-span-7 flex flex-col gap-6">
                         
-                        <!-- Imagem Principal (Caixa de Vidro Grande) -->
-                        <div class="glass-panel w-full relative flex items-center justify-center p-8 sm:p-12 min-h-[350px] sm:min-h-[500px] overflow-hidden group">
+                        <!-- Imagem Principal (Caixa de Vidro Grande ajustada - CIRÚRGICO) -->
+                        <div class="glass-panel w-full relative flex items-center justify-center p-3 sm:p-5 min-h-[350px] sm:min-h-[450px] overflow-hidden group">
                             <!-- Brilho ao fundo da imagem -->
                             <div class="absolute inset-0 radial-glow z-0 pointer-events-none"></div>
                             
-                            <span id="prod-tag" class="absolute top-5 left-5 text-black text-[10px] font-bold uppercase px-3 py-1.5 rounded-md hidden z-20 shadow-lg tracking-wider"></span>
+                            <span id="prod-tag" class="absolute top-4 left-4 text-black text-[10px] font-bold uppercase px-3 py-1.5 rounded-md hidden z-20 shadow-lg tracking-wider"></span>
                             
-                            <img id="prod-img" src="" alt="" class="w-full max-w-[450px] h-auto object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out relative z-10">
+                            <!-- Ajustado o max-w para a imagem crescer mais e diminuir o fundo vazio -->
+                            <img id="prod-img" src="" alt="" class="w-full max-w-[95%] h-auto max-h-[400px] sm:max-h-[450px] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out relative z-10">
                         </div>
 
                         <!-- Galeria (Miniaturas Centralizadas Embaixo) -->
@@ -429,7 +430,7 @@
                 if (produtoEncontrado.tag) {
                     const tagEl = document.getElementById('prod-tag');
                     tagEl.textContent = produtoEncontrado.tag;
-                    tagEl.className = `absolute top-5 left-5 text-[10px] font-bold uppercase px-3 py-1.5 rounded-md z-20 shadow-lg tracking-wider ${produtoEncontrado.tagColor || 'bg-araguaia-yellow text-black'}`;
+                    tagEl.className = `absolute top-4 left-4 text-[10px] font-bold uppercase px-2.5 py-1 rounded z-20 shadow-lg tracking-wider ${produtoEncontrado.tagColor || 'bg-araguaia-yellow text-black'}`;
                     tagEl.classList.remove('hidden');
                 }
 
