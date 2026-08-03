@@ -23,19 +23,22 @@
         @theme {
             --color-araguaia-yellow: #FFB800;
             --color-araguaia-yellow-dark: #A87C00;
-            --color-araguaia-darker: #000000;
-            --color-araguaia-dark: #121212;
+            --color-araguaia-darker: #050505;
+            --color-araguaia-dark: #111111;
             --color-araguaia-surface: #1a1a1a;
             --color-araguaia-surface-light: #242424;
-            --color-araguaia-border: #2a2a2a;
+            --color-araguaia-border: rgba(255, 255, 255, 0.08);
         }
     </style>
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background-color: var(--color-araguaia-dark);
             color: #f4f4f4;
+            /* Textura de fundo estilo Home */
+            background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #111111 60%);
+            background-attachment: fixed;
         }
         
         .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
@@ -43,26 +46,46 @@
         
         /* Scrollbar customizada Dark */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-track { background: #111111; }
         ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #e6a600; }
-        * { scrollbar-width: thin; scrollbar-color: #FFB800 #121212; }
+        * { scrollbar-width: thin; scrollbar-color: #FFB800 #111111; }
 
         input[type="search"]::-webkit-search-cancel-button { display: none; }
+
+        /* Estilo Exato dos Cards da Home */
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 0.5px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .glass-panel:hover {
+            border-color: rgba(255,184,0,0.35);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 0 rgba(255,184,0,0.2);
+        }
+        
+        /* Brilho Radial atrás dos produtos */
+        .radial-glow {
+            background: radial-gradient(circle at center, rgba(255,184,0,0.12) 0%, transparent 65%);
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <!-- Top Bar -->
-    <div class="bg-araguaia-darker text-center py-1.5 px-4 text-xs sm:text-sm font-semibold tracking-wide">
-        <span class="text-gray-300">COMPRE ONLINE COM </span>
+    <div class="bg-[#050505] text-center py-1.5 px-4 text-xs sm:text-sm font-semibold tracking-wide border-b border-white/5">
+        <span class="text-gray-400">COMPRE ONLINE COM </span>
         <span class="text-araguaia-yellow">FRETE GRÁTIS</span>
-        <span class="text-gray-300"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
+        <span class="text-gray-400"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
     </div>
 
     <!-- Header Principal -->
-    <header class="bg-araguaia-surface border-b border-araguaia-border sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 md:py-5">
+    <header class="bg-black/40 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 md:py-5 max-w-[1300px]">
             <div class="flex items-center justify-between gap-4 md:gap-8">
                 
                 <button id="mobile-menu-btn" class="md:hidden text-white hover:text-araguaia-yellow transition-colors" aria-label="Abrir menu">
@@ -79,8 +102,8 @@
                 <div class="hidden md:block flex-1 max-w-2xl mx-auto">
                     <form action="#" id="form-busca-desktop" class="relative w-full">
                         <input type="search" name="busca" placeholder="O que você está procurando?" 
-                            class="w-full bg-araguaia-surface-light border border-transparent focus:border-gray-500 focus:bg-araguaia-dark rounded py-2.5 px-4 pr-10 text-sm text-white placeholder-gray-400 transition-all outline-none">
-                        <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors">
+                            class="w-full bg-white/5 border border-white/10 focus:border-araguaia-yellow focus:bg-white/10 rounded-full py-2.5 px-6 pr-10 text-sm text-white placeholder-gray-400 transition-all outline-none">
+                        <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors">
                             <i data-lucide="search" class="w-5 h-5"></i>
                         </button>
                     </form>
@@ -88,8 +111,8 @@
 
                 <!-- Botão Direto para o WhatsApp no Topo -->
                 <div class="flex items-center ml-auto">
-                    <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2 sm:gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-md font-bold uppercase text-[11px] sm:text-sm transition-all duration-300 shadow-[0_4px_14px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] hover:-translate-y-0.5">
-                        <img src="Create_whatsapp_icon_202607231257-removebg-preview.png" alt="WhatsApp" class="w-7 h-7 sm:w-8 sm:h-8 object-contain scale-[1.4] drop-shadow-md">
+                    <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2 sm:gap-3 bg-white/5 border border-[#25D366]/30 hover:bg-[#25D366] text-[#25D366] hover:text-black px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-bold uppercase text-[11px] sm:text-sm transition-all duration-300">
+                        <i data-lucide="phone" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                         <span class="hidden sm:inline">Vendas via WhatsApp</span>
                         <span class="sm:hidden">Comprar</span>
                     </a>
@@ -100,8 +123,8 @@
             <div class="mt-4 md:hidden">
                 <form action="#" id="form-busca-mobile" class="relative w-full">
                     <input type="search" name="busca_mobile" placeholder="Buscar produtos..." 
-                        class="w-full bg-araguaia-surface-light border border-transparent rounded py-2 px-4 pr-10 text-sm text-white placeholder-gray-400 outline-none focus:border-gray-500">
-                    <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                        class="w-full bg-white/5 border border-white/10 rounded-full py-2 px-5 pr-10 text-sm text-white placeholder-gray-400 outline-none focus:border-araguaia-yellow">
+                    <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
                         <i data-lucide="search" class="w-4 h-4"></i>
                     </button>
                 </form>
@@ -113,117 +136,121 @@
         <div class="container mx-auto px-4 lg:px-8 max-w-[1300px]">
             
             <!-- Breadcrumb -->
-            <nav class="text-gray-400 text-xs sm:text-sm font-medium mb-8" aria-label="Breadcrumb">
+            <nav class="text-gray-500 text-xs sm:text-sm font-medium mb-8 uppercase tracking-widest" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-2">
-                    <li><a href="index.html" class="hover:text-araguaia-yellow transition-colors"><i data-lucide="home" class="w-4 h-4 inline pb-0.5"></i> Início</a></li>
+                    <li><a href="index.html" class="hover:text-araguaia-yellow transition-colors"><i data-lucide="home" class="w-4 h-4 inline pb-0.5"></i> INÍCIO</a></li>
                     <li><i data-lucide="chevron-right" class="w-4 h-4 mx-1 opacity-50"></i></li>
-                    <li><a href="index.html" class="hover:text-araguaia-yellow transition-colors">Produtos</a></li>
+                    <li><a href="index.html" class="hover:text-araguaia-yellow transition-colors">PRODUTOS</a></li>
                     <li><i data-lucide="chevron-right" class="w-4 h-4 mx-1 opacity-50"></i></li>
-                    <li id="breadcrumb-categoria" class="text-white capitalize font-bold">Produto</li>
+                    <li id="breadcrumb-categoria" class="text-white font-bold">PRODUTO</li>
                 </ol>
             </nav>
 
             <!-- Container do Produto -->
             <div id="produto-container" class="hidden">
                 
-                <!-- Grade Principal: Imagem e Informações -->
+                <!-- Grade Principal: Imagens e Informações -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
                     
-                    <!-- Coluna da Imagem e Galeria -->
+                    <!-- Lado Esquerdo (FOTOS GLASSMORPHISM) -->
                     <div class="lg:col-span-7 flex flex-col-reverse md:flex-row gap-4">
                         
-                        <!-- Galeria (Miniaturas) -->
-                        <div class="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible w-full md:w-24 flex-shrink-0" id="prod-galeria">
-                            <!-- JS injeta as miniaturas aqui -->
+                        <!-- Galeria (Miniaturas com CSS Injetado) -->
+                        <div class="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible w-full md:w-28 flex-shrink-0 scrollbar-hide pb-2 md:pb-0" id="prod-galeria">
+                            <!-- JS injeta os cards menores de vidro aqui -->
                         </div>
 
-                        <!-- Imagem Principal -->
-                        <div class="flex-1 border border-araguaia-border rounded bg-white relative flex items-center justify-center p-8 min-h-[300px] sm:min-h-[450px]">
-                            <span id="prod-tag" class="absolute top-4 left-4 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded hidden z-10"></span>
-                            <img id="prod-img" src="" alt="" class="w-full max-w-[400px] h-auto object-contain transition-opacity duration-300">
+                        <!-- Imagem Principal (Caixa de Vidro Grande) -->
+                        <div class="glass-panel flex-1 relative flex items-center justify-center p-8 min-h-[350px] sm:min-h-[500px] overflow-hidden group">
+                            <!-- Brilho ao fundo da imagem -->
+                            <div class="absolute inset-0 radial-glow z-0 pointer-events-none"></div>
+                            
+                            <span id="prod-tag" class="absolute top-5 left-5 text-black text-[10px] font-bold uppercase px-3 py-1.5 rounded-md hidden z-20 shadow-lg tracking-wider"></span>
+                            
+                            <img id="prod-img" src="" alt="" class="w-full max-w-[420px] h-auto object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out relative z-10">
                         </div>
                     </div>
 
                     <!-- Coluna de Compra (Lado Direito) -->
-                    <div class="lg:col-span-5 flex flex-col">
+                    <div class="lg:col-span-5 flex flex-col justify-center">
                         
                         <div class="mb-4">
-                            <span class="text-xs text-araguaia-yellow uppercase tracking-widest font-bold">Araguaia Máquinas</span>
-                            <h1 id="prod-nome" class="font-anton text-3xl sm:text-4xl lg:text-5xl text-white uppercase tracking-wide leading-tight mt-2 mb-3"></h1>
+                            <span class="text-[10px] text-araguaia-yellow uppercase tracking-[0.2em] font-bold">Araguaia Máquinas</span>
+                            <h1 id="prod-nome" class="font-anton text-4xl sm:text-5xl text-white uppercase tracking-wide leading-tight mt-2 mb-4"></h1>
                             
                             <div class="flex items-center gap-3 text-sm">
                                 <div id="prod-estrelas" class="flex text-araguaia-yellow"></div>
-                                <span class="text-gray-500">|</span>
-                                <span class="text-green-500 font-medium flex items-center gap-1">
-                                    <i data-lucide="check" class="w-4 h-4"></i> Em estoque
+                                <span class="text-gray-600">|</span>
+                                <span class="text-[#25D366] font-medium flex items-center gap-1.5">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4"></i> Em estoque
                                 </span>
                             </div>
                         </div>
 
-                        <hr class="border-araguaia-border my-6">
+                        <hr class="border-white/10 my-6">
 
                         <!-- Preços -->
-                        <div class="mb-6">
+                        <div class="mb-8">
                             <span id="prod-preco-original" class="block text-gray-500 line-through text-sm sm:text-base mb-1"></span>
-                            <div class="flex items-baseline gap-2 text-araguaia-yellow font-anton mb-1">
-                                <span class="text-2xl">R$</span>
-                                <span id="prod-preco-desconto" class="text-4xl sm:text-5xl tracking-wide"></span>
+                            <div class="flex items-end gap-2 text-araguaia-yellow font-anton mb-1">
+                                <span class="text-2xl pb-1.5">R$</span>
+                                <span id="prod-preco-desconto" class="text-6xl sm:text-7xl tracking-wide leading-none"></span>
                             </div>
-                            <span id="prod-parcelamento" class="block text-gray-300 text-sm sm:text-base"></span>
-                            <span class="inline-block mt-3 bg-araguaia-surface-light border border-araguaia-border text-gray-400 text-[11px] font-bold uppercase px-3 py-1.5 rounded-sm">
+                            <span id="prod-parcelamento" class="block text-gray-400 text-sm sm:text-base mt-2"></span>
+                            <span class="inline-block mt-3 bg-white/5 border border-white/10 text-gray-300 text-[10px] font-bold uppercase px-3 py-1.5 rounded tracking-wider">
                                 Desconto já aplicado no PIX
                             </span>
                         </div>
 
                         <!-- Botão Comprar -->
-                        <div class="mt-4 mb-8">
-                            <button id="btn-comprar" class="w-full flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-anton text-xl uppercase tracking-wider py-4 rounded-md shadow-[0_4px_14px_rgba(37,211,102,0.2)] hover:-translate-y-0.5 transition-all duration-300">
-                                <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        <div class="mt-2 mb-8">
+                            <button id="btn-comprar" class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#128C7E] hover:to-[#0f7165] text-white font-anton text-xl sm:text-2xl uppercase tracking-widest py-5 rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.2)] hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] hover:-translate-y-1 transition-all duration-300">
+                                <i data-lucide="shopping-cart" class="w-6 h-6"></i>
                                 Comprar no WhatsApp
                             </button>
                         </div>
 
                         <!-- Benefícios -->
-                        <div class="bg-araguaia-surface border border-araguaia-border rounded p-5 space-y-3 text-sm text-gray-300">
-                            <div class="flex items-center gap-3">
-                                <i data-lucide="shield-check" class="w-5 h-5 text-araguaia-yellow"></i>
+                        <div class="glass-panel p-5 space-y-4 text-sm text-gray-300">
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 rounded-full bg-white/5 text-araguaia-yellow"><i data-lucide="shield-check" class="w-4 h-4"></i></div>
                                 <span><strong>Garantia oficial</strong> do fabricante.</span>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <i data-lucide="truck" class="w-5 h-5 text-araguaia-yellow"></i>
-                                <span><strong>Envio rápido</strong> para todo o território nacional.</span>
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 rounded-full bg-white/5 text-araguaia-yellow"><i data-lucide="truck" class="w-4 h-4"></i></div>
+                                <span><strong>Envio rápido</strong> para todo o Brasil.</span>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <i data-lucide="credit-card" class="w-5 h-5 text-araguaia-yellow"></i>
-                                <span>Pagamento <strong>100% seguro</strong> via Link.</span>
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 rounded-full bg-white/5 text-araguaia-yellow"><i data-lucide="credit-card" class="w-4 h-4"></i></div>
+                                <span>Pagamento <strong>100% seguro</strong> via link.</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Detalhes e Especificações (Abas Dark Mode) -->
-                <div class="border border-araguaia-border rounded overflow-hidden">
+                <!-- Detalhes e Especificações (Abas Dark) -->
+                <div class="glass-panel overflow-hidden mt-10">
                     
                     <!-- Títulos das Seções (Estilo Abas) -->
-                    <div class="bg-araguaia-surface flex border-b border-araguaia-border">
-                        <div class="px-6 py-4 font-anton uppercase tracking-wider text-araguaia-yellow border-b-2 border-araguaia-yellow bg-araguaia-surface-light text-lg">
-                            Descrição e Dados Técnicos
+                    <div class="bg-black/30 flex border-b border-white/10">
+                        <div class="px-8 py-5 font-anton text-xl tracking-widest uppercase text-araguaia-yellow border-b-2 border-araguaia-yellow bg-white/5">
+                            Ficha Técnica e Detalhes
                         </div>
                     </div>
 
-                    <div class="p-6 md:p-8 bg-araguaia-surface-light text-gray-300 leading-relaxed font-inter space-y-10">
+                    <div class="p-6 md:p-10 text-gray-300 leading-relaxed font-dm-sans space-y-10 bg-white/5">
                         
                         <!-- Texto Descrição -->
-                        <div id="prod-descricao" class="max-w-4xl text-base">
+                        <div id="prod-descricao" class="max-w-4xl text-base text-gray-400">
                             <!-- Injetado via JS -->
                         </div>
 
                         <!-- Tabela de Especificações -->
                         <div>
-                            <h3 class="font-anton text-2xl text-white uppercase tracking-wide mb-4">Ficha Técnica</h3>
-                            <div class="overflow-x-auto rounded border border-araguaia-border">
+                            <h3 class="font-anton text-2xl text-white uppercase tracking-wider mb-6">Especificações do Equipamento</h3>
+                            <div class="overflow-x-auto rounded-xl border border-white/10">
                                 <table class="w-full text-sm text-left border-collapse">
-                                    <tbody id="prod-especificacoes" class="divide-y divide-araguaia-border">
+                                    <tbody id="prod-especificacoes" class="divide-y divide-white/10">
                                         <!-- Injetado via JS -->
                                     </tbody>
                                 </table>
@@ -234,12 +261,12 @@
             </div>
 
             <!-- Fallback: Produto não encontrado -->
-            <div id="erro-container" class="hidden text-center py-24 border border-araguaia-border rounded bg-araguaia-surface mt-10">
+            <div id="erro-container" class="hidden text-center py-24 glass-panel mt-10">
                 <i data-lucide="package-x" class="w-16 h-16 text-gray-500 mx-auto mb-4"></i>
-                <h2 class="font-anton text-3xl text-white uppercase mb-2 tracking-wide">Produto indisponível</h2>
-                <p class="text-gray-400 mb-6">O item que você tentou acessar não existe ou saiu de linha.</p>
-                <a href="index.html" class="inline-flex items-center justify-center bg-araguaia-yellow text-black hover:bg-white font-anton uppercase tracking-wider px-8 py-3 rounded transition-colors duration-300">
-                    Voltar para a página inicial
+                <h2 class="font-anton text-3xl text-white uppercase mb-2 tracking-widest">Produto indisponível</h2>
+                <p class="text-gray-400 mb-8 font-dm-sans">O item que você tentou acessar não existe ou saiu de linha.</p>
+                <a href="index.html" class="inline-flex items-center justify-center bg-araguaia-yellow hover:bg-white text-black font-anton uppercase tracking-widest px-8 py-4 rounded-lg transition-colors duration-300">
+                    Voltar para o Início
                 </a>
             </div>
 
@@ -247,25 +274,25 @@
     </main>
 
     <!-- Footer Clássico Dark -->
-    <footer class="bg-araguaia-darker border-t border-araguaia-border pt-12 pb-6">
+    <footer class="bg-[#050505] border-t border-white/10 pt-16 pb-8 mt-10">
         <div class="container mx-auto px-4 lg:px-8 max-w-[1300px]">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 
                 <!-- Coluna 1 -->
                 <div>
-                    <div class="flex flex-col mb-4">
+                    <div class="flex flex-col mb-6">
                         <span class="text-[#FFB800] uppercase font-normal text-[24px] tracking-[0.02em] leading-none font-anton">ARAGUAIA</span>
                         <span class="text-[#E6E6E6] uppercase font-bold text-[9px] tracking-[0.32em] mt-[2px] font-dm-sans ml-[2px]">MÁQUINAS</span>
                     </div>
-                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed font-dm-sans">
                         A força que o campo precisa com a tecnologia que você confia. Somos especialistas em ferramentas e maquinário agrícola e florestal.
                     </p>
                 </div>
 
                 <!-- Coluna 2 -->
                 <div>
-                    <h4 class="font-anton text-white uppercase tracking-wider mb-4">Atendimento</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
+                    <h4 class="font-anton text-white uppercase tracking-widest mb-6">Atendimento</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 font-dm-sans">
                         <li>Segunda a Sexta: 07:30 – 18:00</li>
                         <li>Sábado: 07:30 – 12:00</li>
                         <li>Domingo: Fechado</li>
@@ -274,8 +301,8 @@
 
                 <!-- Coluna 3 -->
                 <div>
-                    <h4 class="font-anton text-white uppercase tracking-wider mb-4">Contato</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
+                    <h4 class="font-anton text-white uppercase tracking-widest mb-6">Contato</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 font-dm-sans">
                         <li><a href="https://wa.me/556230997275" target="_blank" class="hover:text-araguaia-yellow transition-colors">(62) 3099-7275</a></li>
                         <li>contato@araguaiamaquinas.com.br</li>
                     </ul>
@@ -283,8 +310,8 @@
 
                 <!-- Coluna 4 -->
                 <div>
-                    <h4 class="font-anton text-white uppercase tracking-wider mb-4">Endereço</h4>
-                    <address class="text-sm text-gray-400 not-italic leading-relaxed">
+                    <h4 class="font-anton text-white uppercase tracking-widest mb-6">Endereço</h4>
+                    <address class="text-sm text-gray-400 not-italic leading-relaxed font-dm-sans">
                         Av. Tiradentes, 30<br>
                         Setor Central<br>
                         Anápolis - GO, CEP: 75043-045
@@ -292,13 +319,13 @@
                 </div>
             </div>
 
-            <div class="border-t border-araguaia-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600 font-dm-sans">
                 <p>
-                    <strong>CNPJ: 10.655.510/0001-50</strong> | &copy; 2026 Araguaia Máquinas. Todos os direitos reservados.
+                    <strong class="text-gray-400">CNPJ: 10.655.510/0001-50</strong> | &copy; 2026 Araguaia Máquinas. Todos os direitos reservados.
                 </p>
                 <div class="flex gap-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-                    <a href="https://www.instagram.com/araguaiamaquinas/" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:border-araguaia-yellow hover:text-araguaia-yellow transition-all"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                    <a href="https://www.instagram.com/araguaiamaquinas/" target="_blank" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:border-araguaia-yellow hover:text-araguaia-yellow transition-all"><i data-lucide="instagram" class="w-4 h-4"></i></a>
                 </div>
             </div>
         </div>
@@ -319,27 +346,27 @@
             }
         });
 
-        // Banco de Dados com a lista EXATA de imagens fornecida para a galeria
+        // Banco de Dados COM AS FOTOS LISTADAS EM ORDEM
         const produtos = [
-            { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "Motosserra_a_bateria_MSA_70_202607211226.webp", galeria: ["Motosserra_a_bateria_MSA_70_202607211226.webp", "Motosserra_a_bateria_MSA_70_202607211228.webp", "Motosserra_a_bateria_MSA_70_202607211229.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "A motosserra a bateria MSA 70 C-B é ideal para cortar lenha e manutenção de terrenos. Super leve, silenciosa e sem emissão de gases.", especificacoes: ["Motor: Sem escovas (EC)", "Bateria recomendada: AK 30", "Peso sem bateria: 2,9 kg", "Sabre: 30 cm"] },
+            { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "Motosserra_a_bateria_MSA_70_202607211226.webp", galeria: ["Motosserra_a_bateria_MSA_70_202607211226.webp", "Motosserra_a_bateria_MSA_70_202607211228.webp", "Motosserra_a_bateria_MSA_70_202607211229.webp"], tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "A motosserra a bateria MSA 70 C-B é ideal para cortar lenha e manutenção de terrenos. Super leve, silenciosa e sem emissão de gases.", especificacoes: ["Motor: Sem escovas (EC)", "Bateria recomendada: AK 30", "Peso sem bateria: 2,9 kg", "Sabre: 30 cm"] },
             
-            { id: "fs-120", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FS 120", precoOriginal: "2.219,00", precoDesconto: "2.041,48", parcelamento: "10x de R$ 221,90 s/ juros", imagem: "Roçadeira_a_combustão_FS_120.png_202607230900.webp", galeria: ["Roçadeira_a_combustão_FS_120.png_202607230900.webp", "Roçadeira_a_combustão_FS_120.png_202607230901.webp", "Roçadeira_a_combustão_FS_120.png_202607230900.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Potência ideal para o trabalho agropecuário. A FS 120 é perfeita para cortes de pasto e capoeira grossa. Resistente e durável.", especificacoes: ["Cilindrada: 30.8 cm³", "Potência: 1.3 kW / 1.8 CV", "Peso: 6.3 kg", "Ferramenta de corte: Lâmina 3 facas"] },
+            { id: "fs-120", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FS 120", precoOriginal: "2.219,00", precoDesconto: "2.041,48", parcelamento: "10x de R$ 221,90 s/ juros", imagem: "Roçadeira_a_combustão_FS_120.png_202607230900.webp", galeria: ["Roçadeira_a_combustão_FS_120.png_202607230900.webp", "Roçadeira_a_combustão_FS_120.png_202607230901.webp", "Roçadeira_a_combustão_FS_120.png_202607230900.webp"], tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "Potência ideal para o trabalho agropecuário. A FS 120 é perfeita para cortes de pasto e capoeira grossa. Resistente e durável.", especificacoes: ["Cilindrada: 30.8 cm³", "Potência: 1.3 kW / 1.8 CV", "Peso: 6.3 kg", "Ferramenta de corte: Lâmina 3 facas"] },
             
-            { id: "br-420", ativo: true, categoria: "soprador", nome: "Soprador costal a combustão BR 420", precoOriginal: "2.929,00", precoDesconto: "2.694,68", parcelamento: "10x de R$ 292,90 s/ juros", imagem: "Soprador_costal_a_combustão_BR_202607231022.webp", galeria: ["Soprador_costal_a_combustão_BR_202607231022.webp", "Soprador_costal_a_combustão_BR_202607231023.webp", "Soprador_costal_a_combustão_BR_202607231022.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Soprador potente para limpeza de grandes áreas. Excelente para varrição de folhas, limpeza de maquinário e terreiros.", especificacoes: ["Cilindrada: 56.5 cm³", "Vazão máxima de ar: 1260 m³/h", "Peso: 9.1 kg", "Motor: 2 tempos"] },
+            { id: "br-420", ativo: true, categoria: "soprador", nome: "Soprador costal a combustão BR 420", precoOriginal: "2.929,00", precoDesconto: "2.694,68", parcelamento: "10x de R$ 292,90 s/ juros", imagem: "Soprador_costal_a_combustão_BR_202607231022.webp", galeria: ["Soprador_costal_a_combustão_BR_202607231022.webp", "Soprador_costal_a_combustão_BR_202607231023.webp", "Soprador_costal_a_combustão_BR_202607231022.webp"], tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "Soprador potente para limpeza de grandes áreas. Excelente para varrição de folhas, limpeza de maquinário e terreiros.", especificacoes: ["Cilindrada: 56.5 cm³", "Vazão máxima de ar: 1260 m³/h", "Peso: 9.1 kg", "Motor: 2 tempos"] },
             
-            { id: "re-110-plus", ativo: true, categoria: "lavadora", nome: "Lavadora de Alta Pressão RE 110 Plus", precoOriginal: "2.739,00", precoDesconto: "2.519,88", parcelamento: "10x de R$ 273,90 s/ juros", imagem: "Lavadora_de_Alta_Pressão_RE_202607211213.webp", galeria: ["Lavadora_de_Alta_Pressão_RE_202607211213.webp", "Lavadora_de_Alta_Pressão_RE_202607211214.webp", "Lavadora_de_Alta_Pressão_RE_202607211213.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Lavadora de alta pressão RE 110 PLUS. Oferece praticidade para remoção de sujeiras em áreas externas, veículos e móveis de jardim.", especificacoes: ["Pressão máxima: 120 bar", "Vazão máxima de água: 430 l/h", "Potência: 1.7 kW", "Peso: 17.6 kg"] },
+            { id: "re-110-plus", ativo: true, categoria: "lavadora", nome: "Lavadora de Alta Pressão RE 110 Plus", precoOriginal: "2.739,00", precoDesconto: "2.519,88", parcelamento: "10x de R$ 273,90 s/ juros", imagem: "Lavadora_de_Alta_Pressão_RE_202607211213.webp", galeria: ["Lavadora_de_Alta_Pressão_RE_202607211213.webp", "Lavadora_de_Alta_Pressão_RE_202607211214.webp", "Lavadora_de_Alta_Pressão_RE_202607211213.webp"], tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "Lavadora de alta pressão RE 110 PLUS. Oferece praticidade para remoção de sujeiras em áreas externas, veículos e móveis de jardim.", especificacoes: ["Pressão máxima: 120 bar", "Vazão máxima de água: 430 l/h", "Potência: 1.7 kW", "Peso: 17.6 kg"] },
             
-            { id: "rm-253-t", ativo: true, categoria: "outro", nome: "Cortador de Grama a Combustão RM 253 T", precoOriginal: "5.439,00", precoDesconto: "5.003,88", parcelamento: "10x de R$ 543,90 s/ juros", imagem: "Cortador_de_Grama_a_Combustão_202607221623.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Cortador de grama robusto com tração. Indicado para gramados médios e grandes. Possui cesto recolhedor espaçoso.", especificacoes: ["Largura de corte: 51 cm", "Motor: B&S Série 625 E OHV RS", "Cesto recolhedor: 55 Litros", "Tração: 1 velocidade"] },
+            { id: "rm-253-t", ativo: true, categoria: "outro", nome: "Cortador de Grama a Combustão RM 253 T", precoOriginal: "5.439,00", precoDesconto: "5.003,88", parcelamento: "10x de R$ 543,90 s/ juros", imagem: "Cortador_de_Grama_a_Combustão_202607221623.webp", tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "Cortador de grama robusto com tração. Indicado para gramados médios e grandes. Possui cesto recolhedor espaçoso.", especificacoes: ["Largura de corte: 51 cm", "Motor: B&S Série 625 E OHV RS", "Cesto recolhedor: 55 Litros", "Tração: 1 velocidade"] },
             
-            { id: "oleo-castrol-8017h", ativo: true, categoria: "acessorio", nome: "Óleo Castrol STIHL 8017 H", precoOriginal: "65,22", precoDesconto: "60,00", parcelamento: "1x de R$ 65,22 s/ juros", imagem: "Óleo_Castrol_STIHL_8017_H.png_202607221622.webp", tag: "Destaque", tagColor: "bg-[#25D366]", estrelas: 5, descricao: "Óleo lubrificante especialmente desenvolvido para motores 2 tempos. Garante excelente limpeza do motor, redução de carbonização e maior vida útil.", especificacoes: ["Volume: 500 ml", "Aplicação: Motores 2T", "Proporção recomendada: 1:50", "Proteção antidesgaste: Alta"] },
+            { id: "oleo-castrol-8017h", ativo: true, categoria: "acessorio", nome: "Óleo Castrol STIHL 8017 H", precoOriginal: "65,22", precoDesconto: "60,00", parcelamento: "1x de R$ 65,22 s/ juros", imagem: "Óleo_Castrol_STIHL_8017_H.png_202607221622.webp", tag: "Destaque", tagColor: "bg-[#25D366] text-white", estrelas: 5, descricao: "Óleo lubrificante especialmente desenvolvido para motores 2 tempos. Garante excelente limpeza do motor, redução de carbonização e maior vida útil.", especificacoes: ["Volume: 500 ml", "Aplicação: Motores 2T", "Proporção recomendada: 1:50", "Proteção antidesgaste: Alta"] },
             
-            { id: "bateria-ak-30s", ativo: true, categoria: "bateria", nome: "Bateria AK 30 S", precoOriginal: "1.358,00", precoDesconto: "1.249,36", parcelamento: "10x de R$ 135,80 s/ juros", imagem: "bateria_ak_30_stihl.png_202607231048.webp", galeria: ["bateria_ak_30_stihl.png_202607231048.webp", "bateria_ak_30_stihl.png_202607211155.webp", "bateria_ak_30_stihl.png_202607211155.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Bateria de íons de lítio compacta da linha AK System. Fornece alto rendimento para todos os equipamentos do sistema AK.", especificacoes: ["Tensão: 36 V", "Capacidade: 180 Wh", "Peso: 1.3 kg", "Tecnologia: Íons de Lítio"] },
+            { id: "bateria-ak-30s", ativo: true, categoria: "bateria", nome: "Bateria AK 30 S", precoOriginal: "1.358,00", precoDesconto: "1.249,36", parcelamento: "10x de R$ 135,80 s/ juros", imagem: "bateria_ak_30_stihl.png_202607231048.webp", galeria: ["bateria_ak_30_stihl.png_202607231048.webp", "bateria_ak_30_stihl.png_202607211155.webp", "bateria_ak_30_stihl.png_202607211155.webp"], tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "Bateria de íons de lítio compacta da linha AK System. Fornece alto rendimento para todos os equipamentos do sistema AK.", especificacoes: ["Tensão: 36 V", "Capacidade: 180 Wh", "Peso: 1.3 kg", "Tecnologia: Íons de Lítio"] },
             
-            { id: "ms-172", ativo: true, categoria: "motosserra", nome: "Motosserra a combustão MS 172", precoOriginal: "1.599,00", precoDesconto: "1.471,08", parcelamento: "10x de R$ 159,90 s/ juros", imagem: "Motosserra_a_combustão_MS_172.png_202607231104.webp", galeria: ["Motosserra_a_combustão_MS_172.png_202607231104.webp", "Motosserra_a_combustão_MS_172.png_202607231107.webp", "Motosserra_a_combustão_MS_172.png_202607231123.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Leve e compacta, a motosserra MS 172 é ideal para o corte de lenha, manutenção de árvores e poda. Design ergonômico.", especificacoes: ["Cilindrada: 31.8 cm³", "Potência: 1.4 kW / 1.9 CV", "Peso: 4.5 kg", "Sabre: 30 ou 35 cm"] },
+            { id: "ms-172", ativo: true, categoria: "motosserra", nome: "Motosserra a combustão MS 172", precoOriginal: "1.599,00", precoDesconto: "1.471,08", parcelamento: "10x de R$ 159,90 s/ juros", imagem: "Motosserra_a_combustão_MS_172.png_202607231104.webp", galeria: ["Motosserra_a_combustão_MS_172.png_202607231104.webp", "Motosserra_a_combustão_MS_172.png_202607231107.webp", "Motosserra_a_combustão_MS_172.png_202607231123.webp"], tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "Leve e compacta, a motosserra MS 172 é ideal para o corte de lenha, manutenção de árvores e poda. Design ergonômico.", especificacoes: ["Cilindrada: 31.8 cm³", "Potência: 1.4 kW / 1.9 CV", "Peso: 4.5 kg", "Sabre: 30 ou 35 cm"] },
             
-            { id: "fr-410", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FR 410", precoOriginal: "4.589,00", precoDesconto: "4.221,88", parcelamento: "10x de R$ 458,90 s/ juros", imagem: "Roçadeira_a_combustão_FR_410.png_202607230948.webp", galeria: ["Roçadeira_a_combustão_FR_410.png_202607230948.webp", "Roçadeira_a_combustão_FR_410.png_202607230949.webp", "Roçadeira_a_combustão_FR_410.png_202607230948.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Roçadeira costal extremamente potente. O motor nas costas reduz a fadiga em operações longas em terrenos íngremes.", especificacoes: ["Cilindrada: 41.6 cm³", "Potência: 2.0 kW / 2.7 CV", "Peso: 10.8 kg", "Sistema antivibratório: Sim"] },
+            { id: "fr-410", ativo: true, categoria: "rocadeira", nome: "Roçadeira a combustão FR 410", precoOriginal: "4.589,00", precoDesconto: "4.221,88", parcelamento: "10x de R$ 458,90 s/ juros", imagem: "Roçadeira_a_combustão_FR_410.png_202607230948.webp", galeria: ["Roçadeira_a_combustão_FR_410.png_202607230948.webp", "Roçadeira_a_combustão_FR_410.png_202607230949.webp", "Roçadeira_a_combustão_FR_410.png_202607230948.webp"], tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "Roçadeira costal extremamente potente. O motor nas costas reduz a fadiga em operações longas em terrenos íngremes.", especificacoes: ["Cilindrada: 41.6 cm³", "Potência: 2.0 kW / 2.7 CV", "Peso: 10.8 kg", "Sistema antivibratório: Sim"] },
             
-            { id: "ehc-705-s", ativo: true, categoria: "outro", nome: "Motor Estacionário a combustão EHC 705 S", precoOriginal: "1.739,00", precoDesconto: "1.599,88", parcelamento: "10x de R$ 173,90 s/ juros", imagem: "Motor_Estacionário_a_Combustão_EHC_202607211221 - Copia.webp", galeria: ["Motor_Estacionário_a_Combustão_EHC_202607211221 - Copia.webp", "Motor_Estacionário_a_combustão_EHC_202607211222.webp", "Motor_Estacionário_a_Combustão_EHC_202607211221 - Copia.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Motor estacionário versátil para diversas aplicações, acionando bombas, geradores e moinhos com economia de combustível e alta durabilidade.", especificacoes: ["Tipo: 4 tempos", "Potência: 7.0 CV", "Combustível: Gasolina", "Partida: Manual"] }
+            { id: "ehc-705-s", ativo: true, categoria: "outro", nome: "Motor Estacionário a combustão EHC 705 S", precoOriginal: "1.739,00", precoDesconto: "1.599,88", parcelamento: "10x de R$ 173,90 s/ juros", imagem: "Motor_Estacionário_a_Combustão_EHC_202607211221 - Copia.webp", galeria: ["Motor_Estacionário_a_Combustão_EHC_202607211221 - Copia.webp", "Motor_Estacionário_a_combustão_EHC_202607211222.webp", "Motor_Estacionário_a_Combustão_EHC_202607211221 - Copia.webp"], tag: "-8% OFF PIX", tagColor: "bg-[#FFB800] text-black", estrelas: 5, descricao: "Motor estacionário versátil para diversas aplicações, acionando bombas, geradores e moinhos com economia de combustível e alta durabilidade.", especificacoes: ["Tipo: 4 tempos", "Potência: 7.0 CV", "Combustível: Gasolina", "Partida: Manual"] }
         ];
 
         // Lógica de Carregamento da Página
@@ -364,7 +391,7 @@
                 document.getElementById('prod-preco-desconto').textContent = produtoEncontrado.precoDesconto;
                 
                 if(produtoEncontrado.precoOriginal) {
-                    document.getElementById('prod-preco-original').textContent = `De R$ ${produtoEncontrado.precoOriginal} por`;
+                    document.getElementById('prod-preco-original').textContent = `De R$ ${produtoEncontrado.precoOriginal} por:`;
                 } else {
                     document.getElementById('prod-preco-original').style.display = 'none';
                 }
@@ -374,35 +401,34 @@
                 // Descrição
                 document.getElementById('prod-descricao').innerHTML = `<p>${produtoEncontrado.descricao || "A descrição deste equipamento será atualizada em breve."}</p>`;
                 
-                // Especificações (Formato de Tabela com Fundo Dark)
+                // Especificações (Formato de Tabela Zebra Escura)
                 const tbodyEspec = document.getElementById('prod-especificacoes');
                 if(produtoEncontrado.especificacoes && produtoEncontrado.especificacoes.length > 0) {
                     produtoEncontrado.especificacoes.forEach((esp, index) => {
                         const tr = document.createElement('tr');
-                        // Fundo listrado Dark
-                        if(index % 2 !== 0) tr.classList.add('bg-araguaia-surface-light');
-                        else tr.classList.add('bg-araguaia-surface');
                         
-                        // Divide a string "Motor: 2 tempos" em titulo e valor
+                        // Zebra Dark
+                        if(index % 2 !== 0) tr.classList.add('bg-white/5');
+                        
                         const partes = esp.split(':');
                         const titulo = partes[0] ? partes[0].trim() : '';
                         const valor = partes[1] ? partes[1].trim() : '';
 
                         tr.innerHTML = `
-                            <td class="px-5 py-4 font-semibold text-white w-1/3 border-r border-araguaia-border/50">${titulo}</td>
-                            <td class="px-5 py-4 text-gray-400">${valor || esp}</td>
+                            <td class="px-6 py-4 font-bold text-white w-1/3 border-r border-white/10 uppercase text-xs tracking-wider">${titulo}</td>
+                            <td class="px-6 py-4 text-gray-400 font-medium">${valor || esp}</td>
                         `;
                         tbodyEspec.appendChild(tr);
                     });
                 } else {
-                    tbodyEspec.innerHTML = '<tr><td class="px-5 py-4 text-gray-500">Nenhuma especificação cadastrada.</td></tr>';
+                    tbodyEspec.innerHTML = '<tr><td class="px-6 py-4 text-gray-500">Nenhuma especificação cadastrada.</td></tr>';
                 }
 
-                // Renderiza a Tag se existir
+                // Renderiza a Tag
                 if (produtoEncontrado.tag) {
                     const tagEl = document.getElementById('prod-tag');
                     tagEl.textContent = produtoEncontrado.tag;
-                    tagEl.className = `absolute top-4 left-4 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded z-10 ${produtoEncontrado.tagColor || 'bg-araguaia-yellow text-black'}`;
+                    tagEl.className = `absolute top-5 left-5 text-[10px] font-bold uppercase px-3 py-1.5 rounded-md z-20 shadow-lg tracking-wider ${produtoEncontrado.tagColor || 'bg-araguaia-yellow text-black'}`;
                     tagEl.classList.remove('hidden');
                 }
 
@@ -411,23 +437,28 @@
                                      '<i data-lucide="star" class="w-4 h-4 text-gray-700"></i>'.repeat(5 - produtoEncontrado.estrelas);
                 document.getElementById('prod-estrelas').innerHTML = estrelasHTML;
 
-                // ================= LÓGICA DA GALERIA =================
+                // ================= LÓGICA DA GALERIA (Miniaturas de Vidro) =================
                 const galeriaContainer = document.getElementById('prod-galeria');
                 const imagensGaleria = produtoEncontrado.galeria || [produtoEncontrado.imagem, produtoEncontrado.imagem, produtoEncontrado.imagem];
                 
                 imagensGaleria.slice(0, 3).forEach((imgSrc) => {
                     const thumbCard = document.createElement('div');
-                    // Caixas brancas para a galeria combinarem com a foto principal
-                    thumbCard.className = "w-20 h-20 md:w-24 md:h-24 flex-shrink-0 border border-araguaia-border rounded bg-white p-2 cursor-pointer hover:border-araguaia-yellow transition-colors";
-                    thumbCard.innerHTML = `<img src="${imgSrc}" class="w-full h-full object-contain">`;
+                    // Aqui aplicamos a classe glass-panel nos botões menores também
+                    thumbCard.className = "glass-panel w-20 h-20 md:w-24 md:h-24 flex-shrink-0 flex items-center justify-center p-3 cursor-pointer relative overflow-hidden group";
+                    
+                    // Brilho suave na miniatura e a foto
+                    thumbCard.innerHTML = `
+                        <div class="absolute inset-0 radial-glow pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                        <img src="${imgSrc}" class="w-full h-full object-contain relative z-10 drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    `;
                     
                     thumbCard.addEventListener('click', () => {
                         const imgPrincipal = document.getElementById('prod-img');
-                        imgPrincipal.style.opacity = '0.5';
+                        imgPrincipal.style.opacity = '0.3';
                         setTimeout(() => {
                             imgPrincipal.src = imgSrc;
                             imgPrincipal.style.opacity = '1';
-                        }, 150);
+                        }, 200);
                     });
                     
                     galeriaContainer.appendChild(thumbCard);
@@ -448,7 +479,7 @@
         // Função do WhatsApp
         function comprarNoWhatsApp(nomeProduto, preco) {
             const telefoneLoja = "556230997275";
-            const mensagem = `Olá, equipe da Araguaia Máquinas! Tenho interesse no equipamento:\n\n*${nomeProduto}*\nValor: *R$ ${preco}*\n\nPoderia me confirmar o prazo de entrega e disponibilidade?`;
+            const mensagem = `Olá, equipe da Araguaia Máquinas! Tenho interesse no equipamento:\n\n*${nomeProduto}*\nValor no Pix: *R$ ${preco}*\n\nPoderia me confirmar o prazo de entrega e disponibilidade?`;
             const urlWhatsApp = `https://wa.me/${telefoneLoja}?text=${encodeURIComponent(mensagem)}`;
             window.open(urlWhatsApp, "_blank");
         }
