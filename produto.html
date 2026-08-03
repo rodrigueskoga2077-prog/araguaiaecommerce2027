@@ -152,23 +152,24 @@
                 <!-- Grade Principal: Imagens e Informações -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
                     
-                    <!-- Lado Esquerdo (FOTOS GLASSMORPHISM) -->
-                    <div class="lg:col-span-7 flex flex-col-reverse md:flex-row gap-4">
+                    <!-- Lado Esquerdo (FOTOS ALINHADAS) -->
+                    <div class="lg:col-span-7 flex flex-col gap-6">
                         
-                        <!-- Galeria (Miniaturas com CSS Injetado) -->
-                        <div class="flex md:flex-col gap-3 overflow-x-auto md:overflow-visible w-full md:w-28 flex-shrink-0 scrollbar-hide pb-2 md:pb-0" id="prod-galeria">
-                            <!-- JS injeta os cards menores de vidro aqui -->
-                        </div>
-
                         <!-- Imagem Principal (Caixa de Vidro Grande) -->
-                        <div class="glass-panel flex-1 relative flex items-center justify-center p-8 min-h-[350px] sm:min-h-[500px] overflow-hidden group">
+                        <div class="glass-panel w-full relative flex items-center justify-center p-8 sm:p-12 min-h-[350px] sm:min-h-[500px] overflow-hidden group">
                             <!-- Brilho ao fundo da imagem -->
                             <div class="absolute inset-0 radial-glow z-0 pointer-events-none"></div>
                             
                             <span id="prod-tag" class="absolute top-5 left-5 text-black text-[10px] font-bold uppercase px-3 py-1.5 rounded-md hidden z-20 shadow-lg tracking-wider"></span>
                             
-                            <img id="prod-img" src="" alt="" class="w-full max-w-[420px] h-auto object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out relative z-10">
+                            <img id="prod-img" src="" alt="" class="w-full max-w-[450px] h-auto object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out relative z-10">
                         </div>
+
+                        <!-- Galeria (Miniaturas Centralizadas Embaixo) -->
+                        <div class="flex flex-row justify-center gap-4 overflow-x-auto w-full scrollbar-hide pb-2" id="prod-galeria">
+                            <!-- JS injeta os cards menores aqui -->
+                        </div>
+
                     </div>
 
                     <!-- Coluna de Compra (Lado Direito) -->
@@ -437,20 +438,16 @@
                                      '<i data-lucide="star" class="w-4 h-4 text-gray-700"></i>'.repeat(5 - produtoEncontrado.estrelas);
                 document.getElementById('prod-estrelas').innerHTML = estrelasHTML;
 
-                // ================= LÓGICA DA GALERIA (Miniaturas de Vidro) =================
+                // ================= LÓGICA DA GALERIA (Miniaturas de Vidro Embaixo) =================
                 const galeriaContainer = document.getElementById('prod-galeria');
                 const imagensGaleria = produtoEncontrado.galeria || [produtoEncontrado.imagem, produtoEncontrado.imagem, produtoEncontrado.imagem];
                 
                 imagensGaleria.slice(0, 3).forEach((imgSrc) => {
                     const thumbCard = document.createElement('div');
-                    // Aqui aplicamos a classe glass-panel nos botões menores também
-                    thumbCard.className = "glass-panel w-20 h-20 md:w-24 md:h-24 flex-shrink-0 flex items-center justify-center p-3 cursor-pointer relative overflow-hidden group";
+                    // Miniaturas agora usam um estilo mais sutil em vez de bordas pesadas de vidro
+                    thumbCard.className = "w-20 h-20 md:w-24 md:h-24 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center p-2 cursor-pointer hover:border-araguaia-yellow hover:bg-white/10 transition-all duration-300 opacity-60 hover:opacity-100 flex-shrink-0";
                     
-                    // Brilho suave na miniatura e a foto
-                    thumbCard.innerHTML = `
-                        <div class="absolute inset-0 radial-glow pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                        <img src="${imgSrc}" class="w-full h-full object-contain relative z-10 drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    `;
+                    thumbCard.innerHTML = `<img src="${imgSrc}" class="w-full h-full object-contain">`;
                     
                     thumbCard.addEventListener('click', () => {
                         const imgPrincipal = document.getElementById('prod-img');
