@@ -147,7 +147,7 @@
             </nav>
 
             <!-- Container do Produto -->
-            <div id="produto-container">
+            <div id="produto-container" class="hidden">
                 
                 <!-- Grade Principal: Imagens e Informações -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
@@ -348,7 +348,7 @@
             }
         });
 
-        // Banco de Dados COM AS FOTOS DO ÓLEO CASTROL ATUALIZADAS
+        // Banco de Dados COM A SEGUNDA FOTO DO CORTADOR DE GRAMA SUBSTITUÍDA
         const produtos = [
             { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "Motosserra_a_bateria_MSA_70_202607211226.webp", galeria: ["Motosserra_a_bateria_MSA_70_202607211226.webp", "Motosserra_a_bateria_MSA_70_202607211228.webp", "Motosserra_a_bateria_MSA_70_202607211229.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "A motosserra a bateria MSA 70 C-B é ideal para cortar lenha e manutenção de terrenos. Super leve, silenciosa e sem emissão de gases.", especificacoes: ["Motor: Sem escovas (EC)", "Bateria recomendada: AK 30", "Peso sem bateria: 2,9 kg", "Sabre: 30 cm"] },
             
@@ -358,7 +358,7 @@
             
             { id: "re-110-plus", ativo: true, categoria: "lavadora", nome: "Lavadora de Alta Pressão RE 110 Plus", precoOriginal: "2.739,00", precoDesconto: "2.519,88", parcelamento: "10x de R$ 273,90 s/ juros", imagem: "Lavadora_de_Alta_Pressão_RE_202607211213.webp", galeria: ["Lavadora_de_Alta_Pressão_RE_202607211213.webp", "Lavadora_de_Alta_Pressão_RE_202607211214.webp", "Lavadora_de_Alta_Pressão_RE_202607211219.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Lavadora de alta pressão RE 110 PLUS. Oferece praticidade para remoção de sujeiras em áreas externas, veículos e móveis de jardim.", especificacoes: ["Pressão máxima: 120 bar", "Vazão máxima de água: 430 l/h", "Potência: 1.7 kW", "Peso: 17.6 kg"] },
             
-            { id: "rm-253-t", ativo: true, categoria: "outro", nome: "Cortador de Grama a Combustão RM 253 T", precoOriginal: "5.439,00", precoDesconto: "5.003,88", parcelamento: "10x de R$ 543,90 s/ juros", imagem: "Cortador_de_Grama_a_Combustão_202607221623.webp", galeria: ["Cortador_de_Grama_a_Combustão_202607221623.webp", "Cortador_de_Grama_a_Combustão_202607211141.webp", "Cortador_de_Grama_a_Combustão_202607211142.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Cortador de grama robusto com tração. Indicado para gramados médios e grandes. Possui cesto recolhedor espaçoso.", especificacoes: ["Largura de corte: 51 cm", "Motor: B&S Série 625 E OHV RS", "Cesto recolhedor: 55 Litros", "Tração: 1 velocidade"] },
+            { id: "rm-253-t", ativo: true, categoria: "outro", nome: "Cortador de Grama a Combustão RM 253 T", precoOriginal: "5.439,00", precoDesconto: "5.003,88", parcelamento: "10x de R$ 543,90 s/ juros", imagem: "Cortador_de_Grama_a_Combustão_202607221623.webp", galeria: ["Cortador_de_Grama_a_Combustão_202607221623.webp", "Captura_de_tela_2026-08-03_224258.png_202608032252.webp", "Cortador_de_Grama_a_Combustão_202607211142.webp"], tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, descricao: "Cortador de grama robusto com tração. Indicado para gramados médios e grandes. Possui cesto recolhedor espaçoso.", especificacoes: ["Largura de corte: 51 cm", "Motor: B&S Série 625 E OHV RS", "Cesto recolhedor: 55 Litros", "Tração: 1 velocidade"] },
             
             { id: "oleo-castrol-8017h", ativo: true, categoria: "acessorio", nome: "Óleo Castrol STIHL 8017 H", precoOriginal: "65,22", precoDesconto: "60,00", parcelamento: "1x de R$ 65,22 s/ juros", imagem: "Óleo_Castrol_STIHL_8017_H.png_202608032019.webp", galeria: ["Óleo_Castrol_STIHL_8017_H.png_202608032019.webp", "Óleo_Castrol_STIHL_8017_H.png_202608032020.webp", "Óleo_Castrol_STIHL_8017_H.png_202607231039.webp"], tag: "Destaque", tagColor: "bg-[#25D366] text-white", estrelas: 5, descricao: "Óleo lubrificante especialmente desenvolvido para motores 2 tempos. Garante excelente limpeza do motor, redução de carbonização e maior vida útil.", especificacoes: ["Volume: 500 ml", "Aplicação: Motores 2T", "Proporção recomendada: 1:50", "Proteção antidesgaste: Alta"] },
             
