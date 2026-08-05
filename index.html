@@ -9,12 +9,12 @@
     <link rel="icon" type="image/webp" href="favicon.png.webp">
     <link rel="apple-touch-icon" href="favicon.png.webp">
 
-    <!-- ================= INÍCIO: SEO E GOOGLE UCP ================= -->
+    <!-- SEO E GOOGLE UCP -->
     <meta name="description" content="Araguaia Máquinas em Anápolis-GO. Concessionária Elite STIHL. Motosserras, roçadeiras, peças originais, assistência técnica e licitações para o estado de Goiás.">
     <meta name="keywords" content="STIHL Anápolis, motosserras Goiás, roçadeiras STIHL, assistência técnica STIHL, peças STIHL, Araguaia Máquinas, Emídio Ferreira Neto">
     <meta name="author" content="Araguaia Máquinas">
 
-    <!-- Open Graph (Visual para WhatsApp, Facebook, Instagram, etc) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Araguaia Máquinas - Concessionária Elite STIHL">
     <meta property="og:description" content="Especialistas em equipamentos motorizados, peças originais e assistência técnica STIHL em Anápolis e região.">
     <meta property="og:image" content="Araguai.webp">
@@ -63,9 +63,8 @@
       ]
     }
     </script>
-    <!-- ================= FIM: SEO E GOOGLE UCP ================= -->
 
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -81,7 +80,6 @@
             --color-araguaia-yellow: #FFB800;
             --color-araguaia-yellow-dark: #A87C00;
             
-            /* Paleta Dark */
             --color-araguaia-darker: #080808;
             --color-araguaia-dark: #121212;
             --color-araguaia-surface: #18181b;
@@ -135,24 +133,23 @@
         <span class="text-gray-300"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
     </div>
 
-    <!-- Header Principal Modernizado -->
+    <!-- Header Principal -->
     <header class="bg-araguaia-surface/95 backdrop-blur-md border-b border-araguaia-border sticky top-0 z-50 transition-all">
         <div class="container mx-auto px-4 py-3 md:py-4">
             <div class="flex items-center justify-between gap-4 md:gap-6">
                 
-                <!-- Botão Menu Mobile -->
                 <button id="mobile-menu-btn" class="md:hidden text-white hover:text-araguaia-yellow p-1 transition-colors" aria-label="Abrir menu">
                     <i data-lucide="menu" class="w-7 h-7"></i>
                 </button>
 
-                <!-- Logo da Empresa Reestilizada (Maior e estilo Badge de Marca) -->
+                <!-- Logo da Empresa estilo Card/Badge -->
                 <a href="index.html" class="flex-shrink-0 flex items-center transition-all duration-300 hover:scale-[1.03] group">
                     <div class="bg-[#FFB800] p-1.5 sm:p-2 rounded-xl shadow-lg shadow-black/60 border border-[#FFB800]/40 flex items-center justify-center">
                         <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 lg:h-18 w-auto object-contain transition-transform">
                     </div>
                 </a>
 
-                <!-- Barra de Busca Moderna (Formato Pill) -->
+                <!-- Barra de Busca (Pill) -->
                 <div class="hidden md:block flex-1 max-w-2xl mx-2">
                     <form action="#" method="GET" class="relative w-full">
                         <input type="search" name="busca" placeholder="O que você está procurando? (Ex: Motosserra MS 170)" 
@@ -163,21 +160,20 @@
                     </form>
                 </div>
 
-                <!-- Botão Direto para o WhatsApp (Layout Redesign) -->
+                <!-- Botão WhatsApp (Sem ícone de imagem e com texto 'WhatsApp' no Mobile) -->
                 <div class="flex items-center ml-auto md:ml-0">
                     <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7a6e] text-white px-4 sm:px-5 py-2.5 rounded-full font-bold uppercase text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-[#25D366]/20 hover:shadow-[#25D366]/40 hover:-translate-y-0.5 border border-white/20">
                         <span class="relative flex h-2.5 w-2.5">
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
                         </span>
-                        <img src="Create_whatsapp_icon_202607231257-removebg-preview.png" alt="WhatsApp" class="w-5 h-5 sm:w-6 sm:h-6 object-contain">
                         <span class="hidden lg:inline tracking-wider">Vendas via WhatsApp</span>
-                        <span class="lg:hidden">Comprar</span>
+                        <span class="lg:hidden tracking-wider">WhatsApp</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Mobile Search Bar Redesenhada -->
+            <!-- Mobile Search Bar -->
             <div class="mt-3 md:hidden">
                 <form action="#" method="GET" class="relative w-full">
                     <input type="search" name="busca_mobile" placeholder="Buscar produtos..." 
@@ -189,7 +185,7 @@
             </div>
         </div>
 
-        <!-- Nav Menu Redesenhado com Efeitos Hover -->
+        <!-- Menu de Navegação -->
         <nav class="hidden md:block bg-araguaia-darker/60 border-t border-araguaia-border/40">
             <div class="container mx-auto px-4">
                 <ul class="flex items-center justify-center gap-8 py-3">
@@ -220,7 +216,7 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section com Slides -->
+        <!-- Hero Section -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
                 <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" class="w-full h-full object-cover object-center opacity-50">
@@ -228,7 +224,6 @@
             </div>
 
             <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32 flex-grow">
-                
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
                     <!-- Slide 1 -->
@@ -300,7 +295,6 @@
                         </a>
                     </div>
                 </div>
-
             </div>
 
             <!-- Indicadores do Slide -->
@@ -311,7 +305,7 @@
             </div>
         </section>
 
-        <!-- Categories Grid -->
+        <!-- Categorias -->
         <section id="categorias" class="py-12 bg-araguaia-dark border-b border-araguaia-border">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8">
@@ -369,12 +363,12 @@
                 </div>
 
                 <div id="vitrine-produtos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                    <!-- Javascript injeta os produtos aqui -->
+                    <!-- Vitrine populada via JS -->
                 </div>
             </div>
         </section>
 
-        <!-- ================= SEÇÃO SOBRE NÓS ================= -->
+        <!-- Seção Sobre Nós -->
         <section id="sobre" class="py-16 md:py-24 bg-araguaia-surface border-t border-araguaia-border overflow-hidden relative">
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
@@ -384,7 +378,6 @@
                         
                         <div class="relative rounded-xl overflow-hidden border border-araguaia-border bg-araguaia-dark shadow-2xl group">
                             <img src="Araguai.webp" alt="Araguaia Máquinas - Emídio Ferreira Neto e Filhos" class="w-full h-[420px] sm:h-[500px] lg:h-[540px] object-cover object-center group-hover:scale-105 transition-transform duration-700">
-                            
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
                             
                             <div class="absolute bottom-6 left-6 right-6 bg-araguaia-surface/90 backdrop-blur-md border border-araguaia-yellow/40 p-4 rounded-lg shadow-2xl flex items-center gap-4">
@@ -569,7 +562,7 @@
         </div>
     </footer>
 
-    <!-- Scripts Base -->
+    <!-- Script Lucide & Menu Mobile -->
     <script>
         function initLucide(){
             if(window.lucide){ lucide.createIcons(); }
@@ -590,7 +583,7 @@
         });
     </script>
 
-    <!-- Banco de Dados e Função de Vitrine -->
+    <!-- Script Banco de Dados, Vitrine e Envio WhatsApp -->
     <script>
         const produtos = [
             { id: "msa-70-cb", ativo: true, categoria: "motosserra", nome: "Motosserra a bateria MSA 70 C-B", precoOriginal: "2.539,00", precoDesconto: "2.335,88", parcelamento: "10x de R$ 253,90 s/ juros", imagem: "Motosserra_a_bateria_MSA_70_202607231129.webp", tag: "-8% OFF PIX", tagColor: "bg-red-600", estrelas: 5, avaliacoes: 0 },
@@ -677,6 +670,30 @@
         }
 
         renderizarVitrine('todos');
+
+        function comprarNoWhatsApp(nomeProduto, preco) {
+            const telefoneLoja = "556230997275";
+            const mensagem = `Olá! Gostaria de comprar o seguinte produto:\n*${nomeProduto}*\nValor: R$ ${preco}\n\nPode confirmar a disponibilidade e o frete?`;
+            const urlWhatsApp = `https://wa.me/${telefoneLoja}?text=${encodeURIComponent(mensagem)}`;
+
+            const dadosPedido = {
+                cliente: "Cliente Web",
+                telefone: "Não informado",
+                produtos: nomeProduto,
+                total: preco
+            };
+
+            const urlGoogleScript = "https://script.google.com/macros/s/AKfycbzeMZNx785Nf_-btYtXU1MOzSW2cO5b46dTpQpPn5c_sVOKPTWLevN4IXT8fsV-olSbTg/exec";
+
+            fetch(urlGoogleScript, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dadosPedido)
+            }).catch(err => console.log("Erro ao salvar na planilha:", err));
+
+            window.open(urlWhatsApp, "_blank");
+        }
     </script>
 
     <!-- Script de Busca -->
@@ -707,7 +724,7 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script de Loop do Hero Banner -->
+    <!-- Script do Hero Banner Loop -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const framesSlide1 = [
