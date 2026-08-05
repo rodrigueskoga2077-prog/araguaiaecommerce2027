@@ -10,7 +10,6 @@
     <link rel="apple-touch-icon" href="favicon.png.webp">
 
     <!-- ================= INÍCIO: SEO E GOOGLE UCP ================= -->
-    <!-- Meta Tags Básicas -->
     <meta name="description" content="Araguaia Máquinas em Anápolis-GO. Concessionária Elite STIHL. Motosserras, roçadeiras, peças originais, assistência técnica e licitações para o estado de Goiás.">
     <meta name="keywords" content="STIHL Anápolis, motosserras Goiás, roçadeiras STIHL, assistência técnica STIHL, peças STIHL, Araguaia Máquinas, Emídio Ferreira Neto">
     <meta name="author" content="Araguaia Máquinas">
@@ -21,7 +20,7 @@
     <meta property="og:image" content="Araguai.webp">
     <meta property="og:type" content="website">
 
-    <!-- Schema.org JSON-LD para Google UCP e Agentes de IA -->
+    <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -66,7 +65,7 @@
     </script>
     <!-- ================= FIM: SEO E GOOGLE UCP ================= -->
 
-    <!-- Google Fonts: Inter for reading, Anton for impact/prices, DM Sans for secondary labels -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -82,12 +81,12 @@
             --color-araguaia-yellow: #FFB800;
             --color-araguaia-yellow-dark: #A87C00;
             
-            /* Paleta Dark Baseada na Imagem */
-            --color-araguaia-darker: #000000;
+            /* Paleta Dark */
+            --color-araguaia-darker: #080808;
             --color-araguaia-dark: #121212;
-            --color-araguaia-surface: #1a1a1a;
-            --color-araguaia-surface-light: #242424;
-            --color-araguaia-border: #2a2a2a;
+            --color-araguaia-surface: #18181b;
+            --color-araguaia-surface-light: #27272a;
+            --color-araguaia-border: #3f3f46;
         }
     </style>
 
@@ -98,7 +97,6 @@
             color: #f4f4f4;
         }
         
-        /* Ajuste de Tipografia */
         .font-anton {
             font-family: 'Anton', sans-serif;
             letter-spacing: 0.02em;
@@ -108,25 +106,21 @@
             font-family: 'DM Sans', sans-serif;
         }
 
-        /* Scrollbar customizada Dark */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #121212; }
         ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #e6a600; }
         * { scrollbar-width: thin; scrollbar-color: #FFB800 #121212; }
 
-        /* Efeito de zoom no card de produto */
         .product-card:hover .product-img {
             transform: scale(1.05);
         }
 
-        /* Estrutura do Banner de Referência */
         .hero-banner-stihl {
             position: relative;
             width: 100%;
         }
 
-        /* Transição suave e elegante para os textos dos slides */
         .slide-content {
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -135,83 +129,90 @@
 <body class="flex flex-col min-h-screen">
 
     <!-- Top Bar -->
-    <div class="bg-araguaia-darker text-center py-1.5 px-4 text-xs sm:text-sm font-semibold tracking-wide">
+    <div class="bg-araguaia-darker text-center py-2 px-4 text-xs sm:text-sm font-semibold tracking-wider border-b border-white/5">
         <span class="text-gray-300">COMPRE ONLINE COM </span>
-        <span class="text-araguaia-yellow">FRETE GRÁTIS</span>
+        <span class="text-araguaia-yellow font-bold">FRETE GRÁTIS</span>
         <span class="text-gray-300"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
     </div>
 
-    <!-- Header Principal -->
-    <header class="bg-araguaia-surface border-b border-araguaia-border sticky top-0 z-50">
+    <!-- Header Principal Modernizado -->
+    <header class="bg-araguaia-surface/95 backdrop-blur-md border-b border-araguaia-border sticky top-0 z-50 transition-all">
         <div class="container mx-auto px-4 py-3 md:py-4">
-            <div class="flex items-center justify-between gap-4 md:gap-8">
+            <div class="flex items-center justify-between gap-4 md:gap-6">
                 
-                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-araguaia-yellow transition-colors" aria-label="Abrir menu">
+                <!-- Botão Menu Mobile -->
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-araguaia-yellow p-1 transition-colors" aria-label="Abrir menu">
                     <i data-lucide="menu" class="w-7 h-7"></i>
                 </button>
 
-                <!-- Logo da Empresa em Imagem -->
-                <a href="index.html" class="flex-shrink-0 flex items-center transition-opacity hover:opacity-90">
-                    <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-14 w-auto object-contain rounded-sm">
+                <!-- Logo da Empresa Reestilizada (Maior e estilo Badge de Marca) -->
+                <a href="index.html" class="flex-shrink-0 flex items-center transition-all duration-300 hover:scale-[1.03] group">
+                    <div class="bg-[#FFB800] p-1.5 sm:p-2 rounded-xl shadow-lg shadow-black/60 border border-[#FFB800]/40 flex items-center justify-center">
+                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 lg:h-18 w-auto object-contain transition-transform">
+                    </div>
                 </a>
 
-                <!-- Barra de Busca -->
-                <div class="hidden md:block flex-1 max-w-2xl">
+                <!-- Barra de Busca Moderna (Formato Pill) -->
+                <div class="hidden md:block flex-1 max-w-2xl mx-2">
                     <form action="#" method="GET" class="relative w-full">
                         <input type="search" name="busca" placeholder="O que você está procurando? (Ex: Motosserra MS 170)" 
-                            class="w-full bg-araguaia-surface-light border border-transparent focus:border-gray-500 focus:ring-0 rounded-sm py-3 px-5 pr-12 text-sm text-white placeholder-gray-400 transition-all outline-none">
-                        <button type="submit" class="absolute right-0 top-0 h-full px-4 text-gray-400 hover:text-white transition-colors">
-                            <i data-lucide="search" class="w-5 h-5"></i>
+                            class="w-full bg-araguaia-surface-light/80 border border-araguaia-border focus:border-araguaia-yellow focus:ring-1 focus:ring-araguaia-yellow rounded-full py-3 px-6 pr-14 text-sm text-white placeholder-gray-400 transition-all outline-none backdrop-blur-sm">
+                        <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 w-9 bg-araguaia-yellow text-black hover:bg-white rounded-full flex items-center justify-center transition-colors shadow-md">
+                            <i data-lucide="search" class="w-4 h-4 stroke-[2.5]"></i>
                         </button>
                     </form>
                 </div>
 
-                <!-- Botão Direto para o WhatsApp no Topo -->
-                <div class="flex items-center ml-auto">
-                    <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2 sm:gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-md font-bold uppercase text-[11px] sm:text-sm transition-all duration-300 shadow-[0_4px_14px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.5)] hover:-translate-y-0.5">
-                        <img src="Create_whatsapp_icon_202607231257-removebg-preview.png" alt="WhatsApp" class="w-7 h-7 sm:w-8 sm:h-8 object-contain scale-[1.4] drop-shadow-md">
-                        <span class="hidden sm:inline">Vendas via WhatsApp</span>
-                        <span class="sm:hidden">Comprar</span>
+                <!-- Botão Direto para o WhatsApp (Layout Redesign) -->
+                <div class="flex items-center ml-auto md:ml-0">
+                    <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7a6e] text-white px-4 sm:px-5 py-2.5 rounded-full font-bold uppercase text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-[#25D366]/20 hover:shadow-[#25D366]/40 hover:-translate-y-0.5 border border-white/20">
+                        <span class="relative flex h-2.5 w-2.5">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                        </span>
+                        <img src="Create_whatsapp_icon_202607231257-removebg-preview.png" alt="WhatsApp" class="w-5 h-5 sm:w-6 sm:h-6 object-contain">
+                        <span class="hidden lg:inline tracking-wider">Vendas via WhatsApp</span>
+                        <span class="lg:hidden">Comprar</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Mobile Search Bar -->
-            <div class="mt-4 md:hidden">
+            <!-- Mobile Search Bar Redesenhada -->
+            <div class="mt-3 md:hidden">
                 <form action="#" method="GET" class="relative w-full">
                     <input type="search" name="busca_mobile" placeholder="Buscar produtos..." 
-                        class="w-full bg-araguaia-surface-light border border-transparent text-white placeholder-gray-400 rounded-sm py-2.5 px-4 pr-12 text-sm outline-none focus:border-gray-500">
-                    <button type="submit" class="absolute right-0 top-0 h-full px-4 text-gray-400">
-                        <i data-lucide="search" class="w-5 h-5"></i>
+                        class="w-full bg-araguaia-surface-light border border-araguaia-border text-white placeholder-gray-400 rounded-full py-2.5 px-5 pr-12 text-sm outline-none focus:border-araguaia-yellow">
+                    <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 bg-araguaia-yellow text-black rounded-full flex items-center justify-center">
+                        <i data-lucide="search" class="w-4 h-4 stroke-[2.5]"></i>
                     </button>
                 </form>
             </div>
         </div>
 
-        <!-- Nav Menu (Desktop) -->
-        <nav class="hidden md:block bg-araguaia-surface border-t border-araguaia-border/50">
+        <!-- Nav Menu Redesenhado com Efeitos Hover -->
+        <nav class="hidden md:block bg-araguaia-darker/60 border-t border-araguaia-border/40">
             <div class="container mx-auto px-4">
-                <ul class="flex items-center justify-center gap-10 py-3.5">
-                    <li><a href="#destaques" onclick="renderizarVitrine('motosserra')" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Motosserras</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('rocadeira')" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Roçadeiras</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('soprador')" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Sopradores</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('lavadora')" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Lavadoras</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('bateria')" class="text-sm font-bold uppercase tracking-wider text-gray-200 hover:text-araguaia-yellow transition-colors">Baterias</a></li>
-                    <li><a href="#sobre" class="text-sm font-bold uppercase tracking-wider text-araguaia-yellow hover:text-white transition-colors">Sobre Nós</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('todos')" class="text-sm font-bold uppercase tracking-wider text-red-500 hover:text-red-400 transition-colors">Ofertas</a></li>
+                <ul class="flex items-center justify-center gap-8 py-3">
+                    <li><a href="#destaques" onclick="renderizarVitrine('motosserra')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Motosserras</a></li>
+                    <li><a href="#destaques" onclick="renderizarVitrine('rocadeira')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Roçadeiras</a></li>
+                    <li><a href="#destaques" onclick="renderizarVitrine('soprador')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Sopradores</a></li>
+                    <li><a href="#destaques" onclick="renderizarVitrine('lavadora')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Lavadoras</a></li>
+                    <li><a href="#destaques" onclick="renderizarVitrine('bateria')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Baterias</a></li>
+                    <li><a href="#sobre" class="text-xs font-bold uppercase tracking-widest text-araguaia-yellow hover:text-white transition-colors relative py-1">Sobre Nós</a></li>
+                    <li><a href="#destaques" onclick="renderizarVitrine('todos')" class="text-xs font-bold uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>Ofertas</a></li>
                 </ul>
             </div>
         </nav>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-araguaia-surface shadow-xl border-t border-araguaia-border z-40">
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-araguaia-surface shadow-2xl border-t border-araguaia-border z-40">
             <ul class="flex flex-col py-2">
-                <li><a href="#destaques" onclick="renderizarVitrine('motosserra')" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Motosserras</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('rocadeira')" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Roçadeiras</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('soprador')" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Sopradores</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('lavadora')" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Lavadoras</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('bateria')" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Baterias</a></li>
-                <li><a href="#sobre" class="block px-6 py-4 border-b border-araguaia-border/50 font-bold uppercase text-sm text-araguaia-yellow hover:bg-araguaia-surface-light">Sobre Nós</a></li>
+                <li><a href="#destaques" onclick="renderizarVitrine('motosserra')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Motosserras</a></li>
+                <li><a href="#destaques" onclick="renderizarVitrine('rocadeira')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Roçadeiras</a></li>
+                <li><a href="#destaques" onclick="renderizarVitrine('soprador')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Sopradores</a></li>
+                <li><a href="#destaques" onclick="renderizarVitrine('lavadora')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Lavadoras</a></li>
+                <li><a href="#destaques" onclick="renderizarVitrine('bateria')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Baterias</a></li>
+                <li><a href="#sobre" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-araguaia-yellow hover:bg-araguaia-surface-light">Sobre Nós</a></li>
                 <li><a href="#destaques" onclick="renderizarVitrine('todos')" class="block px-6 py-4 text-red-500 font-bold uppercase text-sm hover:bg-araguaia-surface-light">Ofertas</a></li>
             </ul>
         </div>
@@ -378,18 +379,14 @@
             <div class="container mx-auto px-4">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                     
-                    <!-- Coluna de Imagem Sofisticada -->
                     <div class="lg:col-span-5 relative order-2 lg:order-1">
-                        <!-- Brilho Decorativo Dourado ao Fundo -->
                         <div class="absolute -inset-3 bg-gradient-to-tr from-araguaia-yellow/20 via-araguaia-yellow-dark/10 to-transparent rounded-2xl blur-xl opacity-70"></div>
                         
                         <div class="relative rounded-xl overflow-hidden border border-araguaia-border bg-araguaia-dark shadow-2xl group">
                             <img src="Araguai.webp" alt="Araguaia Máquinas - Emídio Ferreira Neto e Filhos" class="w-full h-[420px] sm:h-[500px] lg:h-[540px] object-cover object-center group-hover:scale-105 transition-transform duration-700">
                             
-                            <!-- Sombreamento Suave de Degradê -->
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
                             
-                            <!-- Selo Flutuante de Tradição -->
                             <div class="absolute bottom-6 left-6 right-6 bg-araguaia-surface/90 backdrop-blur-md border border-araguaia-yellow/40 p-4 rounded-lg shadow-2xl flex items-center gap-4">
                                 <div class="bg-araguaia-yellow text-black p-3 rounded-md flex-shrink-0">
                                     <i data-lucide="award" class="w-7 h-7 stroke-[2]"></i>
@@ -402,7 +399,6 @@
                         </div>
                     </div>
 
-                    <!-- Coluna do Texto Institucional -->
                     <div class="lg:col-span-7 order-1 lg:order-2 flex flex-col justify-center">
                         <div class="inline-flex items-center gap-2 bg-araguaia-yellow/10 border border-araguaia-yellow/30 px-3.5 py-1.5 rounded-full w-max mb-5">
                             <i data-lucide="shield-check" class="w-4 h-4 text-araguaia-yellow"></i>
@@ -421,7 +417,6 @@
                             Juntos, pai e filhos consolidaram a Araguaia Máquinas como uma grande referência de confiança, bom atendimento e credibilidade em todo o estado de Goiás. Como <strong class="text-araguaia-yellow">Concessionária Elite STIHL</strong>, oferecemos aos nossos clientes uma linha completa de equipamentos de ponta, peças 100% originais e um serviço de assistência técnica de alta qualidade. Além do atendimento no varejo, atuamos com excelência no fornecimento via licitações estaduais, garantindo agilidade e compromisso com o setor público.
                         </p>
 
-                        <!-- Destaques em Cartões -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-2">
                             <div class="flex items-start gap-3 p-3.5 rounded-lg bg-araguaia-surface-light border border-araguaia-border">
                                 <div class="p-2 rounded bg-araguaia-dark text-araguaia-yellow flex-shrink-0">
@@ -443,7 +438,6 @@
                             </div>
                         </div>
 
-                        <!-- Caixa de Missão -->
                         <div class="mt-5 p-4 rounded-lg bg-araguaia-surface-light border-l-4 border-araguaia-yellow shadow-md">
                             <p class="text-sm md:text-base font-semibold text-gray-200 italic">
                                 "Seja para o campo, a construção civil, oficinas mecânicas ou para o uso hobbista, nossa missão é entregar a ferramenta certa e a solução ideal para o seu trabalho não parar."
@@ -454,7 +448,6 @@
                 </div>
             </div>
         </section>
-        <!-- ================= FIM DA SEÇÃO SOBRE NÓS ================= -->
 
         <!-- Trust Features -->
         <section class="bg-araguaia-surface border-y border-araguaia-border py-8">
@@ -491,11 +484,11 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                 
-                <!-- Coluna 1: Sobre & Newsletter -->
                 <div class="lg:col-span-1">
-                    <!-- Logo em Imagem no Rodapé -->
                     <a href="index.html" class="inline-block mb-6 transition-opacity hover:opacity-90">
-                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 w-auto object-contain rounded-sm">
+                        <div class="bg-[#FFB800] p-1.5 rounded-lg inline-block">
+                            <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 w-auto object-contain">
+                        </div>
                     </a>
                     
                     <p class="text-sm mb-6 leading-relaxed text-gray-400">
@@ -505,15 +498,14 @@
                     <form action="#" method="POST" class="flex flex-col gap-2">
                         <div class="flex">
                             <input type="email" name="email_newsletter" placeholder="Seu melhor e-mail" required 
-                                class="w-full bg-araguaia-surface border border-araguaia-border text-white px-4 py-2 text-sm focus:outline-none focus:border-araguaia-yellow rounded-l-sm">
-                            <button type="submit" class="bg-araguaia-yellow text-black px-4 py-2 font-bold uppercase text-sm hover:bg-white transition-colors rounded-r-sm">
+                                class="w-full bg-araguaia-surface border border-araguaia-border text-white px-4 py-2 text-sm focus:outline-none focus:border-araguaia-yellow rounded-l-full">
+                            <button type="submit" class="bg-araguaia-yellow text-black px-4 py-2 font-bold uppercase text-sm hover:bg-white transition-colors rounded-r-full">
                                 <i data-lucide="arrow-right" class="w-5 h-5"></i>
                             </button>
                         </div>
                     </form>
                 </div>
 
-                <!-- Coluna 2: Endereço -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Nossa Loja</h4>
                     <ul class="flex flex-col gap-4 text-sm">
@@ -529,7 +521,6 @@
                     </ul>
                 </div>
 
-                <!-- Coluna 3: Horário de Funcionamento -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Atendimento</h4>
                     <ul class="flex flex-col gap-3 text-sm">
@@ -548,7 +539,6 @@
                     </ul>
                 </div>
 
-                <!-- Coluna 4: Fale Conosco -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Fale Conosco</h4>
                     <ul class="flex flex-col gap-4 text-sm">
@@ -563,7 +553,6 @@
                 </div>
             </div>
 
-            <!-- Bottom Bar com Copyright e CNPJ -->
             <div class="pt-8 border-t border-araguaia-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 text-center md:text-left">
                 <p>
                     <span class="font-medium text-gray-400">CNPJ: 10.655.510/0001-50</span>
@@ -688,30 +677,6 @@
         }
 
         renderizarVitrine('todos');
-
-        function comprarNoWhatsApp(nomeProduto, preco) {
-            const telefoneLoja = "556230997275";
-            const mensagem = `Olá! Gostaria de comprar o seguinte produto:\n*${nomeProduto}*\nValor: R$ ${preco}\n\nPode confirmar a disponibilidade e o frete?`;
-            const urlWhatsApp = `https://wa.me/${telefoneLoja}?text=${encodeURIComponent(mensagem)}`;
-
-            const dadosPedido = {
-                cliente: "Cliente Web",
-                telefone: "Não informado",
-                produtos: nomeProduto,
-                total: preco
-            };
-
-            const urlGoogleScript = "https://script.google.com/macros/s/AKfycbzeMZNx785Nf_-btYtXU1MOzSW2cO5b46dTpQpPn5c_sVOKPTWLevN4IXT8fsV-olSbTg/exec";
-
-            fetch(urlGoogleScript, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dadosPedido)
-            }).catch(err => console.log("Erro ao salvar na planilha:", err));
-
-            window.open(urlWhatsApp, "_blank");
-        }
     </script>
 
     <!-- Script de Busca -->
