@@ -122,6 +122,12 @@
         .slide-content {
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        
+        /* Otimização extra de repintura do Canvas */
+        #hero-bg-canvas {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -216,10 +222,11 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section -->
+        <!-- Hero Section OTIMIZADO PARA ADS COM CANVAS -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" class="w-full h-full object-cover object-center opacity-50">
+                <!-- Tag Canvas Substituindo a Imagem -->
+                <canvas id="hero-bg-canvas" class="w-full h-full object-cover object-center opacity-50"></canvas>
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
             </div>
 
@@ -670,30 +677,6 @@
         }
 
         renderizarVitrine('todos');
-
-        function comprarNoWhatsApp(nomeProduto, preco) {
-            const telefoneLoja = "556230997275";
-            const mensagem = `Olá! Gostaria de comprar o seguinte produto:\n*${nomeProduto}*\nValor: R$ ${preco}\n\nPode confirmar a disponibilidade e o frete?`;
-            const urlWhatsApp = `https://wa.me/${telefoneLoja}?text=${encodeURIComponent(mensagem)}`;
-
-            const dadosPedido = {
-                cliente: "Cliente Web",
-                telefone: "Não informado",
-                produtos: nomeProduto,
-                total: preco
-            };
-
-            const urlGoogleScript = "https://script.google.com/macros/s/AKfycbzeMZNx785Nf_-btYtXU1MOzSW2cO5b46dTpQpPn5c_sVOKPTWLevN4IXT8fsV-olSbTg/exec";
-
-            fetch(urlGoogleScript, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dadosPedido)
-            }).catch(err => console.log("Erro ao salvar na planilha:", err));
-
-            window.open(urlWhatsApp, "_blank");
-        }
     </script>
 
     <!-- Script de Busca -->
@@ -724,9 +707,10 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script do Hero Banner Loop -->
+    <!-- NOVO SCRIPT CANVAS ALTA PERFORMANCE PARA ADS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 1. Matém exatamanente os arrays de imagens originais para evitar erros 404
             const framesSlide1 = [
                 "0001.webp", "0004.webp", "0007.webp", "0010.webp", "0013.webp",
                 "0016.webp", "0019.webp", "0022.webp", "0025.webp", "0028.webp",
@@ -738,36 +722,54 @@
             ];
 
             const framesSlide2 = [];
-            for (let i = 1; i <= 99; i++) {
-                framesSlide2.push(`slide2 (${i}).webp`);
-            }
+            for (let i = 1; i <= 99; i++) framesSlide2.push(`slide2 (${i}).webp`);
 
             const framesSlide3 = [];
-            for (let i = 1; i <= 100; i++) {
-                framesSlide3.push(`SLIDE3 (${i}).webp`);
-            }
+            for (let i = 1; i <= 100; i++) framesSlide3.push(`SLIDE3 (${i}).webp`);
 
             const allVideos = [framesSlide1, framesSlide2, framesSlide3];
-
-            const bgImageElement = document.getElementById('hero-bg-frame');
+            
+            // 2. Elementos e Setup
+            const canvas = document.getElementById('hero-bg-canvas');
+            const ctx = canvas.getContext('2d');
             const slides = document.querySelectorAll('.slide-content');
             const indicators = document.querySelectorAll('.slide-indicator');
-            
+
             let currentSlide = 0;
             let currentFrameIndex = 0;
-            const frameDelay = 90; 
+            let preloadedImages = [[], [], []];
+            
+            const frameDelay = 90; // Mantém a sua velocidade de 90ms original
+            let lastRenderTime = 0;
+            let animationFrameId;
 
-            framesSlide1.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
-
-            function changeSlide(index) {
-                currentSlide = index;
-                currentFrameIndex = 0; 
+            // 3. Preload das Imagens para a memória
+            function preloadImages(slideIndex, callback) {
+                let loadedCount = 0;
+                const totalFrames = allVideos[slideIndex].length;
                 
+                if (preloadedImages[slideIndex].length === totalFrames) {
+                    if (callback) callback();
+                    return;
+                }
+
+                allVideos[slideIndex].forEach((src, i) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        loadedCount++;
+                        if (loadedCount === totalFrames && callback) {
+                            callback();
+                        }
+                    };
+                    img.src = src;
+                    preloadedImages[slideIndex][i] = img;
+                });
+            }
+
+            // 4. Mudança de Interface (Textos)
+            function changeSlideUI(index) {
                 slides.forEach((slide, i) => {
-                    if (i === currentSlide) {
+                    if (i === index) {
                         slide.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
                         slide.classList.add('opacity-100', 'translate-y-0');
                         if(indicators[i]) indicators[i].classList.replace('bg-white/30', 'bg-araguaia-yellow');
@@ -779,39 +781,64 @@
                 });
             }
 
+            // 5. Transição entre vídeos
+            function goToSlide(index) {
+                cancelAnimationFrame(animationFrameId);
+                currentSlide = index;
+                currentFrameIndex = 0;
+                changeSlideUI(index);
+
+                preloadImages(currentSlide, () => {
+                    lastRenderTime = performance.now();
+                    renderLoop(lastRenderTime);
+                    
+                    // Pré-carrega o próximo silenciosamente
+                    const nextSlide = (currentSlide + 1) % slides.length;
+                    preloadImages(nextSlide);
+                });
+            }
+
+            // 6. O Loop de renderização (Super fluido)
+            function renderLoop(currentTime) {
+                animationFrameId = requestAnimationFrame(renderLoop);
+                
+                const deltaTime = currentTime - lastRenderTime;
+
+                if (deltaTime >= frameDelay) {
+                    lastRenderTime = currentTime - (deltaTime % frameDelay);
+
+                    const frames = preloadedImages[currentSlide];
+                    if (frames && frames[currentFrameIndex]) {
+                        const img = frames[currentFrameIndex];
+                        // Apaga o frame antigo e desenha o novo instantaneamente
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    }
+
+                    currentFrameIndex++;
+
+                    if (currentFrameIndex >= frames.length) {
+                        let nextSlide = (currentSlide + 1) % slides.length;
+                        goToSlide(nextSlide);
+                    }
+                }
+            }
+
             indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => { changeSlide(index); });
+                indicator.addEventListener('click', () => { goToSlide(index); });
             });
 
-            function playVideoLoop() {
-                let currentFrames = allVideos[currentSlide];
+            // 7. HACK DE VELOCIDADE PARA ADS (LCP): Desenha a imagem 1 imediatamente!
+            const firstImg = new Image();
+            firstImg.onload = () => {
+                canvas.width = firstImg.width;
+                canvas.height = firstImg.height;
+                ctx.drawImage(firstImg, 0, 0, canvas.width, canvas.height);
                 
-                if (bgImageElement && currentFrames[currentFrameIndex]) {
-                    bgImageElement.src = currentFrames[currentFrameIndex];
-                }
-                
-                currentFrameIndex++;
-                if (currentFrameIndex >= currentFrames.length) {
-                    let nextSlide = (currentSlide + 1) % slides.length;
-                    changeSlide(nextSlide); 
-                }
-                
-                let preFrameIndex = currentFrameIndex;
-                if (preFrameIndex < currentFrames.length) {
-                    const nextImg = new Image();
-                    nextImg.src = currentFrames[preFrameIndex];
-                } else {
-                    let preSlide = (currentSlide + 1) % slides.length;
-                    const firstImg = new Image();
-                    firstImg.src = allVideos[preSlide][0];
-                }
-                
-                setTimeout(playVideoLoop, frameDelay);
-            }
-
-            if (bgImageElement && allVideos[0].length > 0) {
-                setTimeout(playVideoLoop, frameDelay);
-            }
+                // Inicia o processo do carrossel
+                goToSlide(0);
+            };
+            firstImg.src = allVideos[0][0]; // "0001.webp"
         });
     </script>
 </body>
