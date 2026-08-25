@@ -122,12 +122,6 @@
         .slide-content {
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
-        /* Otimização extra de repintura do Canvas */
-        #hero-bg-canvas {
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -222,11 +216,19 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section OTIMIZADO PARA ADS COM CANVAS -->
+        <!-- Hero Section OTIMIZADO PARA ADS COM VÍDEO NATIVO -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- Tag Canvas Substituindo a Imagem -->
-                <canvas id="hero-bg-canvas" class="w-full h-full object-cover object-center opacity-50"></canvas>
+                
+                <!-- AQUI ESTÁ A MÁGICA: TAG DE VÍDEO NATIVO DO HTML5 -->
+                <video id="hero-bg-video" 
+                       class="w-full h-full object-cover object-center opacity-50" 
+                       autoplay muted playsinline 
+                       poster="0001.webp">
+                    <source src="slide1.mp4" type="video/mp4">
+                </video>
+                <!-- =============================================== -->
+
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
             </div>
 
@@ -715,80 +717,28 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- SCRIPT DEFINITIVO: CANVAS COM BUFFERING E PRIORIDADE DE PRODUTOS -->
+    <!-- NOVO SCRIPT PARA VÍDEO NATIVO (MP4) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Arrays rigorosamente idênticos ao seu original
-            const framesSlide1 = [
-                "0001.webp", "0004.webp", "0007.webp", "0010.webp", "0013.webp",
-                "0016.webp", "0019.webp", "0022.webp", "0025.webp", "0028.webp",
-                "0031.webp", "0034.webp", "0037.webp", "0040.webp", "0043.webp",
-                "0046.webp", "0049.webp", "0052.webp", "0055.webp", "0058.webp",
-                "0061.webp", "0064.webp", "0067.webp", "0070.webp", "0073.webp",
-                "0076.webp", "0079.webp", "0082.webp", "0085.webp", "0088.webp",
-                "0091.webp", "0094.webp", "0097.webp"
+            // Arrays com os vídeos mp4 e suas respectivas capas (posters) para evitar tela preta
+            const videos = [
+                { src: "slide1.mp4", poster: "0001.webp" },
+                { src: "cena2.mp4", poster: "slide2 (1).webp" },
+                { src: "slide3.mp4", poster: "SLIDE3 (1).webp" }
             ];
 
-            const framesSlide2 = [];
-            for (let i = 1; i <= 99; i++) framesSlide2.push(`slide2 (${i}).webp`);
-
-            const framesSlide3 = [];
-            for (let i = 1; i <= 100; i++) framesSlide3.push(`SLIDE3 (${i}).webp`);
-
-            const allVideos = [framesSlide1, framesSlide2, framesSlide3];
-            
-            const canvas = document.getElementById('hero-bg-canvas');
-            // 'alpha: false' dá um boost enorme na performance gráfica do celular
-            const ctx = canvas.getContext('2d', { alpha: false }); 
+            const videoElement = document.getElementById('hero-bg-video');
             const slides = document.querySelectorAll('.slide-content');
             const indicators = document.querySelectorAll('.slide-indicator');
-            const heroSection = document.getElementById('hero');
-
+            
             let currentSlide = 0;
-            let currentFrameIndex = 0;
-            let frameDelay = 90;
-            let lastRenderTime = 0;
-            let isPaused = false;
-            let animationFrameId;
 
-            // CACHE INTELIGENTE DE IMAGENS (Evita travar a rede)
-            const frameCache = { 0: [], 1: [], 2: [] };
-            let downloadSlide = 0;
-            let downloadIndex = 1; // Começa da foto 1 (a foto 0 baixa instantâneo)
-
-            // SISTEMA DE DOWNLOAD: Baixa apenas 1 foto de cada vez, silenciosamente.
-            function baixarProximoFrame() {
-                if (downloadSlide >= allVideos.length) return;
-
-                const src = allVideos[downloadSlide][downloadIndex];
-                const img = new Image();
-
-                img.onload = () => {
-                    frameCache[downloadSlide][downloadIndex] = img;
-                    avancarIndiceDownload();
-                    baixarProximoFrame();
-                };
-
-                img.onerror = () => {
-                    frameCache[downloadSlide][downloadIndex] = null; // Ignora erro 404
-                    avancarIndiceDownload();
-                    baixarProximoFrame();
-                };
-
-                img.src = src;
-            }
-
-            function avancarIndiceDownload() {
-                downloadIndex++;
-                if (downloadIndex >= allVideos[downloadSlide].length) {
-                    downloadSlide++;
-                    downloadIndex = 0;
-                }
-            }
-
-            function changeSlideUI(index) {
+            function changeSlide(index) {
+                currentSlide = index;
+                
+                // Troca as classes do Tailwind para o texto de cada slide
                 slides.forEach((slide, i) => {
-                    if (i === index) {
+                    if (i === currentSlide) {
                         slide.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
                         slide.classList.add('opacity-100', 'translate-y-0');
                         if(indicators[i]) indicators[i].classList.replace('bg-white/30', 'bg-araguaia-yellow');
@@ -798,101 +748,38 @@
                         if(indicators[i]) indicators[i].classList.replace('bg-araguaia-yellow', 'bg-white/30');
                     }
                 });
-            }
 
-            // O LOOP DE VÍDEO (IMPOSSÍVEL PISCAR A TELA)
-            function renderLoop(currentTime) {
-                if (!isPaused) {
-                    animationFrameId = requestAnimationFrame(renderLoop);
-                }
-
-                if (currentTime - lastRenderTime < frameDelay) return;
-
-                const framesAtuais = allVideos[currentSlide];
-
-                // PULO DO GATO: Só avança se a imagem já existir no cache E estiver 100% baixada
-                const img = frameCache[currentSlide][currentFrameIndex];
-
-                if (img && img.complete && img.naturalWidth !== 0) {
-                    // Desenha perfeitamente
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    lastRenderTime = currentTime;
-                    currentFrameIndex++;
-
-                    // Chegou no final do vídeo atual, muda pro próximo
-                    if (currentFrameIndex >= framesAtuais.length) {
-                        currentSlide = (currentSlide + 1) % slides.length;
-                        currentFrameIndex = 0;
-                        changeSlideUI(currentSlide);
-                    }
-                } else if (img === null) {
-                    // Imagem deu erro 404, pula o frame
-                    currentFrameIndex++;
-                } else {
-                    // BUFERIZANDO: A imagem ainda não chegou da internet. 
-                    // NÃO APAGA O CANVAS. Apenas deixa a imagem anterior parada até a próxima carregar.
+                // Troca a fonte do vídeo e a capa
+                if (videoElement) {
+                    videoElement.poster = videos[currentSlide].poster;
+                    videoElement.src = videos[currentSlide].src;
+                    
+                    // O play() garante que o novo vídeo comece imediatamente
+                    videoElement.play().catch(e => console.log("O navegador bloqueou o autoplay:", e));
                 }
             }
 
+            // Ação de clique nas bolinhas de baixo (indicadores)
             indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    currentSlide = index;
-                    currentFrameIndex = 0;
-                    changeSlideUI(index);
-
-                    if (frameCache[currentSlide][0]) {
-                        ctx.drawImage(frameCache[currentSlide][0], 0, 0, canvas.width, canvas.height);
-                    }
+                indicator.addEventListener('click', () => { 
+                    changeSlide(index); 
                 });
             });
 
-            // PAUSAR FORA DA TELA PARA NÃO DERRETER O CELULAR
-            if ('IntersectionObserver' in window && heroSection) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        isPaused = !entry.isIntersecting;
-                        if (!isPaused) {
-                            lastRenderTime = performance.now();
-                            requestAnimationFrame(renderLoop);
-                        }
-                    });
-                }, { threshold: 0 });
-                observer.observe(heroSection);
+            // Loop Automático: Quando o vídeo atual terminar, pula pro próximo
+            if (videoElement) {
+                videoElement.addEventListener('ended', () => {
+                    let nextSlide = (currentSlide + 1) % slides.length;
+                    changeSlide(nextSlide);
+                });
             }
 
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    isPaused = true;
-                } else if (heroSection.getBoundingClientRect().top < window.innerHeight) {
-                    isPaused = false;
-                    lastRenderTime = performance.now();
-                    requestAnimationFrame(renderLoop);
-                }
-            });
-
-            // INÍCIO IMEDIATO DO FRAME 0
-            if (allVideos[0].length > 0) {
-                const firstImg = new Image();
-                firstImg.onload = () => {
-                    // Ajusta a proporção
-                    canvas.width = firstImg.width || 1920;
-                    canvas.height = firstImg.height || 1080;
-                    
-                    // Salva e desenha
-                    frameCache[0][0] = firstImg;
-                    ctx.drawImage(firstImg, 0, 0, canvas.width, canvas.height);
-                    
-                    changeSlideUI(0);
-                    lastRenderTime = performance.now();
-                    requestAnimationFrame(renderLoop);
-                };
-                firstImg.src = allVideos[0][0];
+            // Força o carregamento do primeiro slide logo de cara
+            if (videoElement && videos.length > 0) {
+                videoElement.src = videos[0].src;
+                videoElement.poster = videos[0].poster;
+                videoElement.play().catch(e => console.log(e));
             }
-
-            // O MAIS IMPORTANTE: ESPERA O SITE ABRIR PRA COMEÇAR A BAIXAR AS 300 FOTOS DO BANNER
-            window.addEventListener('load', () => {
-                setTimeout(baixarProximoFrame, 500); 
-            });
         });
     </script>
 </body>
