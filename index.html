@@ -69,7 +69,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS v4 -->
+    <!-- 
+      ATENÇÃO PARA ADS: 
+      Para deixar o site ultrarrápido, remova este script do Tailwind abaixo e 
+      substitua por um arquivo CSS compilado: <link rel="stylesheet" href="style.css"> 
+    -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <!-- Lucide Icons -->
@@ -122,12 +126,6 @@
         .slide-content {
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
-        /* Otimização extra de repintura do Canvas */
-        #hero-bg-canvas {
-            will-change: transform, opacity;
-            transform: translateZ(0);
-        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -166,7 +164,7 @@
                     </form>
                 </div>
 
-                <!-- Botão WhatsApp (Sem ícone de imagem e com texto 'WhatsApp' no Mobile) -->
+                <!-- Botão WhatsApp -->
                 <div class="flex items-center ml-auto md:ml-0">
                     <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7a6e] text-white px-4 sm:px-5 py-2.5 rounded-full font-bold uppercase text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-[#25D366]/20 hover:shadow-[#25D366]/40 hover:-translate-y-0.5 border border-white/20">
                         <span class="relative flex h-2.5 w-2.5">
@@ -222,11 +220,11 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section OTIMIZADO PARA ADS COM CANVAS -->
+        <!-- Hero Section -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- Tag Canvas Substituindo a Imagem -->
-                <canvas id="hero-bg-canvas" class="w-full h-full object-cover object-center opacity-50"></canvas>
+                <!-- Adicionado o atributo decoding="async" e will-change para acelerar o navegador na troca de imagens -->
+                <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" decoding="async" class="w-full h-full object-cover object-center opacity-50 will-change-contents">
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
             </div>
 
@@ -707,10 +705,10 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- NOVO SCRIPT CANVAS ALTA PERFORMANCE PARA ADS -->
+    <!-- Script do Hero Banner Corrigido (Loop Rigoroso de 90ms e Preload Silencioso) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. Matém exatamanente os arrays de imagens originais para evitar erros 404
+            // Seus arrays originais intocados
             const framesSlide1 = [
                 "0001.webp", "0004.webp", "0007.webp", "0010.webp", "0013.webp",
                 "0016.webp", "0019.webp", "0022.webp", "0025.webp", "0028.webp",
@@ -720,56 +718,41 @@
                 "0076.webp", "0079.webp", "0082.webp", "0085.webp", "0088.webp",
                 "0091.webp", "0094.webp", "0097.webp"
             ];
-
+            
             const framesSlide2 = [];
             for (let i = 1; i <= 99; i++) framesSlide2.push(`slide2 (${i}).webp`);
-
+            
             const framesSlide3 = [];
             for (let i = 1; i <= 100; i++) framesSlide3.push(`SLIDE3 (${i}).webp`);
 
             const allVideos = [framesSlide1, framesSlide2, framesSlide3];
             
-            // 2. Elementos e Setup
-            const canvas = document.getElementById('hero-bg-canvas');
-            const ctx = canvas.getContext('2d');
+            const bgImageElement = document.getElementById('hero-bg-frame');
             const slides = document.querySelectorAll('.slide-content');
             const indicators = document.querySelectorAll('.slide-indicator');
-
+            
             let currentSlide = 0;
             let currentFrameIndex = 0;
-            let preloadedImages = [[], [], []];
-            
-            const frameDelay = 90; // Mantém a sua velocidade de 90ms original
-            let lastRenderTime = 0;
-            let animationFrameId;
+            const frameDelay = 90; // Seu tempo exato (11 fps)
+            let loopInterval;
 
-            // 3. Preload das Imagens para a memória
-            function preloadImages(slideIndex, callback) {
-                let loadedCount = 0;
-                const totalFrames = allVideos[slideIndex].length;
+            // Joga as imagens no cache do navegador (Evita tela preta)
+            function preloadSlide(slideIndex) {
+                if (!allVideos[slideIndex]) return;
                 
-                if (preloadedImages[slideIndex].length === totalFrames) {
-                    if (callback) callback();
-                    return;
-                }
-
-                allVideos[slideIndex].forEach((src, i) => {
+                allVideos[slideIndex].forEach(src => {
                     const img = new Image();
-                    img.onload = () => {
-                        loadedCount++;
-                        if (loadedCount === totalFrames && callback) {
-                            callback();
-                        }
-                    };
-                    img.src = src;
-                    preloadedImages[slideIndex][i] = img;
+                    img.src = src; 
                 });
             }
 
-            // 4. Mudança de Interface (Textos)
-            function changeSlideUI(index) {
+            function changeSlide(index) {
+                currentSlide = index;
+                currentFrameIndex = 0;
+                
+                // Troca as classes do Tailwind para o texto correto aparecer
                 slides.forEach((slide, i) => {
-                    if (i === index) {
+                    if (i === currentSlide) {
                         slide.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
                         slide.classList.add('opacity-100', 'translate-y-0');
                         if(indicators[i]) indicators[i].classList.replace('bg-white/30', 'bg-araguaia-yellow');
@@ -779,66 +762,46 @@
                         if(indicators[i]) indicators[i].classList.replace('bg-araguaia-yellow', 'bg-white/30');
                     }
                 });
+
+                // Pré-carrega o PRÓXIMO slide em segundo plano
+                const nextSlide = (currentSlide + 1) % slides.length;
+                preloadSlide(nextSlide);
             }
 
-            // 5. Transição entre vídeos
-            function goToSlide(index) {
-                cancelAnimationFrame(animationFrameId);
-                currentSlide = index;
-                currentFrameIndex = 0;
-                changeSlideUI(index);
-
-                preloadImages(currentSlide, () => {
-                    lastRenderTime = performance.now();
-                    renderLoop(lastRenderTime);
-                    
-                    // Pré-carrega o próximo silenciosamente
-                    const nextSlide = (currentSlide + 1) % slides.length;
-                    preloadImages(nextSlide);
-                });
-            }
-
-            // 6. O Loop de renderização (Super fluido)
-            function renderLoop(currentTime) {
-                animationFrameId = requestAnimationFrame(renderLoop);
+            function startVideoLoop() {
+                clearInterval(loopInterval);
                 
-                const deltaTime = currentTime - lastRenderTime;
-
-                if (deltaTime >= frameDelay) {
-                    lastRenderTime = currentTime - (deltaTime % frameDelay);
-
-                    const frames = preloadedImages[currentSlide];
-                    if (frames && frames[currentFrameIndex]) {
-                        const img = frames[currentFrameIndex];
-                        // Apaga o frame antigo e desenha o novo instantaneamente
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                loopInterval = setInterval(() => {
+                    const currentFrames = allVideos[currentSlide];
+                    
+                    if (bgImageElement && currentFrames && currentFrames[currentFrameIndex]) {
+                        // Troca a imagem (será puxada direto do cache ultrarrápido)
+                        bgImageElement.src = currentFrames[currentFrameIndex];
                     }
-
+                    
                     currentFrameIndex++;
-
-                    if (currentFrameIndex >= frames.length) {
+                    
+                    // Se chegou no fim, passa para o próximo slide automaticamente
+                    if (currentFrameIndex >= currentFrames.length) {
                         let nextSlide = (currentSlide + 1) % slides.length;
-                        goToSlide(nextSlide);
+                        changeSlide(nextSlide);
                     }
-                }
+                }, frameDelay);
             }
 
+            // Cliques nas bolinhas (indicadores)
             indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => { goToSlide(index); });
+                indicator.addEventListener('click', () => { 
+                    changeSlide(index); 
+                });
             });
 
-            // 7. HACK DE VELOCIDADE PARA ADS (LCP): Desenha a imagem 1 imediatamente!
-            const firstImg = new Image();
-            firstImg.onload = () => {
-                canvas.width = firstImg.width;
-                canvas.height = firstImg.height;
-                ctx.drawImage(firstImg, 0, 0, canvas.width, canvas.height);
-                
-                // Inicia o processo do carrossel
-                goToSlide(0);
-            };
-            firstImg.src = allVideos[0][0]; // "0001.webp"
+            // Start Automático
+            if(allVideos[0].length > 0) {
+                preloadSlide(0);      // Carrega o 1º slide no cache
+                changeSlide(0);       // Mostra textos
+                startVideoLoop();     // Liga o motor
+            }
         });
     </script>
 </body>
