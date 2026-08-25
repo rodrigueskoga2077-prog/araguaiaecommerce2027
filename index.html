@@ -219,7 +219,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- Única alteração na imagem: adicionado decoding="async" para parar de travar a rolagem -->
+                <!-- A tag IMG pura, otimizada para evitar engasgos -->
                 <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" decoding="async" class="w-full h-full object-cover object-center opacity-50">
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
             </div>
@@ -640,7 +640,8 @@
                     ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} ${p.tagColor.includes('bg-white') ? '' : 'text-white'} text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
                     
                     <a href="produto.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-sm flex items-center justify-center p-4 block cursor-pointer">
-                        <img src="${p.imagem}" alt="${p.nome}" class="product-img w-full h-full object-contain transition-transform duration-500">
+                        <!-- ADICIONADO loading="eager" e fetchpriority="high" PARA CARREGAR OS PRODUTOS IMEDIATAMENTE -->
+                        <img src="${p.imagem}" alt="${p.nome}" loading="eager" fetchpriority="high" class="product-img w-full h-full object-contain transition-transform duration-500">
                     </a>
                     
                     <div class="flex items-center mb-2">
@@ -725,7 +726,7 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script Original do Hero Banner Corrigido -->
+    <!-- MOTOR DO BANNER: ANTI-PISCA E ANTI-TRAVAMENTO DE REDE -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const framesSlide1 = [
@@ -737,38 +738,27 @@
                 "0076.webp", "0079.webp", "0082.webp", "0085.webp", "0088.webp",
                 "0091.webp", "0094.webp", "0097.webp"
             ];
-
+            
             const framesSlide2 = [];
-            for (let i = 1; i <= 99; i++) {
-                framesSlide2.push(`slide2 (${i}).webp`);
-            }
-
+            for (let i = 1; i <= 99; i++) framesSlide2.push(`slide2 (${i}).webp`);
+            
             const framesSlide3 = [];
-            for (let i = 1; i <= 100; i++) {
-                framesSlide3.push(`SLIDE3 (${i}).webp`);
-            }
+            for (let i = 1; i <= 100; i++) framesSlide3.push(`SLIDE3 (${i}).webp`);
 
             const allVideos = [framesSlide1, framesSlide2, framesSlide3];
-
+            const frameCache = { 0: {}, 1: {}, 2: {} }; // Onde as imagens vão morar prontas para usar
+            
             const bgImageElement = document.getElementById('hero-bg-frame');
             const slides = document.querySelectorAll('.slide-content');
             const indicators = document.querySelectorAll('.slide-indicator');
             
             let currentSlide = 0;
             let currentFrameIndex = 0;
-            const frameDelay = 90; 
+            const frameDelay = 90;
 
-            framesSlide1.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
-
-            function changeSlide(index) {
-                currentSlide = index;
-                currentFrameIndex = 0; 
-                
+            function changeSlideUI(index) {
                 slides.forEach((slide, i) => {
-                    if (i === currentSlide) {
+                    if (i === index) {
                         slide.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
                         slide.classList.add('opacity-100', 'translate-y-0');
                         if(indicators[i]) indicators[i].classList.replace('bg-white/30', 'bg-araguaia-yellow');
@@ -780,44 +770,94 @@
                 });
             }
 
-            indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => { changeSlide(index); });
-            });
+            // SISTEMA DE DOWNLOAD SEQUENCIAL (Não bloqueia os produtos)
+            let downloadSlide = 0;
+            let downloadFrame = 0;
 
-            // SUBSTITUIÇÃO DO setTimeout PELO requestAnimationFrame (MOTOR NATIVO DO CELULAR)
+            function baixarProximaImagem() {
+                if (downloadSlide >= allVideos.length) return; // Acabou tudo
+
+                const src = allVideos[downloadSlide][downloadFrame];
+                const img = new Image();
+                
+                img.onload = () => {
+                    frameCache[downloadSlide][downloadFrame] = img;
+                    downloadFrame++;
+                    if (downloadFrame >= allVideos[downloadSlide].length) {
+                        downloadSlide++;
+                        downloadFrame = 0;
+                    }
+                    // Chama a próxima imagem logo em seguida
+                    baixarProximaImagem();
+                };
+                
+                img.onerror = () => {
+                    frameCache[downloadSlide][downloadFrame] = img; // Pula em caso de erro 404
+                    downloadFrame++;
+                    baixarProximaImagem();
+                };
+                
+                img.src = src;
+            }
+
+            // Aguarda 1 segundo antes de começar a roubar a internet, garantindo que a loja carregue 100%
+            setTimeout(baixarProximaImagem, 1000);
+
+            // MOTOR DE REPRODUÇÃO (Só exibe o que já baixou, impedindo de piscar branco/preto)
             let lastRenderTime = 0;
             function playVideoLoop(currentTime) {
                 requestAnimationFrame(playVideoLoop);
                 
-                // Controla a velocidade exata de 90ms que você tinha configurado
                 if (currentTime - lastRenderTime < frameDelay) return;
-                lastRenderTime = currentTime;
-
+                
                 let currentFrames = allVideos[currentSlide];
+                let nextIndex = currentFrameIndex + 1;
                 
-                if (bgImageElement && currentFrames[currentFrameIndex]) {
-                    bgImageElement.src = currentFrames[currentFrameIndex];
+                // Se acabou o slide
+                if (nextIndex >= currentFrames.length) {
+                    let nextSlide = (currentSlide + 1) % allVideos.length;
+                    // Só troca se o primeiro frame do próximo slide já tiver baixado (evita tela preta)
+                    if (frameCache[nextSlide] && frameCache[nextSlide][0]) {
+                        currentSlide = nextSlide;
+                        currentFrameIndex = 0;
+                        changeSlideUI(currentSlide);
+                        bgImageElement.src = frameCache[currentSlide][0].src;
+                        lastRenderTime = currentTime;
+                    }
+                    return;
                 }
-                
-                currentFrameIndex++;
-                if (currentFrameIndex >= currentFrames.length) {
-                    let nextSlide = (currentSlide + 1) % slides.length;
-                    changeSlide(nextSlide); 
-                }
-                
-                let preFrameIndex = currentFrameIndex;
-                if (preFrameIndex < currentFrames.length) {
-                    const nextImg = new Image();
-                    nextImg.src = currentFrames[preFrameIndex];
-                } else {
-                    let preSlide = (currentSlide + 1) % slides.length;
-                    const firstImg = new Image();
-                    firstImg.src = allVideos[preSlide][0];
+
+                // Só avança para a próxima foto se ela já existir no CACHE (Acaba de vez com a piscada)
+                if (frameCache[currentSlide] && frameCache[currentSlide][nextIndex]) {
+                    currentFrameIndex = nextIndex;
+                    bgImageElement.src = frameCache[currentSlide][currentFrameIndex].src;
+                    lastRenderTime = currentTime;
                 }
             }
 
-            if (bgImageElement && allVideos[0].length > 0) {
-                requestAnimationFrame(playVideoLoop);
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => { 
+                    currentSlide = index;
+                    currentFrameIndex = 0;
+                    changeSlideUI(index);
+                    // Se a imagem já foi baixada, mostra instantaneamente
+                    if (frameCache[currentSlide] && frameCache[currentSlide][0]) {
+                        bgImageElement.src = frameCache[currentSlide][0].src;
+                    }
+                });
+            });
+
+            // Start inicial
+            if(allVideos[0].length > 0) {
+                // Força o download imediato APENAS da primeiríssima imagem para não ficar vazio
+                const firstImg = new Image();
+                firstImg.onload = () => {
+                    frameCache[0][0] = firstImg;
+                    bgImageElement.src = firstImg.src;
+                    changeSlideUI(0);
+                    requestAnimationFrame(playVideoLoop);
+                };
+                firstImg.src = allVideos[0][0];
             }
         });
     </script>
