@@ -64,20 +64,22 @@
     }
     </script>
 
-    <!-- Fonts -->
+    <!-- PRELOADS PARA PERFORMANCE (LCP) -->
+    <!-- Prioriza a capa do vídeo inicial para aparecer rápido -->
+    <link rel="preload" as="image" href="0001.webp" fetchpriority="high">
+
+    <!-- Fonts (Apenas as utilizadas, DM Sans removida) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- 
-      ATENÇÃO: Este script do Tailwind é o MAIOR CAUSADOR DE LENTIDÃO NO MOBILE. 
-      Assim que possível, troque ele por um <link rel="stylesheet" href="style.css"> gerado na sua máquina. 
-    -->
+    <!-- Script do Tailwind v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest" defer></script>
 
+    <!-- Configurações Tailwind e CSS Customizado -->
     <style type="text/tailwindcss">
         @theme {
             --color-araguaia-yellow: #FFB800;
@@ -101,10 +103,6 @@
         .font-anton {
             font-family: 'Anton', sans-serif;
             letter-spacing: 0.02em;
-        }
-
-        .font-dm-sans {
-            font-family: 'DM Sans', sans-serif;
         }
 
         ::-webkit-scrollbar { width: 8px; }
@@ -148,7 +146,7 @@
                 <!-- Logo da Empresa estilo Card/Badge -->
                 <a href="index.html" class="flex-shrink-0 flex items-center transition-all duration-300 hover:scale-[1.03] group">
                     <div class="bg-[#FFB800] p-1.5 sm:p-2 rounded-xl shadow-lg shadow-black/60 border border-[#FFB800]/40 flex items-center justify-center">
-                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 lg:h-18 w-auto object-contain transition-transform" loading="eager" decoding="async">
+                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 lg:h-18 w-auto object-contain transition-transform" fetchpriority="high" loading="eager" decoding="async">
                     </div>
                 </a>
 
@@ -222,10 +220,10 @@
         <!-- Hero Section - VÍDEO NATIVO OTIMIZADO -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- VÍDEO OTIMIZADO: Adicionado preload="auto" para evitar gargalos na reprodução -->
+                <!-- VÍDEO OTIMIZADO: preload="metadata" salva dados e não trava o carregamento inicial da página -->
                 <video id="hero-bg-video" 
                        class="w-full h-full object-cover object-center opacity-50" 
-                       autoplay muted playsinline preload="auto"
+                       autoplay muted playsinline preload="metadata"
                        poster="0001.webp">
                     <source src="slide1.mp4" type="video/mp4">
                 </video>
@@ -648,7 +646,6 @@
                     ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} ${p.tagColor.includes('bg-white') ? '' : 'text-white'} text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
                     
                     <a href="produto.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-sm flex items-center justify-center p-4 block cursor-pointer">
-                        <!-- RETORNADO PARA LOADING LAZY. ISSO LIBERA A INTERNET DO CLIENTE PRO VÍDEO -->
                         <img src="${p.imagem}" alt="${p.nome}" loading="lazy" decoding="async" class="product-img w-full h-full object-contain transition-transform duration-500">
                     </a>
                     
@@ -718,10 +715,9 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- NOVO SCRIPT PARA VÍDEO NATIVO (MP4) -->
+    <!-- SCRIPT DO VÍDEO NATIVO (MP4) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Arrays com os vídeos mp4 e suas respectivas capas (posters) para evitar tela preta
             const videos = [
                 { src: "slide1.mp4", poster: "0001.webp" },
                 { src: "cena2.mp4", poster: "slide2 (1).webp" },
@@ -737,7 +733,6 @@
             function changeSlide(index) {
                 currentSlide = index;
                 
-                // Troca as classes do Tailwind para o texto de cada slide
                 slides.forEach((slide, i) => {
                     if (i === currentSlide) {
                         slide.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
@@ -750,24 +745,20 @@
                     }
                 });
 
-                // Troca a fonte do vídeo e a capa
                 if (videoElement) {
                     videoElement.poster = videos[currentSlide].poster;
                     videoElement.src = videos[currentSlide].src;
                     
-                    // O play() garante que o novo vídeo comece imediatamente
                     videoElement.play().catch(e => console.log("O navegador bloqueou o autoplay:", e));
                 }
             }
 
-            // Ação de clique nas bolinhas de baixo (indicadores)
             indicators.forEach((indicator, index) => {
                 indicator.addEventListener('click', () => { 
                     changeSlide(index); 
                 });
             });
 
-            // Loop Automático: Quando o vídeo atual terminar, pula pro próximo
             if (videoElement) {
                 videoElement.addEventListener('ended', () => {
                     let nextSlide = (currentSlide + 1) % slides.length;
