@@ -70,10 +70,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS v4 -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
     
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
 
     <style type="text/tailwindcss">
         @theme {
@@ -122,6 +122,12 @@
         .slide-content {
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        
+        /* Otimização extra de repintura do Canvas */
+        #hero-bg-canvas {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -145,7 +151,7 @@
                 <!-- Logo da Empresa estilo Card/Badge -->
                 <a href="index.html" class="flex-shrink-0 flex items-center transition-all duration-300 hover:scale-[1.03] group">
                     <div class="bg-[#FFB800] p-1.5 sm:p-2 rounded-xl shadow-lg shadow-black/60 border border-[#FFB800]/40 flex items-center justify-center">
-                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 lg:h-18 w-auto object-contain transition-transform">
+                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 lg:h-18 w-auto object-contain transition-transform" loading="eager" decoding="async">
                     </div>
                 </a>
 
@@ -216,11 +222,11 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section -->
+        <!-- Hero Section OTIMIZADO PARA ADS COM CANVAS -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- A tag IMG pura, otimizada para evitar engasgos -->
-                <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" decoding="async" class="w-full h-full object-cover object-center opacity-50">
+                <!-- Tag Canvas Substituindo a Imagem -->
+                <canvas id="hero-bg-canvas" class="w-full h-full object-cover object-center opacity-50"></canvas>
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
             </div>
 
@@ -378,7 +384,7 @@
                         <div class="absolute -inset-3 bg-gradient-to-tr from-araguaia-yellow/20 via-araguaia-yellow-dark/10 to-transparent rounded-2xl blur-xl opacity-70"></div>
                         
                         <div class="relative rounded-xl overflow-hidden border border-araguaia-border bg-araguaia-dark shadow-2xl group">
-                            <img src="Araguai.webp" alt="Araguaia Máquinas - Emídio Ferreira Neto e Filhos" class="w-full h-[420px] sm:h-[500px] lg:h-[540px] object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                            <img src="Araguai.webp" alt="Araguaia Máquinas - Emídio Ferreira Neto e Filhos" class="w-full h-[420px] sm:h-[500px] lg:h-[540px] object-cover object-center group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
                             
                             <div class="absolute bottom-6 left-6 right-6 bg-araguaia-surface/90 backdrop-blur-md border border-araguaia-yellow/40 p-4 rounded-lg shadow-2xl flex items-center gap-4">
@@ -481,7 +487,7 @@
                 <div class="lg:col-span-1">
                     <a href="index.html" class="inline-block mb-6 transition-opacity hover:opacity-90">
                         <div class="bg-[#FFB800] p-1.5 rounded-lg inline-block">
-                            <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 w-auto object-contain">
+                            <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 w-auto object-contain" loading="lazy" decoding="async">
                         </div>
                     </a>
                     
@@ -640,7 +646,6 @@
                     ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} ${p.tagColor.includes('bg-white') ? '' : 'text-white'} text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
                     
                     <a href="produto.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-sm flex items-center justify-center p-4 block cursor-pointer">
-                        <!-- ADICIONADO loading="eager" e fetchpriority="high" PARA CARREGAR OS PRODUTOS IMEDIATAMENTE -->
                         <img src="${p.imagem}" alt="${p.nome}" loading="eager" fetchpriority="high" class="product-img w-full h-full object-contain transition-transform duration-500">
                     </a>
                     
@@ -678,22 +683,6 @@
             const mensagem = `Olá! Gostaria de comprar o seguinte produto:\n*${nomeProduto}*\nValor: R$ ${preco}\n\nPode confirmar a disponibilidade e o frete?`;
             const urlWhatsApp = `https://wa.me/${telefoneLoja}?text=${encodeURIComponent(mensagem)}`;
 
-            const dadosPedido = {
-                cliente: "Cliente Web",
-                telefone: "Não informado",
-                produtos: nomeProduto,
-                total: preco
-            };
-
-            const urlGoogleScript = "https://script.google.com/macros/s/AKfycbzeMZNx785Nf_-btYtXU1MOzSW2cO5b46dTpQpPn5c_sVOKPTWLevN4IXT8fsV-olSbTg/exec";
-
-            fetch(urlGoogleScript, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dadosPedido)
-            }).catch(err => console.log("Erro ao salvar na planilha:", err));
-
             window.open(urlWhatsApp, "_blank");
         }
     </script>
@@ -726,9 +715,10 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- MOTOR DO BANNER: ANTI-PISCA E ANTI-TRAVAMENTO DE REDE -->
+    <!-- SCRIPT DEFINITIVO: CANVAS COM BUFFERING E PRIORIDADE DE PRODUTOS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Arrays rigorosamente idênticos ao seu original
             const framesSlide1 = [
                 "0001.webp", "0004.webp", "0007.webp", "0010.webp", "0013.webp",
                 "0016.webp", "0019.webp", "0022.webp", "0025.webp", "0028.webp",
@@ -738,23 +728,63 @@
                 "0076.webp", "0079.webp", "0082.webp", "0085.webp", "0088.webp",
                 "0091.webp", "0094.webp", "0097.webp"
             ];
-            
+
             const framesSlide2 = [];
             for (let i = 1; i <= 99; i++) framesSlide2.push(`slide2 (${i}).webp`);
-            
+
             const framesSlide3 = [];
             for (let i = 1; i <= 100; i++) framesSlide3.push(`SLIDE3 (${i}).webp`);
 
             const allVideos = [framesSlide1, framesSlide2, framesSlide3];
-            const frameCache = { 0: {}, 1: {}, 2: {} }; // Onde as imagens vão morar prontas para usar
             
-            const bgImageElement = document.getElementById('hero-bg-frame');
+            const canvas = document.getElementById('hero-bg-canvas');
+            // 'alpha: false' dá um boost enorme na performance gráfica do celular
+            const ctx = canvas.getContext('2d', { alpha: false }); 
             const slides = document.querySelectorAll('.slide-content');
             const indicators = document.querySelectorAll('.slide-indicator');
-            
+            const heroSection = document.getElementById('hero');
+
             let currentSlide = 0;
             let currentFrameIndex = 0;
-            const frameDelay = 90;
+            let frameDelay = 90;
+            let lastRenderTime = 0;
+            let isPaused = false;
+            let animationFrameId;
+
+            // CACHE INTELIGENTE DE IMAGENS (Evita travar a rede)
+            const frameCache = { 0: [], 1: [], 2: [] };
+            let downloadSlide = 0;
+            let downloadIndex = 1; // Começa da foto 1 (a foto 0 baixa instantâneo)
+
+            // SISTEMA DE DOWNLOAD: Baixa apenas 1 foto de cada vez, silenciosamente.
+            function baixarProximoFrame() {
+                if (downloadSlide >= allVideos.length) return;
+
+                const src = allVideos[downloadSlide][downloadIndex];
+                const img = new Image();
+
+                img.onload = () => {
+                    frameCache[downloadSlide][downloadIndex] = img;
+                    avancarIndiceDownload();
+                    baixarProximoFrame();
+                };
+
+                img.onerror = () => {
+                    frameCache[downloadSlide][downloadIndex] = null; // Ignora erro 404
+                    avancarIndiceDownload();
+                    baixarProximoFrame();
+                };
+
+                img.src = src;
+            }
+
+            function avancarIndiceDownload() {
+                downloadIndex++;
+                if (downloadIndex >= allVideos[downloadSlide].length) {
+                    downloadSlide++;
+                    downloadIndex = 0;
+                }
+            }
 
             function changeSlideUI(index) {
                 slides.forEach((slide, i) => {
@@ -770,95 +800,99 @@
                 });
             }
 
-            // SISTEMA DE DOWNLOAD SEQUENCIAL (Não bloqueia os produtos)
-            let downloadSlide = 0;
-            let downloadFrame = 0;
-
-            function baixarProximaImagem() {
-                if (downloadSlide >= allVideos.length) return; // Acabou tudo
-
-                const src = allVideos[downloadSlide][downloadFrame];
-                const img = new Image();
-                
-                img.onload = () => {
-                    frameCache[downloadSlide][downloadFrame] = img;
-                    downloadFrame++;
-                    if (downloadFrame >= allVideos[downloadSlide].length) {
-                        downloadSlide++;
-                        downloadFrame = 0;
-                    }
-                    // Chama a próxima imagem logo em seguida
-                    baixarProximaImagem();
-                };
-                
-                img.onerror = () => {
-                    frameCache[downloadSlide][downloadFrame] = img; // Pula em caso de erro 404
-                    downloadFrame++;
-                    baixarProximaImagem();
-                };
-                
-                img.src = src;
-            }
-
-            // Aguarda 1 segundo antes de começar a roubar a internet, garantindo que a loja carregue 100%
-            setTimeout(baixarProximaImagem, 1000);
-
-            // MOTOR DE REPRODUÇÃO (Só exibe o que já baixou, impedindo de piscar branco/preto)
-            let lastRenderTime = 0;
-            function playVideoLoop(currentTime) {
-                requestAnimationFrame(playVideoLoop);
-                
-                if (currentTime - lastRenderTime < frameDelay) return;
-                
-                let currentFrames = allVideos[currentSlide];
-                let nextIndex = currentFrameIndex + 1;
-                
-                // Se acabou o slide
-                if (nextIndex >= currentFrames.length) {
-                    let nextSlide = (currentSlide + 1) % allVideos.length;
-                    // Só troca se o primeiro frame do próximo slide já tiver baixado (evita tela preta)
-                    if (frameCache[nextSlide] && frameCache[nextSlide][0]) {
-                        currentSlide = nextSlide;
-                        currentFrameIndex = 0;
-                        changeSlideUI(currentSlide);
-                        bgImageElement.src = frameCache[currentSlide][0].src;
-                        lastRenderTime = currentTime;
-                    }
-                    return;
+            // O LOOP DE VÍDEO (IMPOSSÍVEL PISCAR A TELA)
+            function renderLoop(currentTime) {
+                if (!isPaused) {
+                    animationFrameId = requestAnimationFrame(renderLoop);
                 }
 
-                // Só avança para a próxima foto se ela já existir no CACHE (Acaba de vez com a piscada)
-                if (frameCache[currentSlide] && frameCache[currentSlide][nextIndex]) {
-                    currentFrameIndex = nextIndex;
-                    bgImageElement.src = frameCache[currentSlide][currentFrameIndex].src;
+                if (currentTime - lastRenderTime < frameDelay) return;
+
+                const framesAtuais = allVideos[currentSlide];
+
+                // PULO DO GATO: Só avança se a imagem já existir no cache E estiver 100% baixada
+                const img = frameCache[currentSlide][currentFrameIndex];
+
+                if (img && img.complete && img.naturalWidth !== 0) {
+                    // Desenha perfeitamente
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                     lastRenderTime = currentTime;
+                    currentFrameIndex++;
+
+                    // Chegou no final do vídeo atual, muda pro próximo
+                    if (currentFrameIndex >= framesAtuais.length) {
+                        currentSlide = (currentSlide + 1) % slides.length;
+                        currentFrameIndex = 0;
+                        changeSlideUI(currentSlide);
+                    }
+                } else if (img === null) {
+                    // Imagem deu erro 404, pula o frame
+                    currentFrameIndex++;
+                } else {
+                    // BUFERIZANDO: A imagem ainda não chegou da internet. 
+                    // NÃO APAGA O CANVAS. Apenas deixa a imagem anterior parada até a próxima carregar.
                 }
             }
 
             indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => { 
+                indicator.addEventListener('click', () => {
                     currentSlide = index;
                     currentFrameIndex = 0;
                     changeSlideUI(index);
-                    // Se a imagem já foi baixada, mostra instantaneamente
-                    if (frameCache[currentSlide] && frameCache[currentSlide][0]) {
-                        bgImageElement.src = frameCache[currentSlide][0].src;
+
+                    if (frameCache[currentSlide][0]) {
+                        ctx.drawImage(frameCache[currentSlide][0], 0, 0, canvas.width, canvas.height);
                     }
                 });
             });
 
-            // Start inicial
-            if(allVideos[0].length > 0) {
-                // Força o download imediato APENAS da primeiríssima imagem para não ficar vazio
+            // PAUSAR FORA DA TELA PARA NÃO DERRETER O CELULAR
+            if ('IntersectionObserver' in window && heroSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        isPaused = !entry.isIntersecting;
+                        if (!isPaused) {
+                            lastRenderTime = performance.now();
+                            requestAnimationFrame(renderLoop);
+                        }
+                    });
+                }, { threshold: 0 });
+                observer.observe(heroSection);
+            }
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    isPaused = true;
+                } else if (heroSection.getBoundingClientRect().top < window.innerHeight) {
+                    isPaused = false;
+                    lastRenderTime = performance.now();
+                    requestAnimationFrame(renderLoop);
+                }
+            });
+
+            // INÍCIO IMEDIATO DO FRAME 0
+            if (allVideos[0].length > 0) {
                 const firstImg = new Image();
                 firstImg.onload = () => {
+                    // Ajusta a proporção
+                    canvas.width = firstImg.width || 1920;
+                    canvas.height = firstImg.height || 1080;
+                    
+                    // Salva e desenha
                     frameCache[0][0] = firstImg;
-                    bgImageElement.src = firstImg.src;
+                    ctx.drawImage(firstImg, 0, 0, canvas.width, canvas.height);
+                    
                     changeSlideUI(0);
-                    requestAnimationFrame(playVideoLoop);
+                    lastRenderTime = performance.now();
+                    requestAnimationFrame(renderLoop);
                 };
                 firstImg.src = allVideos[0][0];
             }
+
+            // O MAIS IMPORTANTE: ESPERA O SITE ABRIR PRA COMEÇAR A BAIXAR AS 300 FOTOS DO BANNER
+            window.addEventListener('load', () => {
+                setTimeout(baixarProximoFrame, 500); 
+            });
         });
     </script>
 </body>
