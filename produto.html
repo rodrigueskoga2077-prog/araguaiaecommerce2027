@@ -12,16 +12,16 @@
     <!-- Meta Tags Básicas -->
     <meta name="description" content="Compre equipamentos e acessórios originais STIHL na Araguaia Máquinas.">
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Unificado com a Home: Inter e Anton) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS v4 -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Tailwind CSS v4 (Com defer para não travar a renderização inicial) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (Com defer) -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
 
     <style type="text/tailwindcss">
         @theme {
@@ -37,7 +37,7 @@
 
     <style>
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--color-araguaia-dark);
             color: #f4f4f4;
             /* Textura de fundo estilo Home */
@@ -46,7 +46,6 @@
         }
         
         .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
-        .font-dm-sans { font-family: 'DM Sans', sans-serif; }
         
         /* Scrollbar customizada Dark */
         ::-webkit-scrollbar { width: 8px; }
@@ -99,7 +98,7 @@
                 <!-- Logo da Empresa estilo Card/Badge -->
                 <a href="index.html" class="flex-shrink-0 flex items-center transition-all duration-300 hover:scale-[1.03] group">
                     <div class="bg-[#FFB800] p-1.5 sm:p-2 rounded-xl shadow-lg shadow-black/60 border border-[#FFB800]/40 flex items-center justify-center">
-                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 w-auto object-contain transition-transform">
+                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 w-auto object-contain transition-transform" fetchpriority="high" loading="eager" decoding="async">
                     </div>
                 </a>
 
@@ -163,14 +162,14 @@
                     <!-- Lado Esquerdo (FOTOS ALINHADAS) -->
                     <div class="lg:col-span-7 flex flex-col gap-6">
                         
-                        <!-- Imagem Principal -->
+                        <!-- Imagem Principal (Otimizada para carregar rápido dinamicamente) -->
                         <div class="glass-panel w-full relative flex items-center justify-center p-3 sm:p-5 min-h-[350px] sm:min-h-[450px] overflow-hidden group">
                             <!-- Brilho ao fundo da imagem -->
                             <div class="absolute inset-0 radial-glow z-0 pointer-events-none"></div>
                             
                             <span id="prod-tag" class="absolute top-4 left-4 text-black text-[10px] font-bold uppercase px-3 py-1.5 rounded-md hidden z-20 shadow-lg tracking-wider"></span>
                             
-                            <img id="prod-img" src="" alt="" class="w-full max-w-[95%] h-auto max-h-[400px] sm:max-h-[450px] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out relative z-10">
+                            <img id="prod-img" src="" alt="" fetchpriority="high" loading="eager" class="w-full max-w-[95%] h-auto max-h-[400px] sm:max-h-[450px] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out relative z-10">
                         </div>
 
                         <!-- Galeria (Miniaturas Centralizadas Embaixo) -->
@@ -247,7 +246,7 @@
                         </div>
                     </div>
 
-                    <div class="p-6 md:p-10 text-gray-300 leading-relaxed font-dm-sans space-y-10 bg-white/5">
+                    <div class="p-6 md:p-10 text-gray-300 leading-relaxed space-y-10 bg-white/5">
                         
                         <!-- Texto Descrição -->
                         <div id="prod-descricao" class="max-w-4xl text-base text-gray-400">
@@ -273,7 +272,7 @@
             <div id="erro-container" class="hidden text-center py-24 glass-panel mt-10">
                 <i data-lucide="package-x" class="w-16 h-16 text-gray-500 mx-auto mb-4"></i>
                 <h2 class="font-anton text-3xl text-white uppercase mb-2 tracking-widest">Produto indisponível</h2>
-                <p class="text-gray-400 mb-8 font-dm-sans">O item que você tentou acessar não existe ou saiu de linha.</p>
+                <p class="text-gray-400 mb-8">O item que você tentou acessar não existe ou saiu de linha.</p>
                 <a href="index.html" class="inline-flex items-center justify-center bg-araguaia-yellow hover:bg-white text-black font-anton uppercase tracking-widest px-8 py-4 rounded-lg transition-colors duration-300">
                     Voltar para o Início
                 </a>
@@ -294,7 +293,7 @@
                             <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 w-auto object-contain">
                         </div>
                     </a>
-                    <p class="text-sm text-gray-500 mb-4 leading-relaxed font-dm-sans">
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">
                         A força que o campo precisa com a tecnologia que você confia. Somos especialistas em ferramentas e maquinário agrícola e florestal.
                     </p>
                 </div>
@@ -302,7 +301,7 @@
                 <!-- Coluna 2 -->
                 <div>
                     <h4 class="font-anton text-white uppercase tracking-widest mb-6">Atendimento</h4>
-                    <ul class="space-y-3 text-sm text-gray-400 font-dm-sans">
+                    <ul class="space-y-3 text-sm text-gray-400">
                         <li>Segunda a Sexta: 07:30 – 18:00</li>
                         <li>Sábado: 07:30 – 12:00</li>
                         <li>Domingo: Fechado</li>
@@ -312,7 +311,7 @@
                 <!-- Coluna 3 -->
                 <div>
                     <h4 class="font-anton text-white uppercase tracking-widest mb-6">Contato</h4>
-                    <ul class="space-y-3 text-sm text-gray-400 font-dm-sans">
+                    <ul class="space-y-3 text-sm text-gray-400">
                         <li><a href="https://wa.me/556230997275" target="_blank" class="hover:text-araguaia-yellow transition-colors">(62) 3099-7275</a></li>
                         <li>contato@araguaiamaquinas.com.br</li>
                     </ul>
@@ -321,7 +320,7 @@
                 <!-- Coluna 4 -->
                 <div>
                     <h4 class="font-anton text-white uppercase tracking-widest mb-6">Endereço</h4>
-                    <address class="text-sm text-gray-400 not-italic leading-relaxed font-dm-sans">
+                    <address class="text-sm text-gray-400 not-italic leading-relaxed">
                         Av. Tiradentes, 30<br>
                         Setor Central<br>
                         Anápolis - GO, CEP: 75043-045
@@ -329,7 +328,7 @@
                 </div>
             </div>
 
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600 font-dm-sans">
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600">
                 <p>
                     <strong class="text-gray-400">CNPJ: 10.655.510/0001-50</strong> | &copy; 2026 Araguaia Máquinas. Todos os direitos reservados.
                 </p>
