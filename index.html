@@ -69,7 +69,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS v4 -->
+    <!-- 
+      ATENÇÃO: Este script do Tailwind é o MAIOR CAUSADOR DE LENTIDÃO NO MOBILE. 
+      Assim que possível, troque ele por um <link rel="stylesheet" href="style.css"> gerado na sua máquina. 
+    -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
     
     <!-- Lucide Icons -->
@@ -216,19 +219,16 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section OTIMIZADO PARA ADS COM VÍDEO NATIVO -->
+        <!-- Hero Section - VÍDEO NATIVO OTIMIZADO -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                
-                <!-- AQUI ESTÁ A MÁGICA: TAG DE VÍDEO NATIVO DO HTML5 -->
+                <!-- VÍDEO OTIMIZADO: Adicionado preload="auto" para evitar gargalos na reprodução -->
                 <video id="hero-bg-video" 
                        class="w-full h-full object-cover object-center opacity-50" 
-                       autoplay muted playsinline 
+                       autoplay muted playsinline preload="auto"
                        poster="0001.webp">
                     <source src="slide1.mp4" type="video/mp4">
                 </video>
-                <!-- =============================================== -->
-
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
             </div>
 
@@ -648,7 +648,8 @@
                     ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} ${p.tagColor.includes('bg-white') ? '' : 'text-white'} text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
                     
                     <a href="produto.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-sm flex items-center justify-center p-4 block cursor-pointer">
-                        <img src="${p.imagem}" alt="${p.nome}" loading="eager" fetchpriority="high" class="product-img w-full h-full object-contain transition-transform duration-500">
+                        <!-- RETORNADO PARA LOADING LAZY. ISSO LIBERA A INTERNET DO CLIENTE PRO VÍDEO -->
+                        <img src="${p.imagem}" alt="${p.nome}" loading="lazy" decoding="async" class="product-img w-full h-full object-contain transition-transform duration-500">
                     </a>
                     
                     <div class="flex items-center mb-2">
@@ -772,13 +773,6 @@
                     let nextSlide = (currentSlide + 1) % slides.length;
                     changeSlide(nextSlide);
                 });
-            }
-
-            // Força o carregamento do primeiro slide logo de cara
-            if (videoElement && videos.length > 0) {
-                videoElement.src = videos[0].src;
-                videoElement.poster = videos[0].poster;
-                videoElement.play().catch(e => console.log(e));
             }
         });
     </script>
