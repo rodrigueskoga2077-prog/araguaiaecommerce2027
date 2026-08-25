@@ -69,11 +69,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- 
-      ATENÇÃO PARA ADS: 
-      Para deixar o site ultrarrápido, remova este script do Tailwind abaixo e 
-      substitua por um arquivo CSS compilado: <link rel="stylesheet" href="style.css"> 
-    -->
+    <!-- Tailwind CSS v4 -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <!-- Lucide Icons -->
@@ -223,8 +219,8 @@
         <!-- Hero Section -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- Adicionado o atributo decoding="async" e will-change para acelerar o navegador na troca de imagens -->
-                <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" decoding="async" class="w-full h-full object-cover object-center opacity-50 will-change-contents">
+                <!-- Imagem inicial. As outras serão carregadas dinamicamente com segurança -->
+                <img id="hero-bg-frame" src="0001.webp" alt="Operador florestal" class="w-full h-full object-cover object-center opacity-50">
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
             </div>
 
@@ -422,7 +418,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-white text-sm uppercase">Atendimento Amplo</h4>
-                                    <p class="text-xs text-gray-400 mt-0.5">Soluções para o campo, construção civil, oficinas e hobbistas.</p>
+                                    <p class="text-xs text-gray-400 mt-0.5">Soluções para o campo, construction civil, oficinas e hobbistas.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3 p-3.5 rounded-lg bg-araguaia-surface-light border border-araguaia-border">
@@ -705,10 +701,12 @@
         if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
     </script>
 
-    <!-- Script do Hero Banner Corrigido (Loop Rigoroso de 90ms e Preload Silencioso) -->
+    <!-- SCRIPT CORRIGIDO: TRAVA DE SEGURANÇA E BUFFER DA NETFLIX -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Seus arrays originais intocados
+        // O "load" garante que TUDO do site carregue primeiro (Tailwind, Vitrine, Textos).
+        // Isso impede que as imagens "roubem" a internet do celular do cliente.
+        window.addEventListener('load', function() {
+            
             const framesSlide1 = [
                 "0001.webp", "0004.webp", "0007.webp", "0010.webp", "0013.webp",
                 "0016.webp", "0019.webp", "0022.webp", "0025.webp", "0028.webp",
@@ -733,24 +731,13 @@
             
             let currentSlide = 0;
             let currentFrameIndex = 0;
-            const frameDelay = 90; // Seu tempo exato (11 fps)
-            let loopInterval;
-
-            // Joga as imagens no cache do navegador (Evita tela preta)
-            function preloadSlide(slideIndex) {
-                if (!allVideos[slideIndex]) return;
-                
-                allVideos[slideIndex].forEach(src => {
-                    const img = new Image();
-                    img.src = src; 
-                });
-            }
+            const frameDelay = 90; // O tempo original que você queria
+            let cache = new Set();
 
             function changeSlide(index) {
                 currentSlide = index;
                 currentFrameIndex = 0;
                 
-                // Troca as classes do Tailwind para o texto correto aparecer
                 slides.forEach((slide, i) => {
                     if (i === currentSlide) {
                         slide.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-6');
@@ -762,45 +749,63 @@
                         if(indicators[i]) indicators[i].classList.replace('bg-araguaia-yellow', 'bg-white/30');
                     }
                 });
-
-                // Pré-carrega o PRÓXIMO slide em segundo plano
-                const nextSlide = (currentSlide + 1) % slides.length;
-                preloadSlide(nextSlide);
             }
 
-            function startVideoLoop() {
-                clearInterval(loopInterval);
+            function playSequence() {
+                const frames = allVideos[currentSlide];
                 
-                loopInterval = setInterval(() => {
-                    const currentFrames = allVideos[currentSlide];
+                if (bgImageElement && frames && frames[currentFrameIndex]) {
+                    // Coloca a imagem atual na tela
+                    bgImageElement.src = frames[currentFrameIndex];
+                }
+                
+                // SISTEMA DE BUFFER (O SEGREDO DA PERFORMANCE): 
+                // Carrega APENAS as próximas 3 imagens no fundo. 
+                // Isso mantém a fluidez mas deixa a internet livre pro resto do site.
+                for (let i = 1; i <= 3; i++) {
+                    let nextIndex = currentFrameIndex + i;
                     
-                    if (bgImageElement && currentFrames && currentFrames[currentFrameIndex]) {
-                        // Troca a imagem (será puxada direto do cache ultrarrápido)
-                        bgImageElement.src = currentFrames[currentFrameIndex];
-                    }
-                    
-                    currentFrameIndex++;
-                    
-                    // Se chegou no fim, passa para o próximo slide automaticamente
-                    if (currentFrameIndex >= currentFrames.length) {
+                    if (nextIndex < frames.length) {
+                        let src = frames[nextIndex];
+                        if (!cache.has(src)) {
+                            let img = new Image();
+                            img.src = src;
+                            cache.add(src);
+                        }
+                    } else if (currentFrameIndex + i === frames.length) {
+                        // Se estiver acabando o slide, já puxa a 1ª foto do próximo
                         let nextSlide = (currentSlide + 1) % slides.length;
-                        changeSlide(nextSlide);
+                        let src = allVideos[nextSlide][0];
+                        if (!cache.has(src)) {
+                            let img = new Image();
+                            img.src = src;
+                            cache.add(src);
+                        }
                     }
-                }, frameDelay);
+                }
+
+                currentFrameIndex++;
+                
+                // Se acabou o slide atual, pula pro próximo
+                if (currentFrameIndex >= frames.length) {
+                    let nextSlide = (currentSlide + 1) % slides.length;
+                    changeSlide(nextSlide);
+                }
+                
+                // Roda o loop
+                setTimeout(playSequence, frameDelay);
             }
 
-            // Cliques nas bolinhas (indicadores)
             indicators.forEach((indicator, index) => {
                 indicator.addEventListener('click', () => { 
                     changeSlide(index); 
                 });
             });
 
-            // Start Automático
+            // Dá o play inicial
             if(allVideos[0].length > 0) {
-                preloadSlide(0);      // Carrega o 1º slide no cache
-                changeSlide(0);       // Mostra textos
-                startVideoLoop();     // Liga o motor
+                changeSlide(0);
+                playSequence();
             }
         });
     </script>
