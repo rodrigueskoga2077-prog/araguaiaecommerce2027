@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linha DeWalt - Detalhes do Produto | Araguaia Máquinas</title>
+    
+    <!-- Favicon / Ícone do Site -->
+    <link rel="icon" type="image/webp" href="favicon.png.webp">
+    <link rel="apple-touch-icon" href="favicon.png.webp">
+
+    <!-- Meta Tags Básicas -->
+    <meta name="description" content="Compre equipamentos e ferramentas originais DeWalt na Araguaia Máquinas.">
+    
+    <!-- Google Fonts (Unificado com a Home: Inter e Anton) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS v4 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+
+    <style type="text/tailwindcss">
+        @theme {
+            --color-araguaia-yellow: #FFB800;
+            --color-araguaia-yellow-dark: #A87C00;
+            --color-araguaia-darker: #050505;
+            --color-araguaia-dark: #111111;
+            --color-araguaia-surface: #1a1a1a;
+            --color-araguaia-surface-light: #242424;
+            --color-araguaia-border: rgba(255, 255, 255, 0.08);
+        }
+    </style>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-araguaia-dark);
+            color: #f4f4f4;
+            background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #111111 60%);
+            background-attachment: fixed;
+        }
+        
+        .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111111; }
+        ::-webkit-scrollbar-thumb { background: #FFB800; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e6a600; }
+        * { scrollbar-width: thin; scrollbar-color: #FFB800 #111111; }
+
+        input[type="search"]::-webkit-search-cancel-button { display: none; }
+
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 0.5px solid rgba(255,255,255,0.08);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .glass-panel:hover {
+            border-color: rgba(255,184,0,0.35);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 0 rgba(255,184,0,0.2);
+        }
+        
+        .radial-glow {
+            background: radial-gradient(circle at center, rgba(255,184,0,0.12) 0%, transparent 65%);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Top Bar -->
+    <div class="bg-[#050505] text-center py-1.5 px-4 text-xs sm:text-sm font-semibold tracking-wide border-b border-white/5">
+        <span class="text-gray-400">COMPRE ONLINE COM </span>
+        <span class="text-araguaia-yellow">FRETE GRÁTIS</span>
+        <span class="text-gray-400"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
+    </div>
+
+    <!-- Header Principal -->
+    <header class="bg-black/40 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50 transition-all">
+        <div class="container mx-auto px-4 py-3 md:py-4 max-w-[1300px]">
+            <div class="flex items-center justify-between gap-4 md:gap-6">
+                
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-araguaia-yellow p-1 transition-colors" aria-label="Abrir menu">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+
+                <!-- Logo da Empresa -->
+                <a href="index.html" class="flex-shrink-0 flex items-center transition-all duration-300 hover:scale-[1.03] group">
+                    <div class="bg-[#FFB800] p-1.5 sm:p-2 rounded-xl shadow-lg shadow-black/60 border border-[#FFB800]/40 flex items-center justify-center">
+                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 w-auto object-contain transition-transform" fetchpriority="high" loading="eager" decoding="async">
+                    </div>
+                </a>
+
+                <!-- Barra de Busca -->
+                <div class="hidden md:block flex-1 max-w-2xl mx-auto">
+                    <form action="#" id="form-busca-desktop" class="relative w-full">
+                        <input type="search" name="busca" placeholder="Buscar na linha DeWalt..." 
+                            class="w-full bg-white/5 border border-white/10 focus:border-araguaia-yellow focus:bg-white/10 rounded-full py-3 px-6 pr-14 text-sm text-white placeholder-gray-400 transition-all outline-none backdrop-blur-sm">
+                        <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 w-9 bg-araguaia-yellow text-black hover:bg-white rounded-full flex items-center justify-center transition-colors shadow-md">
+                            <i data-lucide="search" class="w-4 h-4 stroke-[2.5]"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Botão WhatsApp -->
+                <div class="flex items-center ml-auto md:ml-0">
+                    <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7a6e] text-white px-4 sm:px-5 py-2.5 rounded-full font-bold uppercase text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-[#25D366]/20 hover:shadow-[#25D366]/40 hover:-translate-y-0.5 border border-white/20">
+                        <span class="relative flex h-2.5 w-2.5">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                        </span>
+                        <span class="hidden lg:inline tracking-wider">Vendas via WhatsApp</span>
+                        <span class="lg:hidden tracking-wider">WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Busca Mobile -->
+            <div class="mt-4 md:hidden">
+                <form action="#" id="form-busca-mobile" class="relative w-full">
+                    <input type="search" name="busca_mobile" placeholder="Buscar na linha DeWalt..." 
+                        class="w-full bg-white/5 border border-white/10 rounded-full py-2.5 px-5 pr-12 text-sm text-white placeholder-gray-400 outline-none focus:border-araguaia-yellow">
+                    <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 bg-araguaia-yellow text-black rounded-full flex items-center justify-center">
+                        <i data-lucide="search" class="w-4 h-4 stroke-[2.5]"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-8 md:py-10">
+        <div class="container mx-auto px-4 lg:px-8 max-w-[1300px]">
+            
+            <!-- Breadcrumb (Alterado para DeWalt) -->
+            <nav class="text-gray-500 text-xs sm:text-sm font-medium mb-8 uppercase tracking-widest" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-2">
+                    <li><a href="index.html" class="hover:text-araguaia-yellow transition-colors"><i data-lucide="home" class="w-4 h-4 inline pb-0.5"></i> INÍCIO</a></li>
+                    <li><i data-lucide="chevron-right" class="w-4 h-4 mx-1 opacity-50"></i></li>
+                    <li><a href="#" class="hover:text-araguaia-yellow transition-colors text-araguaia-yellow font-bold">DEWALT</a></li>
+                    <li><i data-lucide="chevron-right" class="w-4 h-4 mx-1 opacity-50"></i></li>
+                    <li id="breadcrumb-categoria" class="text-white font-bold">PRODUTO</li>
+                </ol>
+            </nav>
+
+            <!-- Container do Produto -->
+            <div id="produto-container">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
+                    
+                    <!-- Lado Esquerdo (FOTOS) -->
+                    <div class="lg:col-span-7 flex flex-col gap-6">
+                        <div class="glass-panel w-full relative flex items-center justify-center p-3 sm:p-5 min-h-[350px] sm:min-h-[450px] overflow-hidden group">
+                            <div class="absolute inset-0 radial-glow z-0 pointer-events-none"></div>
+                            <span id="prod-tag" class="absolute top-4 left-4 text-black text-[10px] font-bold uppercase px-3 py-1.5 rounded-md hidden z-20 shadow-lg tracking-wider"></span>
+                            <img id="prod-img" src="" alt="" fetchpriority="high" loading="eager" class="w-full max-w-[95%] h-auto max-h-[400px] sm:max-h-[450px] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out relative z-10">
+                        </div>
+
+                        <!-- Galeria -->
+                        <div class="flex flex-row justify-center gap-4 overflow-x-auto w-full scrollbar-hide pb-2" id="prod-galeria">
+                            <!-- JS injeta os cards menores aqui -->
+                        </div>
+                    </div>
+
+                    <!-- Lado Direito (INFO) -->
+                    <div class="lg:col-span-5 flex flex-col justify-center">
+                        <div class="mb-4">
+                            <!-- Tag alterada para DeWalt -->
+                            <span class="text-[10px] text-araguaia-yellow uppercase tracking-[0.2em] font-bold bg-black/30 px-2 py-1 rounded border border-araguaia-yellow/30">Linha DeWalt</span>
+                            <h1 id="prod-nome" class="font-anton text-4xl sm:text-5xl text-white uppercase tracking-wide leading-tight mt-3 mb-4"></h1>
+                            
+                            <div class="flex items-center gap-3 text-sm">
+                                <div id="prod-estrelas" class="flex text-araguaia-yellow"></div>
+                                <span class="text-gray-600">|</span>
+                                <span class="text-[#25D366] font-medium flex items-center gap-1.5">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4"></i> Em estoque
+                                </span>
+                            </div>
+                        </div>
+
+                        <hr class="border-white/10 my-6">
+
+                        <!-- Preços -->
+                        <div class="mb-8">
+                            <span id="prod-preco-original" class="block text-gray-500 line-through text-sm sm:text-base mb-1"></span>
+                            <div class="flex items-end gap-2 text-araguaia-yellow font-anton mb-1">
+                                <span class="text-2xl pb-1.5">R$</span>
+                                <span id="prod-preco-desconto" class="text-6xl sm:text-7xl tracking-wide leading-none"></span>
+                            </div>
+                            <span id="prod-parcelamento" class="block text-gray-400 text-sm sm:text-base mt-2"></span>
+                            <span class="inline-block mt-3 bg-white/5 border border-white/10 text-gray-300 text-[10px] font-bold uppercase px-3 py-1.5 rounded tracking-wider">
+                                Desconto já aplicado no PIX
+                            </span>
+                        </div>
+
+                        <!-- Botão Comprar -->
+                        <div class="mt-2 mb-8">
+                            <button id="btn-comprar" class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#128C7E] hover:to-[#0f7165] text-white font-anton text-xl sm:text-2xl uppercase tracking-widest py-5 rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.2)] hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] hover:-translate-y-1 transition-all duration-300">
+                                <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                                Comprar no WhatsApp
+                            </button>
+                        </div>
+
+                        <!-- Benefícios -->
+                        <div class="glass-panel p-5 space-y-4 text-sm text-gray-300">
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 rounded-full bg-white/5 text-araguaia-yellow"><i data-lucide="shield-check" class="w-4 h-4"></i></div>
+                                <span><strong>Garantia oficial</strong> do fabricante.</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 rounded-full bg-white/5 text-araguaia-yellow"><i data-lucide="truck" class="w-4 h-4"></i></div>
+                                <span><strong>Envio rápido</strong> para todo o Brasil.</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 rounded-full bg-white/5 text-araguaia-yellow"><i data-lucide="credit-card" class="w-4 h-4"></i></div>
+                                <span>Pagamento <strong>100% seguro</strong> via link.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detalhes e Especificações -->
+                <div class="glass-panel overflow-hidden mt-10">
+                    <div class="bg-black/30 flex border-b border-white/10">
+                        <div class="px-8 py-5 font-anton text-xl tracking-widest uppercase text-araguaia-yellow border-b-2 border-araguaia-yellow bg-white/5">
+                            Ficha Técnica e Detalhes
+                        </div>
+                    </div>
+
+                    <div class="p-6 md:p-10 text-gray-300 leading-relaxed space-y-10 bg-white/5">
+                        <div id="prod-descricao" class="max-w-4xl text-base text-gray-400">
+                            <!-- Injetado via JS -->
+                        </div>
+
+                        <div>
+                            <h3 class="font-anton text-2xl text-white uppercase tracking-wider mb-6">Especificações do Equipamento</h3>
+                            <div class="overflow-x-auto rounded-xl border border-white/10">
+                                <table class="w-full text-sm text-left border-collapse">
+                                    <tbody id="prod-especificacoes" class="divide-y divide-white/10">
+                                        <!-- Injetado via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fallback: Produto não encontrado -->
+            <div id="erro-container" class="hidden text-center py-24 glass-panel mt-10">
+                <i data-lucide="package-x" class="w-16 h-16 text-gray-500 mx-auto mb-4"></i>
+                <h2 class="font-anton text-3xl text-white uppercase mb-2 tracking-widest">Produto indisponível</h2>
+                <p class="text-gray-400 mb-8">O item que você tentou acessar não existe ou saiu de linha.</p>
+                <a href="index.html" class="inline-flex items-center justify-center bg-araguaia-yellow hover:bg-white text-black font-anton uppercase tracking-widest px-8 py-4 rounded-lg transition-colors duration-300">
+                    Voltar para o Início
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Clássico Dark -->
+    <footer class="bg-[#050505] border-t border-white/10 pt-16 pb-8 mt-10">
+        <div class="container mx-auto px-4 lg:px-8 max-w-[1300px]">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <a href="index.html" class="inline-block mb-6 transition-opacity hover:opacity-90">
+                        <div class="bg-[#FFB800] p-1.5 rounded-lg inline-block">
+                            <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 w-auto object-contain">
+                        </div>
+                    </a>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">
+                        A força que o campo precisa com a tecnologia que você confia. Somos especialistas em ferramentas e maquinário.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-anton text-white uppercase tracking-widest mb-6">Atendimento</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li>Segunda a Sexta: 07:30 – 18:00</li>
+                        <li>Sábado: 07:30 – 12:00</li>
+                        <li>Domingo: Fechado</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-anton text-white uppercase tracking-widest mb-6">Contato</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="https://wa.me/556230997275" target="_blank" class="hover:text-araguaia-yellow transition-colors">(62) 3099-7275</a></li>
+                        <li>contato@araguaiamaquinas.com.br</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-anton text-white uppercase tracking-widest mb-6">Endereço</h4>
+                    <address class="text-sm text-gray-400 not-italic leading-relaxed">
+                        Av. Tiradentes, 30<br>
+                        Setor Central<br>
+                        Anápolis - GO, CEP: 75043-045
+                    </address>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600">
+                <p>
+                    <strong class="text-gray-400">CNPJ: 10.655.510/0001-50</strong> | &copy; 2026 Araguaia Máquinas. Todos os direitos reservados.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:border-araguaia-yellow hover:text-araguaia-yellow transition-all"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                    <a href="https://www.instagram.com/araguaiamaquinas/" target="_blank" class="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:border-araguaia-yellow hover:text-araguaia-yellow transition-all"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function initLucide(){
+            if(window.lucide){ lucide.createIcons(); }
+            else { setTimeout(initLucide, 200); }
+        }
+        initLucide();
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            if(menu) {
+                menu.classList.toggle('hidden');
+                lucide.createIcons();
+            }
+        });
+
+        // ==========================================
+        // BANCO DE DADOS - PRODUTOS DEWALT
+        // ==========================================
+        const produtosDewalt = [
+            { 
+                id: "dcd7781", 
+                ativo: true, 
+                categoria: "parafusadeira", 
+                nome: "Parafusadeira/Furadeira de Impacto 20V MAX* DeWalt DCD7781", 
+                precoOriginal: "1.199,00", 
+                precoDesconto: "989,90", 
+                parcelamento: "10x de R$ 98,99 s/ juros", 
+                // Coloque o nome da imagem real da dewalt aqui depois
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Foto+DeWalt+1", 
+                galeria: [
+                    "https://placehold.co/600x600/1a1a1a/FFB800?text=Foto+DeWalt+1", 
+                    "https://placehold.co/600x600/1a1a1a/FFB800?text=Foto+DeWalt+2", 
+                    "https://placehold.co/600x600/1a1a1a/FFB800?text=Foto+DeWalt+3"
+                ], 
+                tag: "Lançamento", 
+                tagColor: "bg-araguaia-yellow text-black", 
+                estrelas: 5, 
+                descricao: "Motor Brushless (sem escovas de carvão) garantindo maior vida útil da ferramenta. Ideal para perfurações e parafusamentos de alto desempenho em alvenaria, madeira e metal.", 
+                especificacoes: [
+                    "Bateria: 20V MAX* Íon de Lítio", 
+                    "Motor: Brushless (Sem escovas)", 
+                    "Mandril: Aperto Rápido 1/2 (13mm)", 
+                    "Velocidade: 2 velocidades mecânicas"
+                ] 
+            }
+            // Adicionaremos os próximos produtos aqui no próximo passo!
+        ];
+
+        // Lógica de Carregamento da Página
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Produto padrão alterado para a DeWalt
+            const idProduto = urlParams.get('id') || "dcd7781";
+            const produtoEncontrado = produtosDewalt.find(p => p.id === idProduto && p.ativo);
+
+            if (produtoEncontrado) {
+                const nomeLimpo = produtoEncontrado.nome;
+                
+                document.title = `${nomeLimpo} | Araguaia Máquinas`;
+                document.getElementById('breadcrumb-categoria').textContent = produtoEncontrado.categoria;
+                document.getElementById('prod-img').src = produtoEncontrado.imagem;
+                document.getElementById('prod-img').alt = nomeLimpo;
+                document.getElementById('prod-nome').textContent = nomeLimpo;
+                document.getElementById('prod-preco-desconto').textContent = produtoEncontrado.precoDesconto;
+                
+                if(produtoEncontrado.precoOriginal) {
+                    document.getElementById('prod-preco-original').textContent = `De R$ ${produtoEncontrado.precoOriginal} por:`;
+                } else {
+                    document.getElementById('prod-preco-original').style.display = 'none';
+                }
+                
+                document.getElementById('prod-parcelamento').textContent = `ou ${produtoEncontrado.parcelamento}`;
+                
+                // Descrição
+                document.getElementById('prod-descricao').innerHTML = `<p>${produtoEncontrado.descricao || "A descrição deste equipamento será atualizada em breve."}</p>`;
+                
+                // Especificações
+                const tbodyEspec = document.getElementById('prod-especificacoes');
+                if(produtoEncontrado.especificacoes && produtoEncontrado.especificacoes.length > 0) {
+                    produtoEncontrado.especificacoes.forEach((esp, index) => {
+                        const tr = document.createElement('tr');
+                        if(index % 2 !== 0) tr.classList.add('bg-white/5');
+                        
+                        const partes = esp.split(':');
+                        const titulo = partes[0] ? partes[0].trim() : '';
+                        const valor = partes[1] ? partes[1].trim() : '';
+
+                        tr.innerHTML = `
+                            <td class="px-6 py-4 font-bold text-white w-1/3 border-r border-white/10 uppercase text-xs tracking-wider">${titulo}</td>
+                            <td class="px-6 py-4 text-gray-400 font-medium">${valor || esp}</td>
+                        `;
+                        tbodyEspec.appendChild(tr);
+                    });
+                } else {
+                    tbodyEspec.innerHTML = '<tr><td class="px-6 py-4 text-gray-500">Nenhuma especificação cadastrada.</td></tr>';
+                }
+
+                // Tag
+                if (produtoEncontrado.tag) {
+                    const tagEl = document.getElementById('prod-tag');
+                    tagEl.textContent = produtoEncontrado.tag;
+                    tagEl.className = `absolute top-4 left-4 text-[10px] font-bold uppercase px-2.5 py-1 rounded z-20 shadow-lg tracking-wider ${produtoEncontrado.tagColor || 'bg-araguaia-yellow text-black'}`;
+                    tagEl.classList.remove('hidden');
+                }
+
+                // Estrelas
+                const estrelasHTML = '<i data-lucide="star" class="w-4 h-4 fill-current"></i>'.repeat(produtoEncontrado.estrelas) + 
+                                     '<i data-lucide="star" class="w-4 h-4 text-gray-700"></i>'.repeat(5 - produtoEncontrado.estrelas);
+                document.getElementById('prod-estrelas').innerHTML = estrelasHTML;
+
+                // Galeria
+                const galeriaContainer = document.getElementById('prod-galeria');
+                const imagensGaleria = produtoEncontrado.galeria || [produtoEncontrado.imagem];
+                
+                imagensGaleria.slice(0, 3).forEach((imgSrc) => {
+                    const thumbCard = document.createElement('div');
+                    thumbCard.className = "w-20 h-20 md:w-24 md:h-24 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center p-2 cursor-pointer hover:border-araguaia-yellow hover:bg-white/10 transition-all duration-300 opacity-60 hover:opacity-100 flex-shrink-0";
+                    thumbCard.innerHTML = `<img src="${imgSrc}" class="w-full h-full object-contain">`;
+                    
+                    thumbCard.addEventListener('click', () => {
+                        const imgPrincipal = document.getElementById('prod-img');
+                        imgPrincipal.style.opacity = '0.3';
+                        setTimeout(() => {
+                            imgPrincipal.src = imgSrc;
+                            imgPrincipal.style.opacity = '1';
+                        }, 200);
+                    });
+                    
+                    galeriaContainer.appendChild(thumbCard);
+                });
+
+                // Compra WhatsApp
+                document.getElementById('btn-comprar').addEventListener('click', () => {
+                    const telefoneLoja = "556230997275";
+                    const mensagem = `Olá, equipe da Araguaia Máquinas! Tenho interesse no equipamento da linha DeWalt:\n\n*${nomeLimpo}*\nValor: *R$ ${produtoEncontrado.precoDesconto}*\n\nPoderia me confirmar o prazo de entrega e disponibilidade?`;
+                    const urlWhatsApp = `https://wa.me/${telefoneLoja}?text=${encodeURIComponent(mensagem)}`;
+                    window.open(urlWhatsApp, "_blank");
+                });
+
+                if(window.lucide) { lucide.createIcons(); }
+
+            } else {
+                document.getElementById('erro-container').classList.remove('hidden');
+            }
+        });
+
+        // Sistema de Busca
+        function configurarBusca(formId) {
+            const form = document.getElementById(formId);
+            if(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const input = this.querySelector('input[type="search"]');
+                    const termo = input.value.trim().toLowerCase();
+                    
+                    if(termo !== '') {
+                        const produtoBuscado = produtosDewalt.find(p => p.nome.toLowerCase().includes(termo) && p.ativo);
+                        if(produtoBuscado) {
+                            window.location.href = `produto-dewalt.html?id=${produtoBuscado.id}`;
+                        } else {
+                            alert("Produto DeWalt não encontrado no momento.");
+                        }
+                    }
+                });
+            }
+        }
+        configurarBusca('form-busca-desktop');
+        configurarBusca('form-busca-mobile');
+
+    </script>
+</body>
+</html>
