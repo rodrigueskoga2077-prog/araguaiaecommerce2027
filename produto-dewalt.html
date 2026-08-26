@@ -74,7 +74,7 @@
             backface-visibility: hidden;
         }
         .hero-video.active {
-            opacity: 0.5;
+            opacity: 1; /* <-- ALTERADO: Agora a máquina brilha no escuro! */
             transform: scale(1) translateZ(0);
             z-index: 1;
         }
@@ -87,7 +87,7 @@
             will-change: opacity, transform;
         }
         .hero-poster.active {
-            opacity: 0.5;
+            opacity: 1; /* <-- ALTERADO */
             transform: scale(1) translateZ(0);
             z-index: 1;
         }
@@ -129,6 +129,17 @@
             transition: transform linear;
         }
         .slider-dot.done .dot-fill { transform: scaleX(1); transition: none; }
+
+        /* Degradê Customizado para o Fundo - Escuro na Esquerda, Claro na Direita */
+        .premium-gradient {
+            background: linear-gradient(90deg, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.85) 30%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0) 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .premium-gradient {
+                background: linear-gradient(180deg, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.9) 60%, rgba(8,8,8,0.95) 100%);
+            }
+        }
 
         @media (prefers-reduced-motion: reduce) {
             .hero-video, .hero-poster, .slide-content {
@@ -243,8 +254,9 @@
                     <img id="poster-3" class="hero-poster absolute inset-0 w-full h-full object-cover object-center" src="0001.webp" alt="" loading="lazy">
                 </div>
                 
-                <!-- Overlay Escuro -->
-                <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent z-[2]"></div>
+                <!-- Overlay Escuro Customizado (Vignette Fade) -->
+                <!-- Escuro atrás do texto (Esquerda), Claro em cima do produto (Direita) -->
+                <div class="premium-gradient absolute inset-0 z-[2]"></div>
             </div>
 
             <!-- TEXTOS DOS SLIDES (ESTILO ORIGINAL RESTAURADO) -->
