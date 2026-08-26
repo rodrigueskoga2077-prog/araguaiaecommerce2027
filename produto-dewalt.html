@@ -60,8 +60,8 @@
         .product-card:hover .product-img { transform: scale(1.05); }
         .hero-banner-stihl { position: relative; width: 100%; }
         
-        /* Classes para animar os slides */
-        .hero-video { opacity: 0; z-index: 0; transition: opacity 1s ease-in-out; }
+        /* Classes para animar os slides - TRANSIÇÃO SUAVE DE 1s */
+        .hero-video { opacity: 0; transition: opacity 1s ease-in-out; z-index: 0; }
         .hero-video.active { opacity: 0.5; z-index: 1; }
         
         .slide-content { opacity: 0; transform: translateY(20px); pointer-events: none; transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -161,18 +161,18 @@
         <!-- Hero Section - SLIDER COM VÍDEOS -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 80vh;">
             
-            <!-- VÍDEOS DE BACKGROUND (Sem o atributo loop) -->
+            <!-- VÍDEOS DE BACKGROUND (Preload Auto Adicionado para Fluidez) -->
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
                 <!-- Vídeo Slide 1 -->
-                <video id="vid-1" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline poster="0001.webp">
+                <video id="vid-1" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline preload="auto" poster="0001.webp">
                     <source src="dewallt1.mp4" type="video/mp4">
                 </video>
                 <!-- Vídeo Slide 2 -->
-                <video id="vid-2" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline>
+                <video id="vid-2" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline preload="auto">
                     <source src="dewall2.mp4" type="video/mp4">
                 </video>
                 <!-- Vídeo Slide 3 -->
-                <video id="vid-3" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline>
+                <video id="vid-3" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline preload="auto">
                     <source src="dewalt3.mp4" type="video/mp4">
                 </video>
                 
@@ -318,11 +318,9 @@
 
                 <!-- PAGINAÇÃO -->
                 <div class="flex justify-center items-center mt-16 gap-3 border-t border-araguaia-border pt-8">
-                    <!-- Botão 1 volta para a HOME da STIHL -->
                     <a href="index.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-surface border border-araguaia-border text-gray-400 hover:text-white hover:border-araguaia-yellow transition-all font-anton text-xl">
                         1
                     </a>
-                    <!-- Botão 2 é a página ATUAL (DeWalt) amarela -->
                     <a href="index-dewalt.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-yellow text-black font-anton text-xl border border-araguaia-yellow shadow-[0_0_15px_rgba(255,184,0,0.3)]">
                         2
                     </a>
@@ -415,11 +413,12 @@
         </div>
     </footer>
 
-    <!-- Script Slider Sincronizado com os Vídeos -->
+    <!-- Script Slider Sincronizado e Fluido -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const totalSlides = 3;
             let currentSlide = 1;
+            let isTransitioning = false; // Bloqueia cliques duplos rápidos
 
             const videos = {
                 1: document.getElementById('vid-1'),
@@ -427,63 +426,81 @@
                 3: document.getElementById('vid-3')
             };
 
-            function showSlide(index) {
-                // Pausa e zera o tempo de todos os vídeos
-                Object.values(videos).forEach(video => {
-                    video.pause();
-                    video.currentTime = 0;
-                    video.classList.remove('active');
-                });
+            // Inicia a primeira tela
+            videos[1].classList.add('active');
+            document.getElementById('text-1').classList.add('active');
+            videos[1].play().catch(e => console.log("Autoplay bloqueado:", e));
 
-                // Remove a classe ativa dos textos
-                document.querySelectorAll('.slide-content').forEach(c => c.classList.remove('active'));
+            function goToSlide(nextIndex) {
+                if (currentSlide === nextIndex || isTransitioning) return;
+                isTransitioning = true;
                 
-                // Reseta os dots (bolinhas de navegação)
-                document.querySelectorAll('.slider-dot').forEach(d => {
-                    d.classList.remove('bg-araguaia-yellow', 'w-8');
-                    d.classList.add('bg-white/40', 'w-2');
-                });
-
-                // Ativa o slide e o texto atual
-                videos[index].classList.add('active');
-                document.getElementById(`text-${index}`).classList.add('active');
+                const prevIndex = currentSlide;
+                const prevVideo = videos[prevIndex];
+                const nextVideo = videos[nextIndex];
                 
-                // Atualiza a bolinha de navegação atual
-                const dot = document.querySelector(`.slider-dot[data-slide="${index}"]`);
-                if(dot) {
-                    dot.classList.remove('bg-white/40', 'w-2');
-                    dot.classList.add('bg-araguaia-yellow', 'w-8');
-                }
-
-                // Dá play no vídeo que acabou de aparecer
-                const playPromise = videos[index].play();
+                // Zera e dá play no PRÓXIMO vídeo (Escondido)
+                nextVideo.currentTime = 0;
+                const playPromise = nextVideo.play();
+                
                 if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log("Autoplay bloqueado pelo navegador:", error);
+                    playPromise.then(() => {
+                        // Assim que o novo vídeo começa a processar frames, fazemos a troca visual
+                        
+                        // Textos
+                        document.getElementById(`text-${prevIndex}`).classList.remove('active');
+                        document.getElementById(`text-${nextIndex}`).classList.add('active');
+                        
+                        // Bolinhas
+                        document.querySelectorAll('.slider-dot').forEach(d => {
+                            d.classList.remove('bg-araguaia-yellow', 'w-8');
+                            d.classList.add('bg-white/40', 'w-2');
+                        });
+                        const dot = document.querySelector(`.slider-dot[data-slide="${nextIndex}"]`);
+                        if(dot) {
+                            dot.classList.remove('bg-white/40', 'w-2');
+                            dot.classList.add('bg-araguaia-yellow', 'w-8');
+                        }
+
+                        // Fade In / Fade Out
+                        prevVideo.classList.remove('active');
+                        nextVideo.classList.add('active');
+                        
+                        currentSlide = nextIndex;
+                        
+                        // O SEGREDO DA FLUIDEZ: 
+                        // Espera o CSS Transition terminar (1 segundo) antes de pausar o vídeo antigo
+                        setTimeout(() => {
+                            if (currentSlide !== prevIndex) {
+                                prevVideo.pause();
+                            }
+                            isTransitioning = false; // Libera a próxima transição
+                        }, 1000);
+
+                    }).catch(error => {
+                        console.log("Erro no autoplay do vídeo:", error);
+                        isTransitioning = false;
                     });
                 }
             }
 
             function nextSlide() {
-                currentSlide = currentSlide >= totalSlides ? 1 : currentSlide + 1;
-                showSlide(currentSlide);
+                let next = currentSlide >= totalSlides ? 1 : currentSlide + 1;
+                goToSlide(next);
             }
 
-            // O pulo do gato: quando um vídeo terminar, chama a função de ir para o próximo!
+            // Quando o vídeo atual chegar ao fim, muda pro próximo suavemente
             Object.values(videos).forEach(video => {
                 video.addEventListener('ended', nextSlide);
             });
 
-            // Clique nas bolinhas para mudar manualmente
+            // Navegação manual por cliques nas bolinhas
             document.querySelectorAll('.slider-dot').forEach(dot => {
                 dot.addEventListener('click', (e) => {
-                    currentSlide = parseInt(e.target.getAttribute('data-slide'));
-                    showSlide(currentSlide);
+                    let next = parseInt(e.target.getAttribute('data-slide'));
+                    goToSlide(next);
                 });
             });
-
-            // Inicia o primeiro slide
-            showSlide(1);
         });
     </script>
 
