@@ -17,7 +17,7 @@
     <!-- PRELOADS PARA PERFORMANCE (LCP) -->
     <link rel="preload" as="image" href="0001.webp" fetchpriority="high">
 
-    <!-- Fonts (Anton é a fonte blocky de impacto) -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
             color: #f4f4f4;
         }
         
-        .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.03em; }
+        .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #121212; }
@@ -62,8 +62,8 @@
 
         /* ============================================================
            SLIDER — Transição suave com ritmo (crossfade + leve zoom)
-           Tudo em transform/opacity => acelerado por GPU, sem reflow.
            ============================================================ */
+
         .hero-video {
             opacity: 0;
             transform: scale(1.06) translateZ(0);
@@ -92,65 +92,25 @@
             z-index: 1;
         }
 
-        /* 
-           ========================================================
-           ANIMAÇÃO DE TEXTO ESTILO APPLE (STAGGERED TEXT REVEAL)
-           ========================================================
-        */
+        /* Animação original de Fade/Subir do bloco todo */
         .slide-content {
             opacity: 0;
+            transform: translateY(24px) translateZ(0);
             pointer-events: none;
-            transition: opacity 0.5s ease; 
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             transition-delay: 0s;
+            will-change: opacity, transform;
         }
         .slide-content.active {
             opacity: 1;
+            transform: translateY(0) translateZ(0);
             pointer-events: auto;
             z-index: 10;
-            transition-delay: 0.15s; /* pequeno atraso após o fade do vídeo começar */
+            transition-delay: 0.15s;
         }
 
-        /* Máscara invisível para o texto sair de dentro dela */
-        .reveal-mask {
-            display: block;
-            overflow: hidden;
-            padding-bottom: 6px; 
-        }
-
-        /* O texto inicialmente fica pra baixo (escondido) */
-        .reveal-text {
-            display: block;
-            transform: translateY(120%);
-            opacity: 0;
-            /* Curva cúbica Apple-like para suavidade extrema */
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* Quando o slide está ativo, o texto sobe */
-        .slide-content.active .reveal-text {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Atrasos (Staggering) para cada linha subir uma depois da outra */
-        .slide-content.active .delay-1 { transition-delay: 0.25s; }
-        .slide-content.active .delay-2 { transition-delay: 0.40s; }
-        .slide-content.active .delay-3 { transition-delay: 0.55s; }
-        .slide-content.active .delay-4 { transition-delay: 0.70s; }
-
-        /* Sombra hiper realista para separar o texto do vídeo */
-        .text-heavy-shadow {
-            text-shadow: 0px 8px 24px rgba(0,0,0,0.9), 0px 2px 4px rgba(0,0,0,1);
-        }
-        
-        /* Ajuste do amarelo para dar mais "glow" no fundo escuro */
-        .yellow-glow {
-            text-shadow: 0px 0px 40px rgba(255, 184, 0, 0.2), 0px 8px 24px rgba(0,0,0,0.9);
-        }
-
-        /* ============================================================
-           Barra de progresso dentro de cada bolinha
-           ============================================================ */
+        /* Barra de progresso dentro de cada bolinha */
         .slider-dot {
             position: relative;
             overflow: hidden;
@@ -171,7 +131,10 @@
         .slider-dot.done .dot-fill { transform: scaleX(1); transition: none; }
 
         @media (prefers-reduced-motion: reduce) {
-            .hero-video, .hero-poster, .reveal-text { transition-duration: 0.3s !important; transition-delay: 0s !important; transform: none !important; }
+            .hero-video, .hero-poster, .slide-content {
+                transition-duration: 0.3s !important;
+            }
+            .hero-video, .hero-poster { transform: none !important; }
         }
     </style>
 </head>
@@ -265,12 +228,12 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section - SLIDER COM VÍDEOS (mobile-first performance) -->
+        <!-- Hero Section - SLIDER COM VÍDEOS -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 80vh;">
             
             <!-- BACKGROUND: vídeos no desktop, imagens estáticas no mobile/conexão lenta -->
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- Vídeos (criados dinamicamente só quando fizer sentido — ver JS) -->
+                <!-- Vídeos -->
                 <div id="hero-video-layer" class="absolute inset-0 w-full h-full"></div>
 
                 <!-- Fallback / modo leve: imagens estáticas com o mesmo crossfade -->
@@ -280,102 +243,78 @@
                     <img id="poster-3" class="hero-poster absolute inset-0 w-full h-full object-cover object-center" src="0001.webp" alt="" loading="lazy">
                 </div>
                 
-                <!-- Overlay Escuro para dar contraste aos textos amarelos/brancos -->
+                <!-- Overlay Escuro -->
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent z-[2]"></div>
             </div>
 
-            <!-- TEXTOS DOS SLIDES COM ESTILO APPLE REVEAL -->
+            <!-- TEXTOS DOS SLIDES (ESTILO ORIGINAL RESTAURADO) -->
             <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32 flex-grow">
-                <div class="grid grid-cols-1 grid-rows-1 items-center w-full max-w-6xl">
+                <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
-                    <!-- TEXTO SLIDE 1 -->
-                    <div id="text-1" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
-                        <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
-                            <span class="reveal-mask">
-                                <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-                                    COM A FERRAMENTA E BATERIA
-                                </span>
+                    <!-- Texto Slide 1 -->
+                    <div id="text-1" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
+                            LINHA DEWALT
+                        </span>
+                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
+                            GARANTIDO.<br>
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                                DURA MAIS.
                             </span>
-                            <span class="reveal-mask mt-1 md:mt-3">
-                                <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-                                    CORRETA PARA FAZER UM TRABALHO
-                                </span>
-                            </span>
-                            <span class="reveal-mask mt-2 md:mt-4">
-                                <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
-                                    <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">BEM FEITO</span>
-                                    <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">E NO TEMPO</span>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="reveal-mask mt-10 md:mt-14">
-                            <a href="#destaques" onclick="renderizarVitrine('todos')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                                VER FERRAMENTAS
-                                <i data-lucide="arrow-right" class="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform stroke-[2.5]"></i>
-                            </a>
-                        </div>
+                        </h1>
+                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                            Ferramentas elétricas e a bateria projetadas para os profissionais mais exigentes. Potência e durabilidade para qualquer obra.
+                        </p>
+                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                            VER FERRAMENTAS
+                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
                     </div>
 
-                    <!-- TEXTO SLIDE 2 -->
-                    <div id="text-2" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
-                        <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
-                            <span class="reveal-mask">
-                                <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-                                    A LIBERDADE QUE VOCÊ PRECISA
-                                </span>
+                    <!-- Texto Slide 2 -->
+                    <div id="text-2" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
+                            MÁXIMA POTÊNCIA
+                        </span>
+                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
+                            ALTA PERFORMANCE.<br>
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                                SEM FIOS.
                             </span>
-                            <span class="reveal-mask mt-1 md:mt-3">
-                                <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-                                    COM A FORÇA QUE SUA OBRA EXIGE
-                                </span>
-                            </span>
-                            <span class="reveal-mask mt-2 md:mt-4">
-                                <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
-                                    <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">SEM FIOS.</span>
-                                    <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">LINHA 20V MAX</span>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="reveal-mask mt-10 md:mt-14">
-                            <a href="#destaques" onclick="renderizarVitrine('bateria')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                                VER BATERIAS
-                                <i data-lucide="arrow-right" class="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform stroke-[2.5]"></i>
-                            </a>
-                        </div>
+                        </h1>
+                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                            A liberdade que você precisa com a força que a sua obra exige. Conheça a linha 20V MAX* da DeWalt.
+                        </p>
+                        <a href="#destaques" onclick="renderizarVitrine('bateria')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                            VER BATERIAS
+                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
                     </div>
 
-                    <!-- TEXTO SLIDE 3 -->
-                    <div id="text-3" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
-                        <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
-                            <span class="reveal-mask">
-                                <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-                                    EQUIPAMENTOS ROBUSTOS TESTADOS
-                                </span>
+                    <!-- Texto Slide 3 -->
+                    <div id="text-3" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
+                            RESISTÊNCIA EXTREMA
+                        </span>
+                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
+                            PROJETADA PARA<br>
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                                O TRABALHO BRUTO.
                             </span>
-                            <span class="reveal-mask mt-1 md:mt-3">
-                                <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-                                    NAS CONDIÇÕES MAIS SEVERAS
-                                </span>
-                            </span>
-                            <span class="reveal-mask mt-2 md:mt-4">
-                                <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
-                                    <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">MÁXIMA</span>
-                                    <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">RESISTÊNCIA</span>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="reveal-mask mt-10 md:mt-14">
-                            <a href="#destaques" onclick="renderizarVitrine('todos')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                                CONFIRA AS OFERTAS
-                                <i data-lucide="arrow-right" class="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform stroke-[2.5]"></i>
-                            </a>
-                        </div>
+                        </h1>
+                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                            Equipamentos robustos testados nas condições mais severas para entregar sempre o melhor resultado.
+                        </p>
+                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                            CONFIRA AS OFERTAS
+                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
                     </div>
 
                 </div>
             </div>
 
-            <!-- Navegação (Bolinhas com barra de progresso = dá ritmo visual) -->
+            <!-- Navegação (Bolinhas com barra de progresso) -->
             <div class="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
                 <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full transition-all duration-300" data-slide="1" aria-label="Slide 1"><span class="dot-fill"></span></button>
                 <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full transition-all duration-300" data-slide="2" aria-label="Slide 2"><span class="dot-fill"></span></button>
@@ -564,13 +503,10 @@
 
     <!-- ============================================================
          SLIDER: vídeo no desktop / imagem estática no mobile
-         - Mobile nunca baixa/decodifica os 3 vídeos: usa só posters.
-         - No desktop, só o vídeo ATIVO tem preload real.
-         - Cada troca tem ritmo fixo: vídeo funde primeiro, texto entra depois.
          ============================================================ -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const SLIDE_DURATION = 6000; // Tempo base de duração visual de cada cena
+            const SLIDE_DURATION = 6000;
             const totalSlides = 3;
             let currentSlide = 1;
             let isTransitioning = false;
@@ -581,7 +517,6 @@
             const saveData = navigator.connection && navigator.connection.saveData;
             const slowConnection = navigator.connection && /2g|3g/.test(navigator.connection.effectiveType || '');
 
-            // Usa vídeos só em telas grandes e conexões boas
             const useVideo = !isMobile && !saveData && !slowConnection && !prefersReducedMotion;
 
             const videoLayer = document.getElementById('hero-video-layer');
@@ -596,7 +531,7 @@
                 v.className = 'hero-video absolute inset-0 w-full h-full object-cover object-center';
                 v.muted = true;
                 v.playsInline = true;
-                v.loop = false; // Queremos usar o evento 'ended' para avançar
+                v.loop = false;
                 v.preload = withPreload ? 'auto' : 'none';
                 if (index === 1) v.poster = '0001.webp';
                 
@@ -610,13 +545,11 @@
             }
 
             if (useVideo) {
-                // Inicia carregando só o primeiro vídeo
                 videos[1] = buildVideoEl(1, true);
                 videoLayer.appendChild(videos[1]);
                 videos[1].classList.add('active');
                 videos[1].play().catch(() => {});
             } else {
-                // Ativa fallback para imagens
                 posterLayer.classList.remove('hidden');
                 document.getElementById('poster-1').classList.add('active');
             }
@@ -642,12 +575,9 @@
                     const activeDot = document.querySelector(`.slider-dot[data-slide="${activeIndex}"]`);
                     if (!activeDot) return;
                     
-                    // Acha a barra de progresso (dot-fill) correspondente e anima
                     const fill = activeDot.querySelector('.dot-fill');
                     activeDot.classList.add('filling');
                     requestAnimationFrame(() => {
-                        // Se estivermos usando vídeos, tentamos descobrir a duração do vídeo.
-                        // Se não soubermos (ou estiver usando imagens), usa o fallback de SLIDE_DURATION.
                         let durationToAnimate = SLIDE_DURATION; 
                         
                         if (useVideo && videos[activeIndex] && !isNaN(videos[activeIndex].duration) && videos[activeIndex].duration > 0) {
@@ -666,7 +596,6 @@
 
                 const prevIndex = currentSlide;
 
-                // Animação dos textos (saída e entrada)
                 document.getElementById(`text-${prevIndex}`).classList.remove('active');
                 document.getElementById(`text-${nextIndex}`).classList.add('active');
                 
@@ -684,11 +613,9 @@
                         nextVideo.classList.add('active');
                         currentSlide = nextIndex;
                         
-                        // Pré-carrega o PRÓXIMO vídeo com antecedência (não o atual nem o anterior)
                         const upcoming = nextIndex >= totalSlides ? 1 : nextIndex + 1;
                         ensureVideoLoaded(upcoming);
                         
-                        // Libera o lock após a transição CSS de crossfade terminar (1.4s neste design)
                         setTimeout(() => {
                             if (currentSlide !== prevIndex) prevVideo.pause();
                             isTransitioning = false;
@@ -720,29 +647,22 @@
 
             function restartAutoTimer() {
                 if (autoTimer) clearTimeout(autoTimer);
-                
-                // Se NÃO tiver vídeo, o timer do JS força a troca da imagem no tempo definido
                 if (!useVideo) {
                     autoTimer = setTimeout(nextSlide, SLIDE_DURATION);
                 }
-                // Se tiver vídeo, deixamos o evento "ended" do vídeo comandar o avanço (mais natural).
             }
 
-            // Iniciar a primeira tela (ativa os textos e dots do slide 1)
             document.getElementById(`text-1`).classList.add('active');
             
-            // Para garantir que a barra de carregamento pegue a duração certa, 
-            // damos um tempinho pro video 1 carregar os metadados.
             if(useVideo && videos[1]) {
                  videos[1].addEventListener('loadedmetadata', () => resetDots(1), {once: true});
-                 if (videos[1].readyState >= 1) resetDots(1); // Se já carregou
+                 if (videos[1].readyState >= 1) resetDots(1);
             } else {
                  resetDots(1);
             }
             
             restartAutoTimer();
 
-            // Navegação manual por cliques nas bolinhas
             dots.forEach(dot => {
                 dot.addEventListener('click', (e) => {
                     const target = parseInt(dot.getAttribute('data-slide'));
@@ -751,7 +671,6 @@
                 });
             });
 
-            // Pausa o vídeo ativo quando o hero sai da tela (economiza bateria/CPU no scroll)
             const heroSection = document.getElementById('hero');
             if ('IntersectionObserver' in window && useVideo) {
                 const io = new IntersectionObserver((entries) => {
