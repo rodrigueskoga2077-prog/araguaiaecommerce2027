@@ -71,7 +71,7 @@
             background-color: #080808; 
         }
         .hero-video.active {
-            opacity: 1; /* Vídeo claro para ver a máquina na direita */
+            opacity: 1; /* <-- Vídeo claro para ver a máquina na direita */
             transform: scale(1) translateZ(0);
             z-index: 1;
         }
@@ -209,7 +209,6 @@
                     <li><a href="#destaques" onclick="renderizarVitrine('parafusadeira')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Parafusadeiras</a></li>
                     <li><a href="#destaques" onclick="renderizarVitrine('furadeira')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Furadeiras</a></li>
                     <li><a href="#destaques" onclick="renderizarVitrine('esmerilhadeira')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Esmerilhadeiras</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('serra')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Serras</a></li>
                     <li><a href="#destaques" onclick="renderizarVitrine('bateria')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Baterias</a></li>
                     <li><a href="#destaques" onclick="renderizarVitrine('todos')" class="text-xs font-bold uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>Ofertas DeWalt</a></li>
                 </ul>
@@ -222,7 +221,6 @@
                 <li><a href="#destaques" onclick="renderizarVitrine('parafusadeira')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Parafusadeiras</a></li>
                 <li><a href="#destaques" onclick="renderizarVitrine('furadeira')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Furadeiras</a></li>
                 <li><a href="#destaques" onclick="renderizarVitrine('esmerilhadeira')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Esmerilhadeiras</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('serra')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Serras</a></li>
                 <li><a href="#destaques" onclick="renderizarVitrine('bateria')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Baterias</a></li>
                 <li><a href="#destaques" onclick="renderizarVitrine('todos')" class="block px-6 py-4 text-red-500 font-bold uppercase text-sm hover:bg-araguaia-surface-light">Ofertas DeWalt</a></li>
             </ul>
@@ -238,7 +236,7 @@
                 <!-- Vídeos -->
                 <div id="hero-video-layer" class="absolute inset-0 w-full h-full"></div>
 
-                <!-- Fallback / modo leve -->
+                <!-- Fallback / modo leve: Sem as imagens da STIHL -->
                 <div id="hero-poster-layer" class="absolute inset-0 w-full h-full bg-araguaia-dark hidden">
                     <div id="poster-1" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
                     <div id="poster-2" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
@@ -327,39 +325,38 @@
         <!-- Categorias DeWalt -->
         <section id="categorias" class="py-12 bg-araguaia-dark border-b border-araguaia-border">
             <div class="container mx-auto px-4">
-                <div class="grid grid-cols-3 md:grid-cols-6 gap-4 md:gap-8">
-                    <a href="#destaques" onclick="renderizarVitrine('parafusadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
+                <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+                    <a href="#destaques" onclick="renderizarVitrine('parafusadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
-                            <i data-lucide="hammer" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
+                            <!-- Ícone: Screwdriver -->
+                            <i data-lucide="screwdriver" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Parafusadeiras</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('furadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
+                    <a href="#destaques" onclick="renderizarVitrine('furadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
-                            <i data-lucide="zap" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
+                            <!-- Ícone: Drill -->
+                            <i data-lucide="drill" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Furadeiras</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('esmerilhadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
+                    <a href="#destaques" onclick="renderizarVitrine('esmerilhadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
+                            <!-- Ícone: Disc -->
                             <i data-lucide="disc" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Esmerilhadeiras</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('serra')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
+                    <a href="#destaques" onclick="renderizarVitrine('bateria')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
-                            <i data-lucide="scissors" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
-                        </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Serras</span>
-                    </a>
-                    <a href="#destaques" onclick="renderizarVitrine('bateria')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
+                            <!-- Ícone: Battery Charging -->
                             <i data-lucide="battery-charging" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Baterias</span>
                     </a>
-                    <a href="#destaques" onclick="renderizarVitrine('acessorio')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1">
+                    <a href="#destaques" onclick="renderizarVitrine('acessorio')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
                         <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
+                            <!-- Ícone: Settings -->
                             <i data-lucide="settings" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
                         </div>
                         <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Acessórios</span>
@@ -723,20 +720,6 @@
                 ativo: true
             },
             {
-                id: "dcs391b",
-                categoria: "serra",
-                nome: "Serra Circular 6-1/2\" 20V MAX* Íon de Lítio",
-                precoOriginal: "1.890,00",
-                precoDesconto: "1.650,00",
-                parcelamento: "10x de R$ 165,00 s/ juros",
-                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Serra+Circular+DeWalt",
-                tag: "Destaque",
-                tagColor: "bg-araguaia-yellow text-black",
-                estrelas: 4,
-                avaliacoes: 25,
-                ativo: true
-            },
-            {
                 id: "dcf887b",
                 categoria: "parafusadeira",
                 nome: "Chave de Impacto 1/4\" 20V MAX* XR Brushless",
@@ -776,20 +759,6 @@
                 tagColor: "bg-gray-700 text-white",
                 estrelas: 5,
                 avaliacoes: 31,
-                ativo: true
-            },
-            {
-                id: "dcs331b",
-                categoria: "serra",
-                nome: "Serra Tico-Tico 20V MAX* Íon de Lítio",
-                precoOriginal: "1.250,00",
-                precoDesconto: "1.099,90",
-                parcelamento: "10x de R$ 109,99 s/ juros",
-                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Serra+Tico-Tico",
-                tag: "-12% OFF PIX",
-                tagColor: "bg-red-600 text-white",
-                estrelas: 4,
-                avaliacoes: 9,
                 ativo: true
             },
             {
@@ -833,6 +802,34 @@
                 estrelas: 5,
                 avaliacoes: 22,
                 ativo: true
+            },
+            {
+                id: "dcd700c2",
+                categoria: "parafusadeira",
+                nome: "Parafusadeira/Furadeira 3/8\" 12V MAX* Íon de Lítio",
+                precoOriginal: "720,00",
+                precoDesconto: "599,90",
+                parcelamento: "10x de R$ 59,99 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Parafusadeira+12V",
+                tag: "Leve e Compacta",
+                tagColor: "bg-gray-600 text-white",
+                estrelas: 4,
+                avaliacoes: 88,
+                ativo: true
+            },
+            {
+                id: "dcs331b",
+                categoria: "acessorio",
+                nome: "Mochila para Ferramentas 18\" com Base Impermeável",
+                precoOriginal: "350,00",
+                precoDesconto: "299,90",
+                parcelamento: "5x de R$ 59,98 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Mochila+Ferramentas",
+                tag: "",
+                tagColor: "",
+                estrelas: 5,
+                avaliacoes: 15,
+                ativo: true
             }
         ];
 
@@ -849,7 +846,6 @@
                     'parafusadeira': 'Parafusadeiras',
                     'furadeira': 'Furadeiras',
                     'esmerilhadeira': 'Esmerilhadeiras',
-                    'serra': 'Serras',
                     'bateria': 'Baterias e Carregadores',
                     'acessorio': 'Acessórios'
                 };
