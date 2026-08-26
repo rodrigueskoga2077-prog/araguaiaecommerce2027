@@ -14,9 +14,6 @@
     <meta name="keywords" content="DeWalt Anápolis, parafusadeira DeWalt, furadeira, ferramentas a bateria, Araguaia Máquinas">
     <meta name="author" content="Araguaia Máquinas">
 
-    <!-- PRELOADS PARA PERFORMANCE (LCP) -->
-    <link rel="preload" as="image" href="0001.webp" fetchpriority="high">
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +46,7 @@
             color: #f4f4f4;
         }
         
-        .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
+        .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.03em; }
 
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #121212; }
@@ -61,9 +58,8 @@
         .hero-banner-stihl { position: relative; width: 100%; }
 
         /* ============================================================
-           SLIDER — Transição suave com ritmo (crossfade + leve zoom)
+           SLIDER — Transição suave com ritmo
            ============================================================ */
-
         .hero-video {
             opacity: 0;
             transform: scale(1.06) translateZ(0);
@@ -72,9 +68,10 @@
             z-index: 0;
             will-change: opacity, transform;
             backface-visibility: hidden;
+            background-color: #080808; 
         }
         .hero-video.active {
-            opacity: 1; /* <-- ALTERADO: Agora a máquina brilha no escuro! */
+            opacity: 1;
             transform: scale(1) translateZ(0);
             z-index: 1;
         }
@@ -85,32 +82,54 @@
             transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1),
                         transform 6s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
+            background-color: #080808;
         }
         .hero-poster.active {
-            opacity: 1; /* <-- ALTERADO */
+            opacity: 1;
             transform: scale(1) translateZ(0);
             z-index: 1;
         }
 
-        /* Animação original de Fade/Subir do bloco todo */
+        /* Animação Apple-like para os textos da DeWalt */
         .slide-content {
             opacity: 0;
-            transform: translateY(24px) translateZ(0);
             pointer-events: none;
-            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.5s ease; 
             transition-delay: 0s;
-            will-change: opacity, transform;
         }
         .slide-content.active {
             opacity: 1;
-            transform: translateY(0) translateZ(0);
             pointer-events: auto;
             z-index: 10;
             transition-delay: 0.15s;
         }
 
-        /* Barra de progresso dentro de cada bolinha */
+        .reveal-mask {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 6px; 
+        }
+
+        .reveal-text {
+            display: block;
+            transform: translateY(120%);
+            opacity: 0;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-content.active .reveal-text {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .slide-content.active .delay-1 { transition-delay: 0.25s; }
+        .slide-content.active .delay-2 { transition-delay: 0.40s; }
+        .slide-content.active .delay-3 { transition-delay: 0.55s; }
+        .slide-content.active .delay-4 { transition-delay: 0.70s; }
+
+        .text-heavy-shadow { text-shadow: 0px 8px 24px rgba(0,0,0,0.9), 0px 2px 4px rgba(0,0,0,1); }
+        .yellow-glow { text-shadow: 0px 0px 40px rgba(255, 184, 0, 0.2), 0px 8px 24px rgba(0,0,0,0.9); }
+
         .slider-dot {
             position: relative;
             overflow: hidden;
@@ -130,22 +149,15 @@
         }
         .slider-dot.done .dot-fill { transform: scaleX(1); transition: none; }
 
-        /* Degradê Customizado para o Fundo - Escuro na Esquerda, Claro na Direita */
         .premium-gradient {
             background: linear-gradient(90deg, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.85) 30%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0) 100%);
         }
-        
         @media (max-width: 768px) {
-            .premium-gradient {
-                background: linear-gradient(180deg, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.9) 60%, rgba(8,8,8,0.95) 100%);
-            }
+            .premium-gradient { background: linear-gradient(180deg, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.9) 60%, rgba(8,8,8,0.95) 100%); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .hero-video, .hero-poster, .slide-content {
-                transition-duration: 0.3s !important;
-            }
-            .hero-video, .hero-poster { transform: none !important; }
+            .hero-video, .hero-poster, .reveal-text { transition-duration: 0.3s !important; transition-delay: 0s !important; transform: none !important; }
         }
     </style>
 </head>
@@ -242,85 +254,107 @@
         <!-- Hero Section - SLIDER COM VÍDEOS -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 80vh;">
             
-            <!-- BACKGROUND: vídeos no desktop, imagens estáticas no mobile/conexão lenta -->
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
                 <!-- Vídeos -->
                 <div id="hero-video-layer" class="absolute inset-0 w-full h-full"></div>
 
-                <!-- Fallback / modo leve: imagens estáticas com o mesmo crossfade -->
-                <div id="hero-poster-layer" class="absolute inset-0 w-full h-full hidden">
-                    <img id="poster-1" class="hero-poster absolute inset-0 w-full h-full object-cover object-center" src="0001.webp" alt="" fetchpriority="high">
-                    <img id="poster-2" class="hero-poster absolute inset-0 w-full h-full object-cover object-center" src="0001.webp" alt="" loading="lazy">
-                    <img id="poster-3" class="hero-poster absolute inset-0 w-full h-full object-cover object-center" src="0001.webp" alt="" loading="lazy">
+                <!-- Fallback / modo leve -->
+                <div id="hero-poster-layer" class="absolute inset-0 w-full h-full bg-araguaia-dark hidden">
+                    <div id="poster-1" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
+                    <div id="poster-2" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
+                    <div id="poster-3" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
                 </div>
                 
-                <!-- Overlay Escuro Customizado (Vignette Fade) -->
-                <!-- Escuro atrás do texto (Esquerda), Claro em cima do produto (Direita) -->
+                <!-- Degradê Premium (Escuro no texto, Claro na Máquina) -->
                 <div class="premium-gradient absolute inset-0 z-[2]"></div>
             </div>
 
-            <!-- TEXTOS DOS SLIDES (ESTILO ORIGINAL RESTAURADO) -->
+            <!-- TEXTOS DOS SLIDES (ESTILO APPLE REVEAL) -->
             <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32 flex-grow">
-                <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
+                <div class="grid grid-cols-1 grid-rows-1 items-center w-full max-w-6xl">
                     
-                    <!-- Texto Slide 1 -->
-                    <div id="text-1" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
-                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
-                            LINHA DEWALT
-                        </span>
-                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
-                            GARANTIDO.<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
-                                DURA MAIS.
+                    <!-- TEXTO SLIDE 1 -->
+                    <div id="text-1" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
+                        <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
+                            <span class="reveal-mask">
+                                <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+                                    COM A FERRAMENTA E BATERIA
+                                </span>
                             </span>
-                        </h1>
-                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            Ferramentas elétricas e a bateria projetadas para os profissionais mais exigentes. Potência e durabilidade para qualquer obra.
-                        </p>
-                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                            VER FERRAMENTAS
-                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                            <span class="reveal-mask mt-1 md:mt-3">
+                                <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+                                    CORRETA PARA FAZER UM TRABALHO
+                                </span>
+                            </span>
+                            <span class="reveal-mask mt-2 md:mt-4">
+                                <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
+                                    <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">BEM FEITO</span>
+                                    <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">E NO TEMPO</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="reveal-mask mt-10 md:mt-14">
+                            <a href="#destaques" onclick="renderizarVitrine('todos')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                                VER FERRAMENTAS
+                                <i data-lucide="arrow-right" class="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform stroke-[2.5]"></i>
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Texto Slide 2 -->
-                    <div id="text-2" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
-                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
-                            MÁXIMA POTÊNCIA
-                        </span>
-                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
-                            ALTA PERFORMANCE.<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
-                                SEM FIOS.
+                    <!-- TEXTO SLIDE 2 -->
+                    <div id="text-2" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
+                        <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
+                            <span class="reveal-mask">
+                                <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+                                    A LIBERDADE QUE VOCÊ PRECISA
+                                </span>
                             </span>
-                        </h1>
-                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            A liberdade que você precisa com a força que a sua obra exige. Conheça a linha 20V MAX* da DeWalt.
-                        </p>
-                        <a href="#destaques" onclick="renderizarVitrine('bateria')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                            VER BATERIAS
-                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                            <span class="reveal-mask mt-1 md:mt-3">
+                                <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+                                    COM A FORÇA QUE SUA OBRA EXIGE
+                                </span>
+                            </span>
+                            <span class="reveal-mask mt-2 md:mt-4">
+                                <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
+                                    <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">SEM FIOS.</span>
+                                    <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">LINHA 20V MAX</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="reveal-mask mt-10 md:mt-14">
+                            <a href="#destaques" onclick="renderizarVitrine('bateria')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                                VER BATERIAS
+                                <i data-lucide="arrow-right" class="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform stroke-[2.5]"></i>
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Texto Slide 3 -->
-                    <div id="text-3" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
-                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
-                            RESISTÊNCIA EXTREMA
-                        </span>
-                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
-                            PROJETADA PARA<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
-                                O TRABALHO BRUTO.
+                    <!-- TEXTO SLIDE 3 -->
+                    <div id="text-3" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
+                        <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
+                            <span class="reveal-mask">
+                                <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+                                    EQUIPAMENTOS ROBUSTOS TESTADOS
+                                </span>
                             </span>
-                        </h1>
-                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            Equipamentos robustos testados nas condições mais severas para entregar sempre o melhor resultado.
-                        </p>
-                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                            CONFIRA AS OFERTAS
-                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                            <span class="reveal-mask mt-1 md:mt-3">
+                                <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+                                    NAS CONDIÇÕES MAIS SEVERAS
+                                </span>
+                            </span>
+                            <span class="reveal-mask mt-2 md:mt-4">
+                                <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
+                                    <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">MÁXIMA</span>
+                                    <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">RESISTÊNCIA</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="reveal-mask mt-10 md:mt-14">
+                            <a href="#destaques" onclick="renderizarVitrine('todos')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                                CONFIRA AS OFERTAS
+                                <i data-lucide="arrow-right" class="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform stroke-[2.5]"></i>
+                            </a>
+                        </div>
                     </div>
 
                 </div>
@@ -400,7 +434,7 @@
                     <a href="index.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-surface border border-araguaia-border text-gray-400 hover:text-white hover:border-araguaia-yellow transition-all font-anton text-xl">
                         1
                     </a>
-                    <a href="index-dewalt.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-yellow text-black font-anton text-xl border border-araguaia-yellow shadow-[0_0_15px_rgba(255,184,0,0.3)]">
+                    <a href="produto-dewalt.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-yellow text-black font-anton text-xl border border-araguaia-yellow shadow-[0_0_15px_rgba(255,184,0,0.3)]">
                         2
                     </a>
                 </div>
@@ -514,7 +548,7 @@
     </script>
 
     <!-- ============================================================
-         SLIDER: vídeo no desktop / imagem estática no mobile
+         SLIDER: TRUQUE #t=0.1 PARA USAR O PRÓPRIO VÍDEO COMO POSTER
          ============================================================ -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -533,7 +567,10 @@
 
             const videoLayer = document.getElementById('hero-video-layer');
             const posterLayer = document.getElementById('hero-poster-layer');
-            const sources = { 1: 'dewallt1.mp4', 2: 'dewall2.mp4', 3: 'dewalt3.mp4' };
+            
+            // O truque do #t=0.1 no final do nome do vídeo! 
+            // O navegador baixa o milissegundo 0.1 e usa como imagem parada (poster)
+            const sources = { 1: 'dewallt1.mp4#t=0.1', 2: 'dewall2.mp4#t=0.1', 3: 'dewalt3.mp4#t=0.1' };
             const dots = document.querySelectorAll('.slider-dot');
             let videos = {};
 
@@ -544,8 +581,7 @@
                 v.muted = true;
                 v.playsInline = true;
                 v.loop = false;
-                v.preload = withPreload ? 'auto' : 'none';
-                if (index === 1) v.poster = '0001.webp';
+                v.preload = withPreload ? 'auto' : 'metadata';
                 
                 const source = document.createElement('source');
                 source.src = sources[index];
@@ -563,7 +599,6 @@
                 videos[1].play().catch(() => {});
             } else {
                 posterLayer.classList.remove('hidden');
-                document.getElementById('poster-1').classList.add('active');
             }
 
             function ensureVideoLoaded(index) {
@@ -643,8 +678,8 @@
                     const prevPoster = document.getElementById(`poster-${prevIndex}`);
                     const nextPoster = document.getElementById(`poster-${nextIndex}`);
                     
-                    prevPoster.classList.remove('active');
-                    nextPoster.classList.add('active');
+                    if(prevPoster) prevPoster.classList.remove('active');
+                    if(nextPoster) nextPoster.classList.add('active');
                     currentSlide = nextIndex;
                     
                     setTimeout(() => { isTransitioning = false; }, 1400);
