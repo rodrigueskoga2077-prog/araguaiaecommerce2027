@@ -71,7 +71,7 @@
             background-color: #080808; 
         }
         .hero-video.active {
-            opacity: 1; /* <-- Vídeo claro para ver a máquina na direita */
+            opacity: 1; /* Vídeo claro para ver a máquina na direita */
             transform: scale(1) translateZ(0);
             z-index: 1;
         }
@@ -238,7 +238,7 @@
                 <!-- Vídeos -->
                 <div id="hero-video-layer" class="absolute inset-0 w-full h-full"></div>
 
-                <!-- Fallback / modo leve: Sem as imagens da STIHL -->
+                <!-- Fallback / modo leve -->
                 <div id="hero-poster-layer" class="absolute inset-0 w-full h-full bg-araguaia-dark hidden">
                     <div id="poster-1" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
                     <div id="poster-2" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
@@ -691,22 +691,148 @@
         });
     </script>
 
-    <!-- Script Banco de Dados DeWalt -->
+    <!-- Script Banco de Dados DeWalt com 10 Produtos -->
     <script>
         const produtosDewalt = [
-            { 
-                id: "dcd7781", 
-                ativo: true, 
-                categoria: "parafusadeira", 
-                nome: "Parafusadeira/Furadeira de Impacto 20V MAX*", 
-                precoOriginal: "1.199,00", 
-                precoDesconto: "989,90", 
-                parcelamento: "10x de R$ 98,99 s/ juros", 
-                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Foto+DeWalt", 
-                tag: "Lançamento", 
-                tagColor: "bg-araguaia-yellow text-black", 
-                estrelas: 5, 
-                avaliacoes: 12 
+            {
+                id: "dcd7781",
+                categoria: "parafusadeira",
+                nome: "Parafusadeira/Furadeira de Impacto 20V MAX* Brushless",
+                precoOriginal: "1.199,00",
+                precoDesconto: "989,90",
+                parcelamento: "10x de R$ 98,99 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Foto+DeWalt",
+                tag: "Lançamento",
+                tagColor: "bg-araguaia-yellow text-black",
+                estrelas: 5,
+                avaliacoes: 12,
+                ativo: true
+            },
+            {
+                id: "dcg413b",
+                categoria: "esmerilhadeira",
+                nome: "Esmerilhadeira Angular 4-1/2\" 20V MAX* Brushless",
+                precoOriginal: "1.450,00",
+                precoDesconto: "1.299,90",
+                parcelamento: "10x de R$ 129,99 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Esmerilhadeira+DeWalt",
+                tag: "-10% OFF PIX",
+                tagColor: "bg-red-600 text-white",
+                estrelas: 5,
+                avaliacoes: 8,
+                ativo: true
+            },
+            {
+                id: "dcs391b",
+                categoria: "serra",
+                nome: "Serra Circular 6-1/2\" 20V MAX* Íon de Lítio",
+                precoOriginal: "1.890,00",
+                precoDesconto: "1.650,00",
+                parcelamento: "10x de R$ 165,00 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Serra+Circular+DeWalt",
+                tag: "Destaque",
+                tagColor: "bg-araguaia-yellow text-black",
+                estrelas: 4,
+                avaliacoes: 25,
+                ativo: true
+            },
+            {
+                id: "dcf887b",
+                categoria: "parafusadeira",
+                nome: "Chave de Impacto 1/4\" 20V MAX* XR Brushless",
+                precoOriginal: "980,00",
+                precoDesconto: "849,50",
+                parcelamento: "10x de R$ 84,95 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Chave+Impacto+DeWalt",
+                tag: "Mais Vendido",
+                tagColor: "bg-[#25D366] text-white",
+                estrelas: 5,
+                avaliacoes: 42,
+                ativo: true
+            },
+            {
+                id: "dcb205",
+                categoria: "bateria",
+                nome: "Bateria 20V MAX* Premium XR 5.0 Ah",
+                precoOriginal: "750,00",
+                precoDesconto: "629,90",
+                parcelamento: "10x de R$ 62,99 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Bateria+5Ah+DeWalt",
+                tag: "",
+                tagColor: "",
+                estrelas: 5,
+                avaliacoes: 18,
+                ativo: true
+            },
+            {
+                id: "dcd996b",
+                categoria: "furadeira",
+                nome: "Furadeira/Parafusadeira de Impacto Premium 20V MAX* XR",
+                precoOriginal: "1.580,00",
+                precoDesconto: "1.399,00",
+                parcelamento: "10x de R$ 139,90 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Furadeira+Premium",
+                tag: "Profissional",
+                tagColor: "bg-gray-700 text-white",
+                estrelas: 5,
+                avaliacoes: 31,
+                ativo: true
+            },
+            {
+                id: "dcs331b",
+                categoria: "serra",
+                nome: "Serra Tico-Tico 20V MAX* Íon de Lítio",
+                precoOriginal: "1.250,00",
+                precoDesconto: "1.099,90",
+                parcelamento: "10x de R$ 109,99 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Serra+Tico-Tico",
+                tag: "-12% OFF PIX",
+                tagColor: "bg-red-600 text-white",
+                estrelas: 4,
+                avaliacoes: 9,
+                ativo: true
+            },
+            {
+                id: "dcb115",
+                categoria: "bateria",
+                nome: "Carregador Rápido Íon de Lítio 12V/20V MAX*",
+                precoOriginal: "350,00",
+                precoDesconto: "289,00",
+                parcelamento: "5x de R$ 57,80 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Carregador+DeWalt",
+                tag: "",
+                tagColor: "",
+                estrelas: 5,
+                avaliacoes: 14,
+                ativo: true
+            },
+            {
+                id: "dwe4020",
+                categoria: "esmerilhadeira",
+                nome: "Esmerilhadeira Angular 4-1/2\" 800W (Elétrica)",
+                precoOriginal: "450,00",
+                precoDesconto: "379,90",
+                parcelamento: "6x de R$ 63,31 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Esmerilhadeira+Eletrica",
+                tag: "Custo Benefício",
+                tagColor: "bg-blue-600 text-white",
+                estrelas: 4,
+                avaliacoes: 56,
+                ativo: true
+            },
+            {
+                id: "dwst83344-1",
+                categoria: "acessorio",
+                nome: "Caixa de Ferramentas TSTAK IP54",
+                precoOriginal: "420,00",
+                precoDesconto: "349,90",
+                parcelamento: "6x de R$ 58,31 s/ juros",
+                imagem: "https://placehold.co/600x600/1a1a1a/FFB800?text=Caixa+TSTAK",
+                tag: "Organização",
+                tagColor: "bg-araguaia-yellow text-black",
+                estrelas: 5,
+                avaliacoes: 22,
+                ativo: true
             }
         ];
 
