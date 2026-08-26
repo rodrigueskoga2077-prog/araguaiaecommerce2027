@@ -59,7 +59,13 @@
 
         .product-card:hover .product-img { transform: scale(1.05); }
         .hero-banner-stihl { position: relative; width: 100%; }
-        .slide-content { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        /* Classes para animar os slides */
+        .hero-video { opacity: 0; z-index: 0; transition: opacity 1s ease-in-out; }
+        .hero-video.active { opacity: 0.5; z-index: 1; }
+        
+        .slide-content { opacity: 0; transform: translateY(20px); pointer-events: none; transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .slide-content.active { opacity: 1; transform: translateY(0); pointer-events: auto; z-index: 10; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -152,45 +158,100 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section - Textos adaptados para DeWalt -->
-        <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col" style="min-height: 80vh;">
+        <!-- Hero Section - SLIDER COM VÍDEOS -->
+        <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 80vh;">
+            
+            <!-- VÍDEOS DE BACKGROUND -->
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- VÍDEO -->
-                <video id="hero-bg-video" 
-                       class="w-full h-full object-cover object-center opacity-50" 
-                       autoplay muted playsinline preload="metadata"
-                       poster="0001.webp">
+                <!-- Vídeo Slide 1 -->
+                <video id="vid-1" class="hero-video active absolute inset-0 w-full h-full object-cover object-center" autoplay muted playsinline loop poster="0001.webp">
                     <source src="slide1.mp4" type="video/mp4">
                 </video>
-                <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent"></div>
+                <!-- Vídeo Slide 2 -->
+                <video id="vid-2" class="hero-video absolute inset-0 w-full h-full object-cover object-center" autoplay muted playsinline loop>
+                    <source src="slide2.mp4" type="video/mp4">
+                </video>
+                <!-- Vídeo Slide 3 -->
+                <video id="vid-3" class="hero-video absolute inset-0 w-full h-full object-cover object-center" autoplay muted playsinline loop>
+                    <source src="slide3.mp4" type="video/mp4">
+                </video>
+                
+                <!-- Overlay Escuro -->
+                <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent z-[2]"></div>
             </div>
 
+            <!-- TEXTOS DOS SLIDES -->
             <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32 flex-grow">
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
-                    <!-- Slide 1 -->
-                    <div class="slide-content col-start-1 row-start-1 opacity-100 translate-y-0 max-w-3xl mt-12 md:mt-0 transform-gpu">
+                    <!-- Texto Slide 1 -->
+                    <div id="text-1" class="slide-content active col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             LINHA DEWALT
                         </span>
-                        
                         <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
                             GARANTIDO.<br>
                             <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
                                 DURA MAIS.
                             </span>
                         </h1>
-                        
                         <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
                             Ferramentas elétricas e a bateria projetadas para os profissionais mais exigentes. Potência e durabilidade para qualquer obra.
                         </p>
-                        
                         <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
                             VER FERRAMENTAS
                             <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                         </a>
                     </div>
+
+                    <!-- Texto Slide 2 -->
+                    <div id="text-2" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
+                            MÁXIMA POTÊNCIA
+                        </span>
+                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
+                            ALTA PERFORMANCE.<br>
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                                SEM FIOS.
+                            </span>
+                        </h1>
+                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                            A liberdade que você precisa com a força que a sua obra exige. Conheça a linha 20V MAX* da DeWalt.
+                        </p>
+                        <a href="#destaques" onclick="renderizarVitrine('bateria')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                            VER BATERIAS
+                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+
+                    <!-- Texto Slide 3 -->
+                    <div id="text-3" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
+                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
+                            RESISTÊNCIA EXTREMA
+                        </span>
+                        <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
+                            PROJETADA PARA<br>
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                                O TRABALHO BRUTO.
+                            </span>
+                        </h1>
+                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                            Equipamentos robustos testados nas condições mais severas para entregar sempre o melhor resultado.
+                        </p>
+                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                            CONFIRA AS OFERTAS
+                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+
                 </div>
+            </div>
+
+            <!-- Navegação (Bolinhas) -->
+            <div class="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
+                <button class="slider-dot bg-araguaia-yellow w-8 h-2 rounded-full transition-all duration-300" data-slide="1" aria-label="Slide 1"></button>
+                <button class="slider-dot bg-white/40 hover:bg-white/70 w-2 h-2 rounded-full transition-all duration-300" data-slide="2" aria-label="Slide 2"></button>
+                <button class="slider-dot bg-white/40 hover:bg-white/70 w-2 h-2 rounded-full transition-all duration-300" data-slide="3" aria-label="Slide 3"></button>
             </div>
         </section>
 
@@ -255,9 +316,7 @@
                     <!-- Vitrine populada via JS -->
                 </div>
 
-                <!-- ============================================== -->
-                <!-- AQUI ESTÁ A PAGINAÇÃO PARA O CLIENTE NAVEGAR -->
-                <!-- ============================================== -->
+                <!-- PAGINAÇÃO -->
                 <div class="flex justify-center items-center mt-16 gap-3 border-t border-araguaia-border pt-8">
                     <!-- Botão 1 volta para a HOME da STIHL -->
                     <a href="index.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-surface border border-araguaia-border text-gray-400 hover:text-white hover:border-araguaia-yellow transition-all font-anton text-xl">
@@ -268,7 +327,6 @@
                         2
                     </a>
                 </div>
-                <!-- ============================================== -->
 
             </div>
         </section>
@@ -357,6 +415,61 @@
         </div>
     </footer>
 
+    <!-- Script Slider (Novo) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalSlides = 3;
+            let currentSlide = 1;
+            let slideInterval;
+
+            function showSlide(index) {
+                // Remove estado ativo de todos
+                document.querySelectorAll('.hero-video').forEach(v => v.classList.remove('active'));
+                document.querySelectorAll('.slide-content').forEach(c => c.classList.remove('active'));
+                
+                // Reseta os dots
+                document.querySelectorAll('.slider-dot').forEach(d => {
+                    d.classList.remove('bg-araguaia-yellow', 'w-8');
+                    d.classList.add('bg-white/40', 'w-2');
+                });
+
+                // Ativa o atual
+                document.getElementById(`vid-${index}`).classList.add('active');
+                document.getElementById(`text-${index}`).classList.add('active');
+                
+                const dot = document.querySelector(`.slider-dot[data-slide="${index}"]`);
+                dot.classList.remove('bg-white/40', 'w-2');
+                dot.classList.add('bg-araguaia-yellow', 'w-8');
+            }
+
+            function nextSlide() {
+                currentSlide = currentSlide >= totalSlides ? 1 : currentSlide + 1;
+                showSlide(currentSlide);
+            }
+
+            function startSlider() {
+                slideInterval = setInterval(nextSlide, 6000); // Troca a cada 6 segundos
+            }
+
+            function resetSlider() {
+                clearInterval(slideInterval);
+                startSlider();
+            }
+
+            // Clique nos dots
+            document.querySelectorAll('.slider-dot').forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    currentSlide = parseInt(e.target.getAttribute('data-slide'));
+                    showSlide(currentSlide);
+                    resetSlider();
+                });
+            });
+
+            // Inicia o slider
+            startSlider();
+        });
+    </script>
+
     <!-- Script Lucide & Menu Mobile -->
     <script>
         function initLucide(){
@@ -381,7 +494,6 @@
     <!-- Script Banco de Dados DeWalt -->
     <script>
         const produtosDewalt = [
-            // PRODUTO DE EXEMPLO DA DEWALT (DEPOIS VAMOS ADICIONAR OS OUTROS)
             { 
                 id: "dcd7781", 
                 ativo: true, 
