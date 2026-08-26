@@ -17,7 +17,7 @@
     <!-- PRELOADS PARA PERFORMANCE (LCP) -->
     <link rel="preload" as="image" href="0001.webp" fetchpriority="high">
 
-    <!-- Fonts (Anton é perfeita para esse visual industrial/impacto) -->
+    <!-- Fonts (Anton é a fonte blocky de impacto) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -59,24 +59,62 @@
 
         .product-card:hover .product-img { transform: scale(1.05); }
         .hero-banner-stihl { position: relative; width: 100%; }
-        
-        /* Controle dos Vídeos */
-        .hero-video { opacity: 0; transition: opacity 1s ease-in-out; z-index: 0; }
-        .hero-video.active { opacity: 0.5; z-index: 1; }
-        
+
+        /* ============================================================
+           SLIDER — Transição suave com ritmo (crossfade + leve zoom)
+           Tudo em transform/opacity => acelerado por GPU, sem reflow.
+           ============================================================ */
+        .hero-video {
+            opacity: 0;
+            transform: scale(1.06) translateZ(0);
+            transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1),
+                        transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 0;
+            will-change: opacity, transform;
+            backface-visibility: hidden;
+        }
+        .hero-video.active {
+            opacity: 0.5;
+            transform: scale(1) translateZ(0);
+            z-index: 1;
+        }
+
+        .hero-poster {
+            opacity: 0;
+            transform: scale(1.06) translateZ(0);
+            transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1),
+                        transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .hero-poster.active {
+            opacity: 0.5;
+            transform: scale(1) translateZ(0);
+            z-index: 1;
+        }
+
         /* 
            ========================================================
-           ANIMAÇÃO ESTILO APPLE (STAGGERED TEXT REVEAL)
+           ANIMAÇÃO DE TEXTO ESTILO APPLE (STAGGERED TEXT REVEAL)
            ========================================================
         */
-        .slide-content { opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
-        .slide-content.active { opacity: 1; pointer-events: auto; z-index: 10; }
+        .slide-content {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease; 
+            transition-delay: 0s;
+        }
+        .slide-content.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+            transition-delay: 0.15s; /* pequeno atraso após o fade do vídeo começar */
+        }
 
         /* Máscara invisível para o texto sair de dentro dela */
         .reveal-mask {
             display: block;
             overflow: hidden;
-            padding-bottom: 4px; /* Evita cortar pernas de letras (g, p) */
+            padding-bottom: 6px; 
         }
 
         /* O texto inicialmente fica pra baixo (escondido) */
@@ -95,12 +133,12 @@
         }
 
         /* Atrasos (Staggering) para cada linha subir uma depois da outra */
-        .slide-content.active .delay-1 { transition-delay: 0.1s; }
-        .slide-content.active .delay-2 { transition-delay: 0.25s; }
-        .slide-content.active .delay-3 { transition-delay: 0.4s; }
-        .slide-content.active .delay-4 { transition-delay: 0.55s; }
+        .slide-content.active .delay-1 { transition-delay: 0.25s; }
+        .slide-content.active .delay-2 { transition-delay: 0.40s; }
+        .slide-content.active .delay-3 { transition-delay: 0.55s; }
+        .slide-content.active .delay-4 { transition-delay: 0.70s; }
 
-        /* Sombra hiper realista para separar o texto do vídeo (igual da imagem) */
+        /* Sombra hiper realista para separar o texto do vídeo */
         .text-heavy-shadow {
             text-shadow: 0px 8px 24px rgba(0,0,0,0.9), 0px 2px 4px rgba(0,0,0,1);
         }
@@ -108,6 +146,32 @@
         /* Ajuste do amarelo para dar mais "glow" no fundo escuro */
         .yellow-glow {
             text-shadow: 0px 0px 40px rgba(255, 184, 0, 0.2), 0px 8px 24px rgba(0,0,0,0.9);
+        }
+
+        /* ============================================================
+           Barra de progresso dentro de cada bolinha
+           ============================================================ */
+        .slider-dot {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255,255,255,0.25);
+        }
+        .slider-dot .dot-fill {
+            position: absolute;
+            inset: 0;
+            background: var(--color-araguaia-yellow);
+            transform: scaleX(0);
+            transform-origin: left center;
+            border-radius: inherit;
+        }
+        .slider-dot.filling .dot-fill {
+            transform: scaleX(1);
+            transition: transform linear;
+        }
+        .slider-dot.done .dot-fill { transform: scaleX(1); transition: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-video, .hero-poster, .reveal-text { transition-duration: 0.3s !important; transition-delay: 0s !important; transform: none !important; }
         }
     </style>
 </head>
@@ -201,61 +265,49 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section - SLIDER COM VÍDEOS -->
+        <!-- Hero Section - SLIDER COM VÍDEOS (mobile-first performance) -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 80vh;">
             
-            <!-- VÍDEOS DE BACKGROUND -->
+            <!-- BACKGROUND: vídeos no desktop, imagens estáticas no mobile/conexão lenta -->
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- Vídeo Slide 1 -->
-                <video id="vid-1" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline preload="auto" poster="0001.webp">
-                    <source src="dewallt1.mp4" type="video/mp4">
-                </video>
-                <!-- Vídeo Slide 2 -->
-                <video id="vid-2" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline preload="auto">
-                    <source src="dewall2.mp4" type="video/mp4">
-                </video>
-                <!-- Vídeo Slide 3 -->
-                <video id="vid-3" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline preload="auto">
-                    <source src="dewalt3.mp4" type="video/mp4">
-                </video>
+                <!-- Vídeos (criados dinamicamente só quando fizer sentido — ver JS) -->
+                <div id="hero-video-layer" class="absolute inset-0 w-full h-full"></div>
+
+                <!-- Fallback / modo leve: imagens estáticas com o mesmo crossfade -->
+                <div id="hero-poster-layer" class="absolute inset-0 w-full h-full hidden">
+                    <img id="poster-1" class="hero-poster absolute inset-0 w-full h-full object-cover object-center" src="0001.webp" alt="" fetchpriority="high">
+                    <img id="poster-2" class="hero-poster absolute inset-0 w-full h-full object-cover object-center" src="0001.webp" alt="" loading="lazy">
+                    <img id="poster-3" class="hero-poster absolute inset-0 w-full h-full object-cover object-center" src="0001.webp" alt="" loading="lazy">
+                </div>
                 
-                <!-- Overlay Escuro para dar contraste à sombra pesada do texto -->
+                <!-- Overlay Escuro para dar contraste aos textos amarelos/brancos -->
                 <div class="absolute inset-0 bg-black/40 md:bg-transparent md:bg-gradient-to-r md:from-black/95 md:via-black/70 md:to-transparent z-[2]"></div>
             </div>
 
-            <!-- TEXTOS DOS SLIDES (COM REVEAL APPLE-LIKE) -->
+            <!-- TEXTOS DOS SLIDES COM ESTILO APPLE REVEAL -->
             <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-24 md:py-32 flex-grow">
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full max-w-6xl">
                     
-                    <!-- TEXTO SLIDE 1 (Idêntico a Imagem Fornecida) -->
+                    <!-- TEXTO SLIDE 1 -->
                     <div id="text-1" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
                         <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
-                            
-                            <!-- Linha 1 -->
                             <span class="reveal-mask">
                                 <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
                                     COM A FERRAMENTA E BATERIA
                                 </span>
                             </span>
-                            
-                            <!-- Linha 2 -->
                             <span class="reveal-mask mt-1 md:mt-3">
                                 <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
                                     CORRETA PARA FAZER UM TRABALHO
                                 </span>
                             </span>
-                            
-                            <!-- Linha 3 (BEM FEITO E NO TEMPO) -->
                             <span class="reveal-mask mt-2 md:mt-4">
                                 <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
                                     <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">BEM FEITO</span>
                                     <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">E NO TEMPO</span>
                                 </span>
                             </span>
-
                         </div>
-                        
-                        <!-- Botão com Delay Final -->
                         <div class="reveal-mask mt-10 md:mt-14">
                             <a href="#destaques" onclick="renderizarVitrine('todos')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
                                 VER FERRAMENTAS
@@ -267,28 +319,23 @@
                     <!-- TEXTO SLIDE 2 -->
                     <div id="text-2" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
                         <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
-                            
                             <span class="reveal-mask">
                                 <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
                                     A LIBERDADE QUE VOCÊ PRECISA
                                 </span>
                             </span>
-                            
                             <span class="reveal-mask mt-1 md:mt-3">
                                 <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
                                     COM A FORÇA QUE SUA OBRA EXIGE
                                 </span>
                             </span>
-                            
                             <span class="reveal-mask mt-2 md:mt-4">
                                 <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
                                     <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">SEM FIOS.</span>
                                     <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">LINHA 20V MAX</span>
                                 </span>
                             </span>
-
                         </div>
-                        
                         <div class="reveal-mask mt-10 md:mt-14">
                             <a href="#destaques" onclick="renderizarVitrine('bateria')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
                                 VER BATERIAS
@@ -300,28 +347,23 @@
                     <!-- TEXTO SLIDE 3 -->
                     <div id="text-3" class="slide-content col-start-1 row-start-1 w-full mt-12 md:mt-0 transform-gpu z-10">
                         <div class="font-anton uppercase text-white leading-[1] md:leading-[0.95] text-heavy-shadow w-full">
-                            
                             <span class="reveal-mask">
                                 <span class="reveal-text delay-1 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
                                     EQUIPAMENTOS ROBUSTOS TESTADOS
                                 </span>
                             </span>
-                            
                             <span class="reveal-mask mt-1 md:mt-3">
                                 <span class="reveal-text delay-2 block text-[2.5rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
                                     NAS CONDIÇÕES MAIS SEVERAS
                                 </span>
                             </span>
-                            
                             <span class="reveal-mask mt-2 md:mt-4">
                                 <span class="reveal-text delay-3 flex items-baseline flex-wrap gap-x-3 md:gap-x-5">
                                     <span class="text-araguaia-yellow yellow-glow text-[4rem] sm:text-7xl md:text-8xl lg:text-[8rem]">MÁXIMA</span>
                                     <span class="text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.5rem]">RESISTÊNCIA</span>
                                 </span>
                             </span>
-
                         </div>
-                        
                         <div class="reveal-mask mt-10 md:mt-14">
                             <a href="#destaques" onclick="renderizarVitrine('todos')" class="reveal-text delay-4 inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-2xl px-8 py-4 md:px-10 md:py-5 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
                                 CONFIRA AS OFERTAS
@@ -333,11 +375,11 @@
                 </div>
             </div>
 
-            <!-- Navegação (Bolinhas) -->
+            <!-- Navegação (Bolinhas com barra de progresso = dá ritmo visual) -->
             <div class="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
-                <button class="slider-dot bg-araguaia-yellow w-8 h-2 rounded-full transition-all duration-300" data-slide="1" aria-label="Slide 1"></button>
-                <button class="slider-dot bg-white/40 hover:bg-white/70 w-2 h-2 rounded-full transition-all duration-300" data-slide="2" aria-label="Slide 2"></button>
-                <button class="slider-dot bg-white/40 hover:bg-white/70 w-2 h-2 rounded-full transition-all duration-300" data-slide="3" aria-label="Slide 3"></button>
+                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full transition-all duration-300" data-slide="1" aria-label="Slide 1"><span class="dot-fill"></span></button>
+                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full transition-all duration-300" data-slide="2" aria-label="Slide 2"><span class="dot-fill"></span></button>
+                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full transition-all duration-300" data-slide="3" aria-label="Slide 3"><span class="dot-fill"></span></button>
             </div>
         </section>
 
@@ -499,97 +541,6 @@
         </div>
     </footer>
 
-    <!-- Script Slider Sincronizado e Fluido -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const totalSlides = 3;
-            let currentSlide = 1;
-            let isTransitioning = false; // Bloqueia cliques duplos rápidos
-
-            const videos = {
-                1: document.getElementById('vid-1'),
-                2: document.getElementById('vid-2'),
-                3: document.getElementById('vid-3')
-            };
-
-            // Inicia a primeira tela
-            videos[1].classList.add('active');
-            document.getElementById('text-1').classList.add('active');
-            videos[1].play().catch(e => console.log("Autoplay bloqueado:", e));
-
-            function goToSlide(nextIndex) {
-                if (currentSlide === nextIndex || isTransitioning) return;
-                isTransitioning = true;
-                
-                const prevIndex = currentSlide;
-                const prevVideo = videos[prevIndex];
-                const nextVideo = videos[nextIndex];
-                
-                // Zera e dá play no PRÓXIMO vídeo (Escondido)
-                nextVideo.currentTime = 0;
-                const playPromise = nextVideo.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        // Assim que o novo vídeo começa a processar frames, fazemos a troca visual
-                        
-                        // Textos - O texto antigo apaga rápido (transition CSS configurada no opacity)
-                        document.getElementById(`text-${prevIndex}`).classList.remove('active');
-                        // E o texto novo ativa a animação staggered .reveal-text
-                        document.getElementById(`text-${nextIndex}`).classList.add('active');
-                        
-                        // Bolinhas
-                        document.querySelectorAll('.slider-dot').forEach(d => {
-                            d.classList.remove('bg-araguaia-yellow', 'w-8');
-                            d.classList.add('bg-white/40', 'w-2');
-                        });
-                        const dot = document.querySelector(`.slider-dot[data-slide="${nextIndex}"]`);
-                        if(dot) {
-                            dot.classList.remove('bg-white/40', 'w-2');
-                            dot.classList.add('bg-araguaia-yellow', 'w-8');
-                        }
-
-                        // Fade In / Fade Out dos Vídeos (demora 1s pelo CSS)
-                        prevVideo.classList.remove('active');
-                        nextVideo.classList.add('active');
-                        
-                        currentSlide = nextIndex;
-                        
-                        // Espera o CSS Transition terminar (1 segundo) antes de pausar o vídeo antigo
-                        setTimeout(() => {
-                            if (currentSlide !== prevIndex) {
-                                prevVideo.pause();
-                            }
-                            isTransitioning = false; // Libera a próxima transição
-                        }, 1000);
-
-                    }).catch(error => {
-                        console.log("Erro no autoplay do vídeo:", error);
-                        isTransitioning = false;
-                    });
-                }
-            }
-
-            function nextSlide() {
-                let next = currentSlide >= totalSlides ? 1 : currentSlide + 1;
-                goToSlide(next);
-            }
-
-            // Quando o vídeo atual chegar ao fim, muda pro próximo suavemente
-            Object.values(videos).forEach(video => {
-                video.addEventListener('ended', nextSlide);
-            });
-
-            // Navegação manual por cliques nas bolinhas
-            document.querySelectorAll('.slider-dot').forEach(dot => {
-                dot.addEventListener('click', (e) => {
-                    let next = parseInt(e.target.getAttribute('data-slide'));
-                    goToSlide(next);
-                });
-            });
-        });
-    </script>
-
     <!-- Script Lucide & Menu Mobile -->
     <script>
         function initLucide(){
@@ -608,6 +559,214 @@
                 icon.setAttribute('data-lucide', 'x');
             }
             lucide.createIcons();
+        });
+    </script>
+
+    <!-- ============================================================
+         SLIDER: vídeo no desktop / imagem estática no mobile
+         - Mobile nunca baixa/decodifica os 3 vídeos: usa só posters.
+         - No desktop, só o vídeo ATIVO tem preload real.
+         - Cada troca tem ritmo fixo: vídeo funde primeiro, texto entra depois.
+         ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const SLIDE_DURATION = 6000; // Tempo base de duração visual de cada cena
+            const totalSlides = 3;
+            let currentSlide = 1;
+            let isTransitioning = false;
+            let autoTimer = null;
+
+            const isMobile = window.matchMedia('(max-width: 767px)').matches;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const saveData = navigator.connection && navigator.connection.saveData;
+            const slowConnection = navigator.connection && /2g|3g/.test(navigator.connection.effectiveType || '');
+
+            // Usa vídeos só em telas grandes e conexões boas
+            const useVideo = !isMobile && !saveData && !slowConnection && !prefersReducedMotion;
+
+            const videoLayer = document.getElementById('hero-video-layer');
+            const posterLayer = document.getElementById('hero-poster-layer');
+            const sources = { 1: 'dewallt1.mp4', 2: 'dewall2.mp4', 3: 'dewalt3.mp4' };
+            const dots = document.querySelectorAll('.slider-dot');
+            let videos = {};
+
+            function buildVideoEl(index, withPreload) {
+                const v = document.createElement('video');
+                v.id = 'vid-' + index;
+                v.className = 'hero-video absolute inset-0 w-full h-full object-cover object-center';
+                v.muted = true;
+                v.playsInline = true;
+                v.loop = false; // Queremos usar o evento 'ended' para avançar
+                v.preload = withPreload ? 'auto' : 'none';
+                if (index === 1) v.poster = '0001.webp';
+                
+                const source = document.createElement('source');
+                source.src = sources[index];
+                source.type = 'video/mp4';
+                v.appendChild(source);
+                
+                v.addEventListener('ended', nextSlide);
+                return v;
+            }
+
+            if (useVideo) {
+                // Inicia carregando só o primeiro vídeo
+                videos[1] = buildVideoEl(1, true);
+                videoLayer.appendChild(videos[1]);
+                videos[1].classList.add('active');
+                videos[1].play().catch(() => {});
+            } else {
+                // Ativa fallback para imagens
+                posterLayer.classList.remove('hidden');
+                document.getElementById('poster-1').classList.add('active');
+            }
+
+            function ensureVideoLoaded(index) {
+                if (videos[index]) return videos[index];
+                const v = buildVideoEl(index, true);
+                videoLayer.appendChild(v);
+                videos[index] = v;
+                return v;
+            }
+
+            function resetDots(activeIndex) {
+                dots.forEach((dot, i) => {
+                    dot.classList.remove('filling', 'done');
+                    const fill = dot.querySelector('.dot-fill');
+                    fill.style.transition = 'none';
+                    fill.style.transform = 'scaleX(0)';
+                    if (i + 1 < activeIndex) dot.classList.add('done');
+                });
+                
+                requestAnimationFrame(() => {
+                    const activeDot = document.querySelector(`.slider-dot[data-slide="${activeIndex}"]`);
+                    if (!activeDot) return;
+                    
+                    // Acha a barra de progresso (dot-fill) correspondente e anima
+                    const fill = activeDot.querySelector('.dot-fill');
+                    activeDot.classList.add('filling');
+                    requestAnimationFrame(() => {
+                        // Se estivermos usando vídeos, tentamos descobrir a duração do vídeo.
+                        // Se não soubermos (ou estiver usando imagens), usa o fallback de SLIDE_DURATION.
+                        let durationToAnimate = SLIDE_DURATION; 
+                        
+                        if (useVideo && videos[activeIndex] && !isNaN(videos[activeIndex].duration) && videos[activeIndex].duration > 0) {
+                             durationToAnimate = videos[activeIndex].duration * 1000;
+                        }
+                        
+                        fill.style.transition = `transform ${durationToAnimate}ms linear`;
+                        fill.style.transform = 'scaleX(1)';
+                    });
+                });
+            }
+
+            function goToSlide(nextIndex) {
+                if (currentSlide === nextIndex || isTransitioning) return;
+                isTransitioning = true;
+
+                const prevIndex = currentSlide;
+
+                // Animação dos textos (saída e entrada)
+                document.getElementById(`text-${prevIndex}`).classList.remove('active');
+                document.getElementById(`text-${nextIndex}`).classList.add('active');
+                
+                resetDots(nextIndex);
+
+                if (useVideo) {
+                    const nextVideo = ensureVideoLoaded(nextIndex);
+                    const prevVideo = videos[prevIndex];
+                    
+                    nextVideo.currentTime = 0;
+                    const playPromise = nextVideo.play();
+                    
+                    const doSwap = () => {
+                        prevVideo.classList.remove('active');
+                        nextVideo.classList.add('active');
+                        currentSlide = nextIndex;
+                        
+                        // Pré-carrega o PRÓXIMO vídeo com antecedência (não o atual nem o anterior)
+                        const upcoming = nextIndex >= totalSlides ? 1 : nextIndex + 1;
+                        ensureVideoLoaded(upcoming);
+                        
+                        // Libera o lock após a transição CSS de crossfade terminar (1.4s neste design)
+                        setTimeout(() => {
+                            if (currentSlide !== prevIndex) prevVideo.pause();
+                            isTransitioning = false;
+                        }, 1400); 
+                    };
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(doSwap).catch(doSwap);
+                    } else {
+                        doSwap();
+                    }
+                } else {
+                    const prevPoster = document.getElementById(`poster-${prevIndex}`);
+                    const nextPoster = document.getElementById(`poster-${nextIndex}`);
+                    
+                    prevPoster.classList.remove('active');
+                    nextPoster.classList.add('active');
+                    currentSlide = nextIndex;
+                    
+                    setTimeout(() => { isTransitioning = false; }, 1400);
+                }
+            }
+
+            function nextSlide() {
+                const next = currentSlide >= totalSlides ? 1 : currentSlide + 1;
+                goToSlide(next);
+                restartAutoTimer();
+            }
+
+            function restartAutoTimer() {
+                if (autoTimer) clearTimeout(autoTimer);
+                
+                // Se NÃO tiver vídeo, o timer do JS força a troca da imagem no tempo definido
+                if (!useVideo) {
+                    autoTimer = setTimeout(nextSlide, SLIDE_DURATION);
+                }
+                // Se tiver vídeo, deixamos o evento "ended" do vídeo comandar o avanço (mais natural).
+            }
+
+            // Iniciar a primeira tela (ativa os textos e dots do slide 1)
+            document.getElementById(`text-1`).classList.add('active');
+            
+            // Para garantir que a barra de carregamento pegue a duração certa, 
+            // damos um tempinho pro video 1 carregar os metadados.
+            if(useVideo && videos[1]) {
+                 videos[1].addEventListener('loadedmetadata', () => resetDots(1), {once: true});
+                 if (videos[1].readyState >= 1) resetDots(1); // Se já carregou
+            } else {
+                 resetDots(1);
+            }
+            
+            restartAutoTimer();
+
+            // Navegação manual por cliques nas bolinhas
+            dots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    const target = parseInt(dot.getAttribute('data-slide'));
+                    goToSlide(target);
+                    restartAutoTimer();
+                });
+            });
+
+            // Pausa o vídeo ativo quando o hero sai da tela (economiza bateria/CPU no scroll)
+            const heroSection = document.getElementById('hero');
+            if ('IntersectionObserver' in window && useVideo) {
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const activeVideo = videos[currentSlide];
+                        if (!activeVideo) return;
+                        if (entry.isIntersecting) {
+                            activeVideo.play().catch(() => {});
+                        } else {
+                            activeVideo.pause();
+                        }
+                    });
+                }, { threshold: 0.15 });
+                io.observe(heroSection);
+            }
         });
     </script>
 
