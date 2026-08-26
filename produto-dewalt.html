@@ -161,21 +161,18 @@
         <!-- Hero Section - SLIDER COM VÍDEOS -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 80vh;">
             
-            <!-- VÍDEOS DE BACKGROUND -->
+            <!-- VÍDEOS DE BACKGROUND (Sem o atributo loop) -->
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
                 <!-- Vídeo Slide 1 -->
-                <video id="vid-1" class="hero-video active absolute inset-0 w-full h-full object-cover object-center" autoplay muted playsinline loop poster="0001.webp">
-                    <!-- ARQUIVO 1 ATUALIZADO AQUI -->
+                <video id="vid-1" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline poster="0001.webp">
                     <source src="dewallt1.mp4" type="video/mp4">
                 </video>
                 <!-- Vídeo Slide 2 -->
-                <video id="vid-2" class="hero-video absolute inset-0 w-full h-full object-cover object-center" autoplay muted playsinline loop>
-                    <!-- ARQUIVO 2 ATUALIZADO AQUI -->
+                <video id="vid-2" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline>
                     <source src="dewall2.mp4" type="video/mp4">
                 </video>
                 <!-- Vídeo Slide 3 -->
-                <video id="vid-3" class="hero-video absolute inset-0 w-full h-full object-cover object-center" autoplay muted playsinline loop>
-                    <!-- ARQUIVO 3 ATUALIZADO AQUI -->
+                <video id="vid-3" class="hero-video absolute inset-0 w-full h-full object-cover object-center" muted playsinline>
                     <source src="dewalt3.mp4" type="video/mp4">
                 </video>
                 
@@ -188,7 +185,7 @@
                 <div class="grid grid-cols-1 grid-rows-1 items-center w-full">
                     
                     <!-- Texto Slide 1 -->
-                    <div id="text-1" class="slide-content active col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
+                    <div id="text-1" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
                             LINHA DEWALT
                         </span>
@@ -418,31 +415,53 @@
         </div>
     </footer>
 
-    <!-- Script Slider -->
+    <!-- Script Slider Sincronizado com os Vídeos -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const totalSlides = 3;
             let currentSlide = 1;
-            let slideInterval;
+
+            const videos = {
+                1: document.getElementById('vid-1'),
+                2: document.getElementById('vid-2'),
+                3: document.getElementById('vid-3')
+            };
 
             function showSlide(index) {
-                // Remove estado ativo de todos
-                document.querySelectorAll('.hero-video').forEach(v => v.classList.remove('active'));
+                // Pausa e zera o tempo de todos os vídeos
+                Object.values(videos).forEach(video => {
+                    video.pause();
+                    video.currentTime = 0;
+                    video.classList.remove('active');
+                });
+
+                // Remove a classe ativa dos textos
                 document.querySelectorAll('.slide-content').forEach(c => c.classList.remove('active'));
                 
-                // Reseta os dots
+                // Reseta os dots (bolinhas de navegação)
                 document.querySelectorAll('.slider-dot').forEach(d => {
                     d.classList.remove('bg-araguaia-yellow', 'w-8');
                     d.classList.add('bg-white/40', 'w-2');
                 });
 
-                // Ativa o atual
-                document.getElementById(`vid-${index}`).classList.add('active');
+                // Ativa o slide e o texto atual
+                videos[index].classList.add('active');
                 document.getElementById(`text-${index}`).classList.add('active');
                 
+                // Atualiza a bolinha de navegação atual
                 const dot = document.querySelector(`.slider-dot[data-slide="${index}"]`);
-                dot.classList.remove('bg-white/40', 'w-2');
-                dot.classList.add('bg-araguaia-yellow', 'w-8');
+                if(dot) {
+                    dot.classList.remove('bg-white/40', 'w-2');
+                    dot.classList.add('bg-araguaia-yellow', 'w-8');
+                }
+
+                // Dá play no vídeo que acabou de aparecer
+                const playPromise = videos[index].play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Autoplay bloqueado pelo navegador:", error);
+                    });
+                }
             }
 
             function nextSlide() {
@@ -450,26 +469,21 @@
                 showSlide(currentSlide);
             }
 
-            function startSlider() {
-                slideInterval = setInterval(nextSlide, 6000); // Troca a cada 6 segundos
-            }
+            // O pulo do gato: quando um vídeo terminar, chama a função de ir para o próximo!
+            Object.values(videos).forEach(video => {
+                video.addEventListener('ended', nextSlide);
+            });
 
-            function resetSlider() {
-                clearInterval(slideInterval);
-                startSlider();
-            }
-
-            // Clique nos dots
+            // Clique nas bolinhas para mudar manualmente
             document.querySelectorAll('.slider-dot').forEach(dot => {
                 dot.addEventListener('click', (e) => {
                     currentSlide = parseInt(e.target.getAttribute('data-slide'));
                     showSlide(currentSlide);
-                    resetSlider();
                 });
             });
 
-            // Inicia o slider
-            startSlider();
+            // Inicia o primeiro slide
+            showSlide(1);
         });
     </script>
 
