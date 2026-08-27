@@ -418,12 +418,100 @@
         </section>
     </main>
 
-    <!-- Footer Enxuto -->
-    <footer class="bg-araguaia-darker text-gray-400 py-10">
-        <div class="container mx-auto px-4 text-center">
-            <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 mx-auto mb-4 opacity-50 grayscale">
-            <p class="text-xs">© 2026 Araguaia Máquinas. Todos os direitos reservados. CNPJ: XX.XXX.XXX/0001-XX</p>
-            <p class="text-[10px] mt-2 max-w-2xl mx-auto text-gray-600">Este site não faz parte e não é endossado pela Meta (Facebook/Instagram) ou Google. Os preços e estoques podem sofrer alterações sem aviso prévio.</p>
+    <!-- Footer Completo com Logo Amarela -->
+    <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t border-araguaia-border">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Coluna 1: Logo e Texto -->
+                <div class="lg:col-span-1">
+                    <a href="index.html" class="inline-block mb-6 transition-opacity hover:opacity-90">
+                        <!-- Fundo Amarelo na Logo -->
+                        <div class="bg-[#FFB800] p-1.5 rounded-lg inline-block shadow-lg">
+                            <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 w-auto object-contain" loading="lazy" decoding="async">
+                        </div>
+                    </a>
+                    
+                    <p class="text-sm mb-6 leading-relaxed text-gray-400">
+                        A força que o campo precisa com a tecnologia que você confia. Especialistas em equipamentos motorizados para agro, floresta e jardim.
+                    </p>
+                    <h4 class="text-white font-bold uppercase text-sm mb-4">Receba Ofertas</h4>
+                    <form action="#" method="POST" class="flex flex-col gap-2">
+                        <div class="flex">
+                            <input type="email" name="email_newsletter" placeholder="Seu melhor e-mail" required 
+                                class="w-full bg-araguaia-surface border border-araguaia-border text-white px-4 py-2 text-sm focus:outline-none focus:border-araguaia-yellow rounded-l-full">
+                            <button type="submit" class="bg-araguaia-yellow text-black px-4 py-2 font-bold uppercase text-sm hover:bg-white transition-colors rounded-r-full">
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Coluna 2: Endereço -->
+                <div>
+                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Nossa Loja</h4>
+                    <ul class="flex flex-col gap-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="block font-bold text-white mb-1">Anápolis - GO</span>
+                                Av. Tiradentes, 30<br>
+                                Setor Central<br>
+                                CEP: 75043-045
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 3: Horários -->
+                <div>
+                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Atendimento</h4>
+                    <ul class="flex flex-col gap-3 text-sm">
+                        <li class="flex justify-between items-center border-b border-araguaia-border pb-2">
+                            <span class="text-gray-300">Segunda a Sexta</span>
+                            <span class="font-medium text-white">07:30 – 18:00</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-araguaia-border pb-2">
+                            <span class="text-gray-300">Sábado</span>
+                            <span class="font-medium text-white">07:30 – 12:00</span>
+                        </li>
+                        <li class="flex justify-between items-center pb-2">
+                            <span class="text-gray-300">Domingo</span>
+                            <span class="font-bold text-araguaia-yellow">Fechado</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Coluna 4: Contato -->
+                <div>
+                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Fale Conosco</h4>
+                    <ul class="flex flex-col gap-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="block font-bold text-white mb-1">Telefone / WhatsApp</span>
+                                <a href="https://wa.me/556230997275" target="_blank" class="hover:text-araguaia-yellow transition-colors text-lg font-medium text-gray-200">(62) 3099-7275</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar / CNPJ -->
+            <div class="pt-8 border-t border-araguaia-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 text-center md:text-left">
+                <p>
+                    <span class="font-medium text-gray-400">CNPJ: 10.655.510/0001-50</span>
+                    <br class="md:hidden">
+                    <span class="hidden md:inline mx-2">|</span>
+                    &copy; 2026 Araguaia Máquinas. Todos os direitos reservados.
+                </p>
+                <p class="text-[10px] text-gray-600">Este site não faz parte e não é endossado pela Meta (Facebook/Instagram) ou Google.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="YouTube"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -813,9 +901,13 @@
                         </div>
                         <span class="text-[11px] font-medium text-[#25D366] mb-4 flex items-center gap-1"><i data-lucide="credit-card" class="w-3 h-3"></i> ${p.parcelamento}</span>
                         
-                        <!-- NOVO BOTÃO WHATSAPP DIRETO -->
+                        <!-- NOVO BOTÃO WHATSAPP DIRETO COM PONTO PISCANDO -->
                         <a href="${urlZap}" target="_blank" class="w-full bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white font-bold uppercase py-3 text-xs text-center flex items-center justify-center gap-2 hover:brightness-110 transition-all duration-300 rounded shadow-lg shadow-[#25D366]/20">
-                            <i data-lucide="message-circle" class="w-4 h-4"></i> Comprar no WhatsApp
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                            </span>
+                            VENDAS VIA WHATSAPP
                         </a>
                         
                         <!-- SELOS DE CONFIANÇA DENTRO DO CARD -->
