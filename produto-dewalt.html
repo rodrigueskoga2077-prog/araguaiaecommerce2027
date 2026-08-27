@@ -171,15 +171,15 @@
 
     <main class="flex-grow">
         
-        <!-- Hero Section - SLIDER COM VÍDEOS -->
+        <!-- Hero Section - SLIDER COM VÍDEOS EM TODOS OS DISPOSITIVOS -->
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 80vh;">
             
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- Vídeos (Desktop) -->
-                <div id="hero-video-layer" class="absolute inset-0 w-full h-full hidden md:block"></div>
+                <!-- Vídeos (Forçado para carregar tanto no Desktop quanto no Mobile) -->
+                <div id="hero-video-layer" class="absolute inset-0 w-full h-full"></div>
 
-                <!-- Fallback MOBILE CORRIGIDO (Usa as suas imagens como bg) -->
-                <div id="hero-poster-layer" class="absolute inset-0 w-full h-full bg-white md:hidden">
+                <!-- Fallback oculto por padrão (Só vai aparecer se o vídeo falhar) -->
+                <div id="hero-poster-layer" class="absolute inset-0 w-full h-full bg-white hidden">
                     <div id="poster-1" class="hero-poster absolute inset-0 w-full h-full" style="background-color: #fff; background-image: url('Furadeira e Parafusadeira a Bateria 20V.webp'); background-size: contain; background-repeat: no-repeat; background-position: center 80%;"></div>
                     <div id="poster-2" class="hero-poster absolute inset-0 w-full h-full" style="background-color: #fff; background-image: url('Esmerilhadeira Angular DeWALT.webp'); background-size: contain; background-repeat: no-repeat; background-position: center 80%;"></div>
                     <div id="poster-3" class="hero-poster absolute inset-0 w-full h-full" style="background-color: #fff; background-image: url('Serra Circular DeWalt.webp'); background-size: contain; background-repeat: no-repeat; background-position: center 80%;"></div>
@@ -450,7 +450,7 @@
         });
     </script>
 
-    <!-- Script Hero Slider -->
+    <!-- Script Hero Slider com VÍDEOS FORÇADOS EM MOBILE E DESKTOP -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const SLIDE_DURATION = 6000;
@@ -459,68 +459,174 @@
             let isTransitioning = false;
             let autoTimer = null;
 
-            const isMobile = window.matchMedia('(max-width: 767px)').matches;
+            // Variável que diz "use vídeo sempre, foda-se se é mobile"
+            const useVideo = true;
+
             const videoLayer = document.getElementById('hero-video-layer');
             const posterLayer = document.getElementById('hero-poster-layer');
             
-            // Só liga o JS pesado de vídeo se for Desktop
-            if (!isMobile && videoLayer) {
+            const sources = { 1: 'dewallt1.mp4#t=0.1', 2: 'dewall2.mp4#t=0.1', 3: 'dewalt3.mp4#t=0.1' };
+            const dots = document.querySelectorAll('.slider-dot');
+            let videos = {};
+
+            function buildVideoEl(index, withPreload) {
+                const v = document.createElement('video');
+                v.id = 'vid-' + index;
+                v.className = 'hero-video absolute inset-0 w-full h-full object-cover object-center';
+                v.muted = true;
+                v.playsInline = true; // ESSENCIAL PARA TOCAR NO iPHONE/MOBILE
+                v.autoplay = true;
+                v.loop = false;
+                v.preload = withPreload ? 'auto' : 'metadata';
+                
+                const source = document.createElement('source');
+                source.src = sources[index];
+                source.type = 'video/mp4';
+                v.appendChild(source);
+                
+                v.addEventListener('ended', nextSlide);
+                return v;
+            }
+
+            if (useVideo) {
+                // Remove qualquer ocultação do layer de vídeo
                 videoLayer.classList.remove('hidden');
                 posterLayer.classList.add('hidden');
+
+                videos[1] = buildVideoEl(1, true);
+                videoLayer.appendChild(videos[1]);
+                videos[1].classList.add('active');
+                
+                // Trata a política restrita de Autoplay em celulares e Safari
+                const playPromise = videos[1].play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Navegador impediu autoplay automático:", error);
+                    });
+                }
+            }
+
+            function ensureVideoLoaded(index) {
+                if (videos[index]) return videos[index];
+                const v = buildVideoEl(index, true);
+                videoLayer.appendChild(v);
+                videos[index] = v;
+                return v;
+            }
+
+            function resetDots(activeIndex) {
+                dots.forEach((dot, i) => {
+                    dot.classList.remove('filling', 'done');
+                    const fill = dot.querySelector('.dot-fill');
+                    fill.style.transition = 'none';
+                    fill.style.transform = 'scaleX(0)';
+                    if (i + 1 < activeIndex) dot.classList.add('done');
+                });
+                
+                requestAnimationFrame(() => {
+                    const activeDot = document.querySelector(`.slider-dot[data-slide="${activeIndex}"]`);
+                    if (!activeDot) return;
+                    
+                    const fill = activeDot.querySelector('.dot-fill');
+                    activeDot.classList.add('filling');
+                    requestAnimationFrame(() => {
+                        let durationToAnimate = SLIDE_DURATION; 
+                        
+                        if (useVideo && videos[activeIndex] && !isNaN(videos[activeIndex].duration) && videos[activeIndex].duration > 0) {
+                             durationToAnimate = videos[activeIndex].duration * 1000;
+                        }
+                        
+                        fill.style.transition = `transform ${durationToAnimate}ms linear`;
+                        fill.style.transform = 'scaleX(1)';
+                    });
+                });
             }
 
             function goToSlide(nextIndex) {
                 if (currentSlide === nextIndex || isTransitioning) return;
                 isTransitioning = true;
 
-                document.getElementById(`text-${currentSlide}`).classList.remove('active');
+                const prevIndex = currentSlide;
+
+                document.getElementById(`text-${prevIndex}`).classList.remove('active');
                 document.getElementById(`text-${nextIndex}`).classList.add('active');
                 
-                if (isMobile) {
-                    const prevPoster = document.getElementById(`poster-${currentSlide}`);
-                    const nextPoster = document.getElementById(`poster-${nextIndex}`);
-                    if(prevPoster) prevPoster.classList.remove('active');
-                    if(nextPoster) nextPoster.classList.add('active');
-                }
+                resetDots(nextIndex);
 
-                // Update bolinhas
-                document.querySelectorAll('.slider-dot').forEach(d => {
-                    d.querySelector('.dot-fill').style.transform = 'scaleX(0)';
-                    d.querySelector('.dot-fill').style.transition = 'none';
-                });
-                const activeDot = document.querySelector(`.slider-dot[data-slide="${nextIndex}"] .dot-fill`);
-                if(activeDot) {
-                    setTimeout(() => {
-                        activeDot.style.transition = `transform ${SLIDE_DURATION}ms linear`;
-                        activeDot.style.transform = 'scaleX(1)';
-                    }, 50);
+                if (useVideo) {
+                    const nextVideo = ensureVideoLoaded(nextIndex);
+                    const prevVideo = videos[prevIndex];
+                    
+                    nextVideo.currentTime = 0;
+                    const playPromise = nextVideo.play();
+                    
+                    const doSwap = () => {
+                        prevVideo.classList.remove('active');
+                        nextVideo.classList.add('active');
+                        currentSlide = nextIndex;
+                        
+                        const upcoming = nextIndex >= totalSlides ? 1 : nextIndex + 1;
+                        ensureVideoLoaded(upcoming);
+                        
+                        setTimeout(() => {
+                            if (currentSlide !== prevIndex) prevVideo.pause();
+                            isTransitioning = false;
+                        }, 1400); 
+                    };
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(doSwap).catch(doSwap);
+                    } else {
+                        doSwap();
+                    }
                 }
-
-                currentSlide = nextIndex;
-                setTimeout(() => { isTransitioning = false; }, 900);
             }
 
             function nextSlide() {
-                goToSlide(currentSlide >= totalSlides ? 1 : currentSlide + 1);
+                const next = currentSlide >= totalSlides ? 1 : currentSlide + 1;
+                goToSlide(next);
                 restartAutoTimer();
             }
 
             function restartAutoTimer() {
                 if (autoTimer) clearTimeout(autoTimer);
-                autoTimer = setTimeout(nextSlide, SLIDE_DURATION);
+                if (useVideo) {
+                    autoTimer = setTimeout(nextSlide, SLIDE_DURATION);
+                }
             }
 
             document.getElementById(`text-1`).classList.add('active');
-            if(isMobile) document.getElementById(`poster-1`).classList.add('active');
             
-            const firstDot = document.querySelector('.slider-dot[data-slide="1"] .dot-fill');
-            if(firstDot) {
-                setTimeout(() => {
-                    firstDot.style.transition = `transform ${SLIDE_DURATION}ms linear`;
-                    firstDot.style.transform = 'scaleX(1)';
-                }, 50);
+            if(useVideo && videos[1]) {
+                 videos[1].addEventListener('loadedmetadata', () => resetDots(1), {once: true});
+                 if (videos[1].readyState >= 1) resetDots(1);
             }
+            
             restartAutoTimer();
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    const target = parseInt(dot.getAttribute('data-slide'));
+                    goToSlide(target);
+                    restartAutoTimer();
+                });
+            });
+
+            const heroSection = document.getElementById('hero');
+            if ('IntersectionObserver' in window && useVideo) {
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const activeVideo = videos[currentSlide];
+                        if (!activeVideo) return;
+                        if (entry.isIntersecting) {
+                            activeVideo.play().catch(() => {});
+                        } else {
+                            activeVideo.pause();
+                        }
+                    });
+                }, { threshold: 0.15 });
+                io.observe(heroSection);
+            }
         });
     </script>
 
@@ -660,7 +766,6 @@
         function renderizarVitrine(filtroCategoria = 'todos') {
             const produtosFiltrados = produtosDewalt.filter(p => p.ativo && (filtroCategoria === 'todos' || p.categoria === filtroCategoria));
             
-            // Oculta e recria visual
             const htmlDosProdutos = produtosFiltrados.map(p => {
                 const estrelasCheias = '<i data-lucide="star" class="w-3 h-3 fill-current"></i>'.repeat(p.estrelas);
                 const estrelasVazias = '<i data-lucide="star" class="w-3 h-3 text-gray-600"></i>'.repeat(5 - p.estrelas);
