@@ -692,7 +692,7 @@
         });
     </script>
 
-    <!-- Script Banco de Dados DeWalt com 9 Produtos (Imagens Exatas) -->
+    <!-- Script Banco de Dados DeWalt com 9 Produtos -->
     <script>
         const produtosDewalt = [
             {
@@ -858,12 +858,13 @@
                 const estrelasCheias = '<i data-lucide="star" class="w-3 h-3 fill-current"></i>'.repeat(p.estrelas);
                 const estrelasVazias = '<i data-lucide="star" class="w-3 h-3 text-gray-600"></i>'.repeat(5 - p.estrelas);
 
+                // TRUQUE APLICADO AQUI: classe "mix-blend-multiply" na imagem!
                 return `
                 <article class="product-card bg-araguaia-surface border border-araguaia-border p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-yellow transition-all duration-300">
                     ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} ${p.tagColor.includes('bg-white') ? '' : 'text-white'} text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
                     
                     <a href="produto-dewalt.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-sm flex items-center justify-center p-4 block cursor-pointer">
-                        <img src="${p.imagem}" alt="${p.nome}" loading="lazy" decoding="async" class="product-img w-full h-full object-contain transition-transform duration-500">
+                        <img src="${p.imagem}" alt="${p.nome}" loading="lazy" decoding="async" class="product-img w-full h-full object-contain transition-transform duration-500 mix-blend-multiply">
                     </a>
                     
                     <div class="flex items-center mb-2">
