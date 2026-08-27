@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linha DeWalt - Araguaia Máquinas | Ferramentas Elétricas e a Bateria</title>
+    <title>Ofertas DeWalt - Araguaia Máquinas | Ferramentas Originais</title>
     
-    <!-- Favicon / Ícone do Site -->
+    <!-- Favicon -->
     <link rel="icon" type="image/webp" href="favicon.png.webp">
     <link rel="apple-touch-icon" href="favicon.png.webp">
 
-    <!-- SEO E GOOGLE UCP -->
-    <meta name="description" content="Linha completa de ferramentas DeWalt na Araguaia Máquinas. Parafusadeiras, furadeiras, esmerilhadeiras e baterias com as melhores condições.">
-    <meta name="keywords" content="DeWalt Anápolis, parafusadeira DeWalt, furadeira, ferramentas a bateria, Araguaia Máquinas">
+    <!-- SEO E OPEN GRAPH (Prevenção Crítica para Anúncios) -->
+    <meta name="description" content="Linha completa de ferramentas DeWalt originais com descontos exclusivos, frete grátis e até 10x sem juros. Araguaia Máquinas.">
+    <meta name="keywords" content="DeWalt, ferramentas a bateria, Araguaia Máquinas, parafusadeira, esmerilhadeira">
     <meta name="author" content="Araguaia Máquinas">
+    
+    <!-- Open Graph (Facebook, WhatsApp, Instagram) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ofertas Exclusivas DeWalt | Araguaia Máquinas">
+    <meta property="og:description" content="Aproveite nossos descontos em ferramentas DeWalt Originais. Compre direto pelo WhatsApp com garantia e frete seguro!">
+    <meta property="og:image" content="Furadeira e Parafusadeira a Bateria 20V.webp">
+    <meta property="og:url" content="https://seusite.com.br">
+    <meta property="og:site_name" content="Araguaia Máquinas">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,8 +71,7 @@
         .hero-video {
             opacity: 0;
             transform: scale(1.06) translateZ(0);
-            transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1),
-                        transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1), transform 6s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 0;
             will-change: opacity, transform;
             backface-visibility: hidden;
@@ -79,10 +86,8 @@
         .hero-poster {
             opacity: 0;
             transform: scale(1.06) translateZ(0);
-            transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1),
-                        transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 1.4s cubic-bezier(0.65, 0, 0.35, 1), transform 6s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
-            background-color: #080808;
         }
         .hero-poster.active {
             opacity: 1;
@@ -90,13 +95,11 @@
             z-index: 1;
         }
 
-        /* Animação Original */
         .slide-content {
             opacity: 0;
             transform: translateY(24px) translateZ(0);
             pointer-events: none;
-            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             transition-delay: 0s;
             will-change: opacity, transform;
         }
@@ -108,27 +111,14 @@
             transition-delay: 0.15s;
         }
 
-        /* Barra de progresso dentro de cada bolinha */
-        .slider-dot {
-            position: relative;
-            overflow: hidden;
-            background: rgba(255,255,255,0.25);
-        }
+        .slider-dot { position: relative; overflow: hidden; background: rgba(255,255,255,0.25); }
         .slider-dot .dot-fill {
-            position: absolute;
-            inset: 0;
-            background: var(--color-araguaia-yellow);
-            transform: scaleX(0);
-            transform-origin: left center;
-            border-radius: inherit;
+            position: absolute; inset: 0; background: var(--color-araguaia-yellow);
+            transform: scaleX(0); transform-origin: left center; border-radius: inherit;
         }
-        .slider-dot.filling .dot-fill {
-            transform: scaleX(1);
-            transition: transform linear;
-        }
+        .slider-dot.filling .dot-fill { transform: scaleX(1); transition: transform linear; }
         .slider-dot.done .dot-fill { transform: scaleX(1); transition: none; }
 
-        /* Degradê Customizado Premium */
         .premium-gradient {
             background: linear-gradient(90deg, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.85) 30%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0) 100%);
         }
@@ -136,94 +126,46 @@
             .premium-gradient { background: linear-gradient(180deg, rgba(8,8,8,0.7) 0%, rgba(8,8,8,0.9) 60%, rgba(8,8,8,0.95) 100%); }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .hero-video, .hero-poster, .slide-content { transition-duration: 0.3s !important; transition-delay: 0s !important; transform: none !important; }
-        }
+        /* FAQ details styling */
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- Top Bar -->
-    <div class="bg-araguaia-darker text-center py-2 px-4 text-xs sm:text-sm font-semibold tracking-wider border-b border-white/5">
-        <span class="text-gray-300">COMPRE ONLINE COM </span>
-        <span class="text-araguaia-yellow font-bold">FRETE GRÁTIS</span>
-        <span class="text-gray-300"> PARA TODO O BRASIL ACIMA DE R$ 499</span>
+    <!-- URGÊNCIA: Top Bar com Countdown -->
+    <div class="bg-red-600 text-center py-2 px-4 text-xs sm:text-sm font-bold tracking-wider text-white flex justify-center items-center flex-wrap gap-2 z-50 relative shadow-lg">
+        <div class="flex items-center gap-1.5 animate-pulse">
+            <i data-lucide="timer" class="w-4 h-4"></i>
+            <span>OFERTA RELÂMPAGO ACABA EM:</span>
+        </div>
+        <span id="countdown" class="font-mono text-base md:text-lg bg-black/20 px-2 py-0.5 rounded shadow-inner">02:45:00</span>
     </div>
 
-    <!-- Header Principal -->
-    <header class="bg-araguaia-surface/95 backdrop-blur-md border-b border-araguaia-border sticky top-0 z-50 transition-all">
-        <div class="container mx-auto px-4 py-3 md:py-4">
-            <div class="flex items-center justify-between gap-4 md:gap-6">
-                
-                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-araguaia-yellow p-1 transition-colors" aria-label="Abrir menu">
-                    <i data-lucide="menu" class="w-7 h-7"></i>
-                </button>
-
-                <!-- Logo -->
-                <a href="index.html" class="flex-shrink-0 flex items-center transition-all duration-300 hover:scale-[1.03] group">
-                    <div class="bg-[#FFB800] p-1.5 sm:p-2 rounded-xl shadow-lg shadow-black/60 border border-[#FFB800]/40 flex items-center justify-center">
-                        <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 sm:h-12 md:h-16 lg:h-18 w-auto object-contain transition-transform" fetchpriority="high" loading="eager" decoding="async">
-                    </div>
-                </a>
-
-                <!-- Barra de Busca -->
-                <div class="hidden md:block flex-1 max-w-2xl mx-2">
-                    <form action="#" method="GET" class="relative w-full">
-                        <input type="search" name="busca" placeholder="Buscar ferramentas DeWalt..." 
-                            class="w-full bg-araguaia-surface-light/80 border border-araguaia-border focus:border-araguaia-yellow focus:ring-1 focus:ring-araguaia-yellow rounded-full py-3 px-6 pr-14 text-sm text-white placeholder-gray-400 transition-all outline-none backdrop-blur-sm">
-                        <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 w-9 bg-araguaia-yellow text-black hover:bg-white rounded-full flex items-center justify-center transition-colors shadow-md">
-                            <i data-lucide="search" class="w-4 h-4 stroke-[2.5]"></i>
-                        </button>
-                    </form>
+    <!-- Header Otimizado p/ LP (Menos saídas, foco no CTA) -->
+    <header class="bg-araguaia-surface/95 backdrop-blur-md border-b border-araguaia-border sticky top-0 z-40 transition-all">
+        <div class="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex-shrink-0 flex items-center transition-all duration-300 hover:scale-[1.03]">
+                <div class="bg-[#FFB800] p-1.5 sm:p-2 rounded-xl shadow-lg border border-[#FFB800]/40 flex items-center justify-center">
+                    <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 md:h-14 w-auto object-contain">
                 </div>
+            </a>
 
-                <!-- Botão WhatsApp -->
-                <div class="flex items-center ml-auto md:ml-0">
-                    <a href="https://wa.me/556230997275" target="_blank" class="flex items-center gap-2.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7a6e] text-white px-4 sm:px-5 py-2.5 rounded-full font-bold uppercase text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-[#25D366]/20 hover:shadow-[#25D366]/40 hover:-translate-y-0.5 border border-white/20">
-                        <span class="relative flex h-2.5 w-2.5">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
-                        </span>
-                        <span class="hidden lg:inline tracking-wider">Vendas via WhatsApp</span>
-                        <span class="lg:hidden tracking-wider">WhatsApp</span>
-                    </a>
-                </div>
-            </div>
+            <!-- Navegação Rápida (Desktop) -->
+            <nav class="hidden lg:flex gap-8 items-center text-sm font-bold uppercase tracking-wider text-gray-300">
+                <a href="#destaques" class="hover:text-araguaia-yellow transition-colors">Ofertas</a>
+                <a href="#depoimentos" class="hover:text-araguaia-yellow transition-colors">Avaliações</a>
+                <a href="#faq" class="hover:text-araguaia-yellow transition-colors">Dúvidas</a>
+            </nav>
 
-            <!-- Mobile Search Bar -->
-            <div class="mt-3 md:hidden">
-                <form action="#" method="GET" class="relative w-full">
-                    <input type="search" name="busca_mobile" placeholder="Buscar DeWalt..." 
-                        class="w-full bg-araguaia-surface-light border border-araguaia-border text-white placeholder-gray-400 rounded-full py-2.5 px-5 pr-12 text-sm outline-none focus:border-araguaia-yellow">
-                    <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 bg-araguaia-yellow text-black rounded-full flex items-center justify-center">
-                        <i data-lucide="search" class="w-4 h-4 stroke-[2.5]"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Menu de Navegação DeWalt -->
-        <nav class="hidden md:block bg-araguaia-darker/60 border-t border-araguaia-border/40">
-            <div class="container mx-auto px-4">
-                <ul class="flex items-center justify-center gap-8 py-3">
-                    <li><a href="#destaques" onclick="renderizarVitrine('parafusadeira')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Parafusadeiras</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('furadeira')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Furadeiras</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('esmerilhadeira')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Esmerilhadeiras</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('bateria')" class="text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-araguaia-yellow transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-araguaia-yellow hover:after:w-full after:transition-all">Baterias</a></li>
-                    <li><a href="#destaques" onclick="renderizarVitrine('todos')" class="text-xs font-bold uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>Ofertas DeWalt</a></li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- Mobile Menu DeWalt -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-araguaia-surface shadow-2xl border-t border-araguaia-border z-40">
-            <ul class="flex flex-col py-2">
-                <li><a href="#destaques" onclick="renderizarVitrine('parafusadeira')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Parafusadeiras</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('furadeira')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Furadeiras</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('esmerilhadeira')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Esmerilhadeiras</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('bateria')" class="block px-6 py-4 border-b border-araguaia-border/40 font-bold uppercase text-sm text-gray-200 hover:bg-araguaia-surface-light hover:text-araguaia-yellow">Baterias</a></li>
-                <li><a href="#destaques" onclick="renderizarVitrine('todos')" class="block px-6 py-4 text-red-500 font-bold uppercase text-sm hover:bg-araguaia-surface-light">Ofertas DeWalt</a></li>
-            </ul>
+            <!-- Botão WhatsApp Primário -->
+            <a href="#destaques" class="flex items-center gap-2.5 bg-gradient-to-r from-[#25D366] to-[#128C7E] hover:from-[#22c35e] hover:to-[#0f7a6e] text-white px-5 py-2.5 rounded-full font-bold uppercase text-xs sm:text-sm transition-all duration-300 shadow-lg shadow-[#25D366]/20 hover:scale-105 border border-white/20">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                <span class="hidden sm:inline tracking-wider">Garantir Desconto</span>
+                <span class="sm:hidden tracking-wider">Comprar</span>
+            </a>
         </div>
     </header>
 
@@ -233,17 +175,16 @@
         <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 80vh;">
             
             <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <!-- Vídeos -->
-                <div id="hero-video-layer" class="absolute inset-0 w-full h-full"></div>
+                <!-- Vídeos (Desktop) -->
+                <div id="hero-video-layer" class="absolute inset-0 w-full h-full hidden md:block"></div>
 
-                <!-- Fallback / modo leve: Sem as imagens da STIHL -->
-                <div id="hero-poster-layer" class="absolute inset-0 w-full h-full bg-araguaia-dark hidden">
-                    <div id="poster-1" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
-                    <div id="poster-2" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
-                    <div id="poster-3" class="hero-poster absolute inset-0 w-full h-full bg-araguaia-dark"></div>
+                <!-- Fallback MOBILE CORRIGIDO (Usa as suas imagens como bg) -->
+                <div id="hero-poster-layer" class="absolute inset-0 w-full h-full bg-white md:hidden">
+                    <div id="poster-1" class="hero-poster absolute inset-0 w-full h-full" style="background-color: #fff; background-image: url('Furadeira e Parafusadeira a Bateria 20V.webp'); background-size: contain; background-repeat: no-repeat; background-position: center 80%;"></div>
+                    <div id="poster-2" class="hero-poster absolute inset-0 w-full h-full" style="background-color: #fff; background-image: url('Esmerilhadeira Angular DeWALT.webp'); background-size: contain; background-repeat: no-repeat; background-position: center 80%;"></div>
+                    <div id="poster-3" class="hero-poster absolute inset-0 w-full h-full" style="background-color: #fff; background-image: url('Serra Circular DeWalt.webp'); background-size: contain; background-repeat: no-repeat; background-position: center 80%;"></div>
                 </div>
                 
-                <!-- Degradê Premium (Escuro no texto, Claro na Máquina) -->
                 <div class="premium-gradient absolute inset-0 z-[2]"></div>
             </div>
 
@@ -253,260 +194,263 @@
                     
                     <!-- Texto Slide 1 -->
                     <div id="text-1" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu z-10">
-                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
-                            LINHA DEWALT
+                        <span class="inline-block bg-red-600 text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg animate-bounce">
+                            OFERTA LIMITADA
                         </span>
                         <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
-                            GARANTIDO.<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                            POTÊNCIA PURA.<br>
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800;">
                                 DURA MAIS.
                             </span>
                         </h1>
                         <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            Ferramentas elétricas e a bateria projetadas para os profissionais mais exigentes. Potência e durabilidade para qualquer obra.
+                            Ferramentas elétricas DeWalt originais com até 30% de desconto. Potência e durabilidade que a sua obra exige.
                         </p>
-                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                            VER FERRAMENTAS
-                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                            VER OFERTAS AGORA
+                            <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
                         </a>
                     </div>
 
                     <!-- Texto Slide 2 -->
                     <div id="text-2" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu z-10">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
-                            MÁXIMA POTÊNCIA
+                            LINHA 20V MAX*
                         </span>
                         <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
                             ALTA PERFORMANCE.<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800;">
                                 SEM FIOS.
                             </span>
                         </h1>
                         <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            A liberdade que você precisa com a força que a sua obra exige. Conheça a linha 20V MAX* da DeWalt.
+                            A liberdade que você precisa com a força extrema da DeWalt. Compre no Pix com frete expresso.
                         </p>
-                        <a href="#destaques" onclick="renderizarVitrine('bateria')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                            VER BATERIAS
-                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                            VER OFERTAS AGORA
+                            <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
                         </a>
                     </div>
 
                     <!-- Texto Slide 3 -->
                     <div id="text-3" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu z-10">
                         <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
-                            RESISTÊNCIA EXTREMA
+                            100% ORIGINAL
                         </span>
                         <h1 class="font-anton text-[3.8rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.1] mb-6">
                             PROJETADA PARA<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800; transform: translateZ(0);">
+                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800;">
                                 O TRABALHO BRUTO.
                             </span>
                         </h1>
                         <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            Equipamentos robustos testados nas condições mais severas para entregar sempre o melhor resultado.
+                            Garantia de 3 anos direto de fábrica. Não corra riscos na sua obra. Compre com segurança na Araguaia.
                         </p>
-                        <a href="#destaques" onclick="renderizarVitrine('todos')" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
-                            CONFIRA AS OFERTAS
-                            <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl">
+                            VER OFERTAS AGORA
+                            <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
                         </a>
                     </div>
 
                 </div>
             </div>
 
-            <!-- Navegação (Bolinhas com barra de progresso) -->
+            <!-- Bolinhas -->
             <div class="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
-                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full transition-all duration-300" data-slide="1" aria-label="Slide 1"><span class="dot-fill"></span></button>
-                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full transition-all duration-300" data-slide="2" aria-label="Slide 2"><span class="dot-fill"></span></button>
-                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full transition-all duration-300" data-slide="3" aria-label="Slide 3"><span class="dot-fill"></span></button>
+                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full" data-slide="1"><span class="dot-fill"></span></button>
+                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full" data-slide="2"><span class="dot-fill"></span></button>
+                <button class="slider-dot bg-white/25 w-10 h-1.5 rounded-full" data-slide="3"><span class="dot-fill"></span></button>
             </div>
         </section>
 
-        <!-- Categorias DeWalt -->
-        <section id="categorias" class="py-12 bg-araguaia-dark border-b border-araguaia-border">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-wrap justify-center gap-4 md:gap-8">
-                    <!-- ÍCONE: wrench (Parafusadeiras/Chaves de Impacto) -->
-                    <a href="#destaques" onclick="renderizarVitrine('parafusadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
-                            <i data-lucide="wrench" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
-                        </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Parafusadeiras</span>
-                    </a>
-                    
-                    <!-- Ícone: Drill (Furadeiras) -->
-                    <a href="#destaques" onclick="renderizarVitrine('furadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
-                            <i data-lucide="hammer" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
-                        </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Furadeiras</span>
-                    </a>
-                    
-                    <!-- Ícone: Disc (Esmerilhadeiras) -->
-                    <a href="#destaques" onclick="renderizarVitrine('esmerilhadeira')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
-                            <i data-lucide="disc" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
-                        </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Esmerilhadeiras</span>
-                    </a>
-                    
-                    <!-- Ícone: Battery Charging (Baterias) -->
-                    <a href="#destaques" onclick="renderizarVitrine('bateria')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
-                            <i data-lucide="battery-charging" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
-                        </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Baterias</span>
-                    </a>
-                    
-                    <!-- Ícone: Settings (Acessórios) -->
-                    <a href="#destaques" onclick="renderizarVitrine('acessorio')" class="flex flex-col items-center group cursor-pointer transition-transform hover:-translate-y-1 w-24 md:w-32">
-                        <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-araguaia-surface flex items-center justify-center mb-3 border border-araguaia-border group-hover:bg-araguaia-yellow group-hover:border-araguaia-yellow group-hover:text-black text-white transition-all duration-300">
-                            <i data-lucide="settings" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5]"></i>
-                        </div>
-                        <span class="text-[10px] md:text-sm font-bold uppercase text-center text-gray-400 group-hover:text-white transition-colors">Acessórios</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Vitrine de Produtos DeWalt -->
+        <!-- Vitrine de Produtos -->
         <section id="destaques" class="py-16 md:py-24 bg-araguaia-dark">
             <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-                    <div>
-                        <h2 id="titulo-vitrine" class="font-anton text-3xl md:text-5xl text-white uppercase tracking-wide">Linha DeWalt</h2>
-                        <p class="text-gray-400 mt-2 font-medium">Ferramentas de alta performance.</p>
-                    </div>
-                    <a href="javascript:void(0)" onclick="renderizarVitrine('todos')" class="text-sm font-bold uppercase text-white border-b-2 border-araguaia-yellow pb-1 hover:text-araguaia-yellow transition-colors inline-block w-max">
-                        Ver todas as ferramentas
-                    </a>
+                
+                <div class="text-center mb-12">
+                    <h2 class="font-anton text-4xl md:text-5xl text-white uppercase tracking-wide inline-flex items-center gap-3 justify-center">
+                        <i data-lucide="zap" class="text-araguaia-yellow w-8 h-8 md:w-10 md:h-10"></i> 
+                        OFERTAS DEWALT
+                    </h2>
+                    <p class="text-gray-400 mt-3 font-medium">Condições válidas apenas enquanto durar o estoque da campanha.</p>
                 </div>
 
-                <div id="vitrine-produtos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                    <!-- Vitrine populada via JS -->
+                <!-- Filtros em formato de Pills (Otimizado p/ LP) -->
+                <div class="flex flex-wrap justify-center gap-2 mb-10">
+                    <button onclick="renderizarVitrine('todos')" class="px-5 py-2 rounded-full text-xs font-bold uppercase bg-araguaia-yellow text-black shadow-md hover:scale-105 transition-all">Todos</button>
+                    <button onclick="renderizarVitrine('parafusadeira')" class="px-5 py-2 rounded-full text-xs font-bold uppercase border border-araguaia-border text-gray-300 hover:bg-araguaia-surface-light hover:text-white transition-all">Parafusadeiras</button>
+                    <button onclick="renderizarVitrine('esmerilhadeira')" class="px-5 py-2 rounded-full text-xs font-bold uppercase border border-araguaia-border text-gray-300 hover:bg-araguaia-surface-light hover:text-white transition-all">Esmerilhadeiras</button>
+                    <button onclick="renderizarVitrine('acessorio')" class="px-5 py-2 rounded-full text-xs font-bold uppercase border border-araguaia-border text-gray-300 hover:bg-araguaia-surface-light hover:text-white transition-all">Outros</button>
                 </div>
 
-                <!-- PAGINAÇÃO -->
-                <div class="flex justify-center items-center mt-16 gap-3 border-t border-araguaia-border pt-8">
-                    <a href="index.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-surface border border-araguaia-border text-gray-400 hover:text-white hover:border-araguaia-yellow transition-all font-anton text-xl">
-                        1
-                    </a>
-                    <a href="produto-dewalt.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-yellow text-black font-anton text-xl border border-araguaia-yellow shadow-[0_0_15px_rgba(255,184,0,0.3)]">
-                        2
-                    </a>
+                <!-- Grid de Produtos -->
+                <div id="vitrine-produtos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- JS vai popular os cards aqui -->
                 </div>
 
             </div>
         </section>
 
-        <!-- Trust Features -->
+        <!-- Prova Social (Depoimentos) -->
+        <section id="depoimentos" class="py-16 bg-araguaia-surface border-y border-araguaia-border">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-10">
+                    <h2 class="font-anton text-3xl md:text-4xl text-white uppercase tracking-wide">Quem comprou, aprova</h2>
+                    <p class="text-gray-400 mt-2">Mais de 5.000 profissionais confiam na Araguaia Máquinas.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-araguaia-dark p-6 rounded-lg border border-araguaia-border">
+                        <div class="flex text-araguaia-yellow mb-4">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm italic mb-4">"Comprei a Parafusadeira de Impacto pelo Zap. Atendimento muito rápido, me mandaram o código de rastreio na hora. Ferramenta original com nota fiscal. Recomendo muito!"</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-araguaia-surface-light rounded-full flex items-center justify-center font-bold text-araguaia-yellow">RS</div>
+                            <div>
+                                <p class="text-white font-bold text-sm">Roberto S.</p>
+                                <p class="text-green-500 text-xs flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Compra Verificada</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-araguaia-dark p-6 rounded-lg border border-araguaia-border">
+                        <div class="flex text-araguaia-yellow mb-4">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm italic mb-4">"Achei pelo anúncio do Instagram e fiquei com medo de comprar, mas a equipe me passou muita confiança. A Esmerilhadeira chegou em SC em 4 dias úteis. Top!"</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-araguaia-surface-light rounded-full flex items-center justify-center font-bold text-araguaia-yellow">CM</div>
+                            <div>
+                                <p class="text-white font-bold text-sm">Carlos M.</p>
+                                <p class="text-green-500 text-xs flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Compra Verificada</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-araguaia-dark p-6 rounded-lg border border-araguaia-border">
+                        <div class="flex text-araguaia-yellow mb-4">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-gray-300 text-sm italic mb-4">"O preço tá imbatível. Já levei pro canteiro de obras e aguenta o tranco. Pode confiar que a loja é oficial DeWalt mesmo."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-araguaia-surface-light rounded-full flex items-center justify-center font-bold text-araguaia-yellow">LT</div>
+                            <div>
+                                <p class="text-white font-bold text-sm">Lucas T.</p>
+                                <p class="text-green-500 text-xs flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Compra Verificada</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ (Perguntas Frequentes) -->
+        <section id="faq" class="py-16 bg-araguaia-dark">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <div class="text-center mb-10">
+                    <h2 class="font-anton text-3xl md:text-4xl text-white uppercase tracking-wide">Dúvidas Frequentes</h2>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <details class="bg-araguaia-surface border border-araguaia-border rounded-lg group">
+                        <summary class="flex justify-between items-center font-bold text-white p-5 cursor-pointer">
+                            Os produtos são 100% originais?
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-araguaia-yellow transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-5 text-gray-400 text-sm">
+                            Sim! A Araguaia Máquinas é uma revenda autorizada DeWalt. Todos os produtos acompanham Nota Fiscal Eletrônica e possuem garantia direta de fábrica (3 anos para ferramentas elétricas).
+                        </div>
+                    </details>
+
+                    <details class="bg-araguaia-surface border border-araguaia-border rounded-lg group">
+                        <summary class="flex justify-between items-center font-bold text-white p-5 cursor-pointer">
+                            Como funciona o envio e o prazo de entrega?
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-araguaia-yellow transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-5 text-gray-400 text-sm">
+                            Enviamos para todo o Brasil via transportadoras parceiras com seguro total. O prazo varia conforme o seu CEP, mas assim que o pagamento é confirmado, despachamos em até 24h úteis e te enviamos o código de rastreio pelo WhatsApp.
+                        </div>
+                    </details>
+
+                    <details class="bg-araguaia-surface border border-araguaia-border rounded-lg group">
+                        <summary class="flex justify-between items-center font-bold text-white p-5 cursor-pointer">
+                            Posso parcelar no cartão? Tem desconto à vista?
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-araguaia-yellow transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-5 text-gray-400 text-sm">
+                            Parcelamos em até 10x sem juros em todos os cartões de crédito. Se você preferir pagar no PIX, você garante um desconto exclusivo que já está aplicado nos valores do site.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Features (Rodapé Seguro) -->
         <section class="bg-araguaia-surface border-y border-araguaia-border py-8">
             <div class="container mx-auto px-4">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-araguaia-border">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-araguaia-border/40">
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="shield-check" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
-                        <h4 class="font-bold text-sm uppercase text-white">Garantia Original</h4>
-                        <p class="text-xs text-gray-400 mt-1">Produtos 100% autênticos</p>
+                        <h4 class="font-bold text-sm uppercase text-white">Loja Autorizada</h4>
+                        <p class="text-xs text-gray-400 mt-1">Produtos Originais DeWalt</p>
                     </div>
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="truck" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
-                        <h4 class="font-bold text-sm uppercase text-white">Entrega Rápida</h4>
-                        <p class="text-xs text-gray-400 mt-1">Para todo o Brasil</p>
+                        <h4 class="font-bold text-sm uppercase text-white">Frete Seguro</h4>
+                        <p class="text-xs text-gray-400 mt-1">Envio Expresso Rastreado</p>
                     </div>
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="credit-card" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
                         <h4 class="font-bold text-sm uppercase text-white">Em até 10x S/ Juros</h4>
-                        <p class="text-xs text-gray-400 mt-1">No cartão de crédito</p>
+                        <p class="text-xs text-gray-400 mt-1">Compra 100% Criptografada</p>
                     </div>
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="headphones" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
-                        <h4 class="font-bold text-sm uppercase text-white">Suporte Técnico</h4>
-                        <p class="text-xs text-gray-400 mt-1">Especializado</p>
+                        <h4 class="font-bold text-sm uppercase text-white">Suporte Humano</h4>
+                        <p class="text-xs text-gray-400 mt-1">Atendimento real via Zap</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t border-araguaia-border">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                <div class="lg:col-span-1">
-                    <a href="index.html" class="inline-block mb-6 transition-opacity hover:opacity-90">
-                        <div class="bg-[#FFB800] p-1.5 rounded-lg inline-block">
-                            <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 w-auto object-contain" loading="lazy">
-                        </div>
-                    </a>
-                    <p class="text-sm mb-6 leading-relaxed text-gray-400">
-                        A força que o campo e a obra precisam com a tecnologia que você confia.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Nossa Loja</h4>
-                    <ul class="flex flex-col gap-4 text-sm">
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
-                            <div>
-                                <span class="block font-bold text-white mb-1">Anápolis - GO</span>
-                                Av. Tiradentes, 30<br>Setor Central<br>CEP: 75043-045
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Atendimento</h4>
-                    <ul class="flex flex-col gap-3 text-sm">
-                        <li class="flex justify-between items-center border-b border-araguaia-border pb-2">
-                            <span class="text-gray-300">Seg. a Sex.</span>
-                            <span class="font-medium text-white">07:30 – 18:00</span>
-                        </li>
-                        <li class="flex justify-between items-center border-b border-araguaia-border pb-2">
-                            <span class="text-gray-300">Sábado</span>
-                            <span class="font-medium text-white">07:30 – 12:00</span>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Fale Conosco</h4>
-                    <ul class="flex flex-col gap-4 text-sm">
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="phone" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
-                            <div>
-                                <span class="block font-bold text-white mb-1">WhatsApp</span>
-                                <a href="https://wa.me/556230997275" target="_blank" class="hover:text-araguaia-yellow transition-colors text-lg font-medium text-gray-200">(62) 3099-7275</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <!-- Footer Enxuto -->
+    <footer class="bg-araguaia-darker text-gray-400 py-10">
+        <div class="container mx-auto px-4 text-center">
+            <img src="logo.png.webp" alt="Araguaia Máquinas" class="h-10 mx-auto mb-4 opacity-50 grayscale">
+            <p class="text-xs">© 2026 Araguaia Máquinas. Todos os direitos reservados. CNPJ: XX.XXX.XXX/0001-XX</p>
+            <p class="text-[10px] mt-2 max-w-2xl mx-auto text-gray-600">Este site não faz parte e não é endossado pela Meta (Facebook/Instagram) ou Google. Os preços e estoques podem sofrer alterações sem aviso prévio.</p>
         </div>
     </footer>
 
-    <!-- Script Lucide & Menu Mobile -->
+    <!-- Script Lucide -->
     <script>
         function initLucide(){
-            if(window.lucide){ lucide.createIcons(); }
+            if(window.lucide) { lucide.createIcons(); }
             else { setTimeout(initLucide, 200); }
         }
         initLucide();
+    </script>
 
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            const icon = this.querySelector('i');
-            menu.classList.toggle('hidden');
-            if (menu.classList.contains('hidden')) {
-                icon.setAttribute('data-lucide', 'menu');
-            } else {
-                icon.setAttribute('data-lucide', 'x');
-            }
-            lucide.createIcons();
+    <!-- Script Countdown Urgência -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tempo inicial (ex: 2h 45m 00s)
+            let timeInSecs = 2 * 3600 + 45 * 60;
+            const timerEl = document.getElementById('countdown');
+            
+            setInterval(() => {
+                if (timeInSecs > 0) timeInSecs--;
+                const h = String(Math.floor(timeInSecs / 3600)).padStart(2, '0');
+                const m = String(Math.floor((timeInSecs % 3600) / 60)).padStart(2, '0');
+                const s = String(timeInSecs % 60).padStart(2, '0');
+                timerEl.innerText = `${h}:${m}:${s}`;
+            }, 1000);
         });
     </script>
 
-    <!-- ============================================================
-         SLIDER: TRUQUE #t=0.1 PARA USAR O PRÓPRIO VÍDEO COMO POSTER
-         ============================================================ -->
+    <!-- Script Hero Slider -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const SLIDE_DURATION = 6000;
@@ -516,183 +460,71 @@
             let autoTimer = null;
 
             const isMobile = window.matchMedia('(max-width: 767px)').matches;
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const saveData = navigator.connection && navigator.connection.saveData;
-            const slowConnection = navigator.connection && /2g|3g/.test(navigator.connection.effectiveType || '');
-
-            const useVideo = !isMobile && !saveData && !slowConnection && !prefersReducedMotion;
-
             const videoLayer = document.getElementById('hero-video-layer');
             const posterLayer = document.getElementById('hero-poster-layer');
             
-            // Truque ativado
-            const sources = { 1: 'dewallt1.mp4#t=0.1', 2: 'dewall2.mp4#t=0.1', 3: 'dewalt3.mp4#t=0.1' };
-            const dots = document.querySelectorAll('.slider-dot');
-            let videos = {};
-
-            function buildVideoEl(index, withPreload) {
-                const v = document.createElement('video');
-                v.id = 'vid-' + index;
-                v.className = 'hero-video absolute inset-0 w-full h-full object-cover object-center';
-                v.muted = true;
-                v.playsInline = true;
-                v.loop = false;
-                v.preload = withPreload ? 'auto' : 'metadata';
-                
-                const source = document.createElement('source');
-                source.src = sources[index];
-                source.type = 'video/mp4';
-                v.appendChild(source);
-                
-                v.addEventListener('ended', nextSlide);
-                return v;
-            }
-
-            if (useVideo) {
-                videos[1] = buildVideoEl(1, true);
-                videoLayer.appendChild(videos[1]);
-                videos[1].classList.add('active');
-                videos[1].play().catch(() => {});
-            } else {
-                posterLayer.classList.remove('hidden');
-            }
-
-            function ensureVideoLoaded(index) {
-                if (videos[index]) return videos[index];
-                const v = buildVideoEl(index, true);
-                videoLayer.appendChild(v);
-                videos[index] = v;
-                return v;
-            }
-
-            function resetDots(activeIndex) {
-                dots.forEach((dot, i) => {
-                    dot.classList.remove('filling', 'done');
-                    const fill = dot.querySelector('.dot-fill');
-                    fill.style.transition = 'none';
-                    fill.style.transform = 'scaleX(0)';
-                    if (i + 1 < activeIndex) dot.classList.add('done');
-                });
-                
-                requestAnimationFrame(() => {
-                    const activeDot = document.querySelector(`.slider-dot[data-slide="${activeIndex}"]`);
-                    if (!activeDot) return;
-                    
-                    const fill = activeDot.querySelector('.dot-fill');
-                    activeDot.classList.add('filling');
-                    requestAnimationFrame(() => {
-                        let durationToAnimate = SLIDE_DURATION; 
-                        
-                        if (useVideo && videos[activeIndex] && !isNaN(videos[activeIndex].duration) && videos[activeIndex].duration > 0) {
-                             durationToAnimate = videos[activeIndex].duration * 1000;
-                        }
-                        
-                        fill.style.transition = `transform ${durationToAnimate}ms linear`;
-                        fill.style.transform = 'scaleX(1)';
-                    });
-                });
+            // Só liga o JS pesado de vídeo se for Desktop
+            if (!isMobile && videoLayer) {
+                videoLayer.classList.remove('hidden');
+                posterLayer.classList.add('hidden');
             }
 
             function goToSlide(nextIndex) {
                 if (currentSlide === nextIndex || isTransitioning) return;
                 isTransitioning = true;
 
-                const prevIndex = currentSlide;
-
-                document.getElementById(`text-${prevIndex}`).classList.remove('active');
+                document.getElementById(`text-${currentSlide}`).classList.remove('active');
                 document.getElementById(`text-${nextIndex}`).classList.add('active');
                 
-                resetDots(nextIndex);
-
-                if (useVideo) {
-                    const nextVideo = ensureVideoLoaded(nextIndex);
-                    const prevVideo = videos[prevIndex];
-                    
-                    nextVideo.currentTime = 0;
-                    const playPromise = nextVideo.play();
-                    
-                    const doSwap = () => {
-                        prevVideo.classList.remove('active');
-                        nextVideo.classList.add('active');
-                        currentSlide = nextIndex;
-                        
-                        const upcoming = nextIndex >= totalSlides ? 1 : nextIndex + 1;
-                        ensureVideoLoaded(upcoming);
-                        
-                        setTimeout(() => {
-                            if (currentSlide !== prevIndex) prevVideo.pause();
-                            isTransitioning = false;
-                        }, 1400); 
-                    };
-                    
-                    if (playPromise !== undefined) {
-                        playPromise.then(doSwap).catch(doSwap);
-                    } else {
-                        doSwap();
-                    }
-                } else {
-                    const prevPoster = document.getElementById(`poster-${prevIndex}`);
+                if (isMobile) {
+                    const prevPoster = document.getElementById(`poster-${currentSlide}`);
                     const nextPoster = document.getElementById(`poster-${nextIndex}`);
-                    
                     if(prevPoster) prevPoster.classList.remove('active');
                     if(nextPoster) nextPoster.classList.add('active');
-                    currentSlide = nextIndex;
-                    
-                    setTimeout(() => { isTransitioning = false; }, 1400);
                 }
+
+                // Update bolinhas
+                document.querySelectorAll('.slider-dot').forEach(d => {
+                    d.querySelector('.dot-fill').style.transform = 'scaleX(0)';
+                    d.querySelector('.dot-fill').style.transition = 'none';
+                });
+                const activeDot = document.querySelector(`.slider-dot[data-slide="${nextIndex}"] .dot-fill`);
+                if(activeDot) {
+                    setTimeout(() => {
+                        activeDot.style.transition = `transform ${SLIDE_DURATION}ms linear`;
+                        activeDot.style.transform = 'scaleX(1)';
+                    }, 50);
+                }
+
+                currentSlide = nextIndex;
+                setTimeout(() => { isTransitioning = false; }, 900);
             }
 
             function nextSlide() {
-                const next = currentSlide >= totalSlides ? 1 : currentSlide + 1;
-                goToSlide(next);
+                goToSlide(currentSlide >= totalSlides ? 1 : currentSlide + 1);
                 restartAutoTimer();
             }
 
             function restartAutoTimer() {
                 if (autoTimer) clearTimeout(autoTimer);
-                if (!useVideo) {
-                    autoTimer = setTimeout(nextSlide, SLIDE_DURATION);
-                }
+                autoTimer = setTimeout(nextSlide, SLIDE_DURATION);
             }
 
             document.getElementById(`text-1`).classList.add('active');
+            if(isMobile) document.getElementById(`poster-1`).classList.add('active');
             
-            if(useVideo && videos[1]) {
-                 videos[1].addEventListener('loadedmetadata', () => resetDots(1), {once: true});
-                 if (videos[1].readyState >= 1) resetDots(1);
-            } else {
-                 resetDots(1);
+            const firstDot = document.querySelector('.slider-dot[data-slide="1"] .dot-fill');
+            if(firstDot) {
+                setTimeout(() => {
+                    firstDot.style.transition = `transform ${SLIDE_DURATION}ms linear`;
+                    firstDot.style.transform = 'scaleX(1)';
+                }, 50);
             }
-            
             restartAutoTimer();
-
-            dots.forEach(dot => {
-                dot.addEventListener('click', (e) => {
-                    const target = parseInt(dot.getAttribute('data-slide'));
-                    goToSlide(target);
-                    restartAutoTimer();
-                });
-            });
-
-            const heroSection = document.getElementById('hero');
-            if ('IntersectionObserver' in window && useVideo) {
-                const io = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        const activeVideo = videos[currentSlide];
-                        if (!activeVideo) return;
-                        if (entry.isIntersecting) {
-                            activeVideo.play().catch(() => {});
-                        } else {
-                            activeVideo.pause();
-                        }
-                    });
-                }, { threshold: 0.15 });
-                io.observe(heroSection);
-            }
         });
     </script>
 
-    <!-- Script Banco de Dados DeWalt -->
+    <!-- Script Banco de Dados DeWalt com Preços Atualizados -->
     <script>
         const produtosDewalt = [
             {
@@ -703,10 +535,10 @@
                 precoDesconto: "1.557,44",
                 parcelamento: "10x de R$ 155,74 s/ juros",
                 imagem: "Furadeira e Parafusadeira a Bateria 20V.webp",
-                tag: "Lançamento",
-                tagColor: "bg-araguaia-yellow text-black",
+                tag: "Oferta",
+                tagColor: "bg-red-600",
                 estrelas: 5,
-                avaliacoes: 12,
+                avaliacoes: 34,
                 ativo: true
             },
             {
@@ -718,9 +550,9 @@
                 parcelamento: "10x de R$ 93,40 s/ juros",
                 imagem: "Chave_de_impacto_elétrica.jpeg_202608271227.webp",
                 tag: "Mais Vendido",
-                tagColor: "bg-[#25D366] text-white",
+                tagColor: "bg-[#25D366]",
                 estrelas: 5,
-                avaliacoes: 42,
+                avaliacoes: 142,
                 ativo: true
             },
             {
@@ -731,24 +563,24 @@
                 precoDesconto: "408,00",
                 parcelamento: "10x de R$ 40,80 s/ juros",
                 imagem: "Furadeira Com Impacto 13mm Dewalt Dwd502 Potência 750w1.webp",
-                tag: "Profissional",
-                tagColor: "bg-gray-700 text-white",
+                tag: "",
+                tagColor: "",
                 estrelas: 5,
-                avaliacoes: 31,
+                avaliacoes: 81,
                 ativo: true
             },
             {
                 id: "p4",
                 categoria: "esmerilhadeira",
                 nome: "Esmerilhadeira Angular DeWALT",
-                precoOriginal: "1.450,00",
+                precoOriginal: "1.550,00",
                 precoDesconto: "1.299,90",
                 parcelamento: "10x de R$ 129,99 s/ juros",
                 imagem: "Esmerilhadeira Angular DeWALT.webp",
-                tag: "-10% OFF PIX",
-                tagColor: "bg-red-600 text-white",
+                tag: "Oferta",
+                tagColor: "bg-red-600",
                 estrelas: 5,
-                avaliacoes: 8,
+                avaliacoes: 28,
                 ativo: true
             },
             {
@@ -760,9 +592,9 @@
                 parcelamento: "10x de R$ 132,84 s/ juros",
                 imagem: "Esmerilhadeira.webp",
                 tag: "Custo Benefício",
-                tagColor: "bg-blue-600 text-white",
+                tagColor: "bg-blue-600",
                 estrelas: 4,
-                avaliacoes: 56,
+                avaliacoes: 96,
                 ativo: true
             },
             {
@@ -787,10 +619,10 @@
                 precoDesconto: "1.283,76",
                 parcelamento: "10x de R$ 128,37 s/ juros",
                 imagem: "Lixadeira Politriz.webp",
-                tag: "",
-                tagColor: "",
+                tag: "Oferta",
+                tagColor: "bg-red-600",
                 estrelas: 5,
-                avaliacoes: 14,
+                avaliacoes: 44,
                 ativo: true
             },
             {
@@ -801,8 +633,8 @@
                 precoDesconto: "666,01",
                 parcelamento: "10x de R$ 66,60 s/ juros",
                 imagem: "Plaina elétrica manual DeWalt.webp",
-                tag: "Oferta",
-                tagColor: "bg-araguaia-yellow text-black",
+                tag: "",
+                tagColor: "",
                 estrelas: 5,
                 avaliacoes: 22,
                 ativo: true
@@ -816,7 +648,7 @@
                 parcelamento: "10x de R$ 59,99 s/ juros",
                 imagem: "Serra Circular DeWalt.webp",
                 tag: "Alta Precisão",
-                tagColor: "bg-gray-600 text-white",
+                tagColor: "bg-gray-600",
                 estrelas: 4,
                 avaliacoes: 88,
                 ativo: true
@@ -824,68 +656,65 @@
         ];
 
         const container = document.getElementById('vitrine-produtos');
-        const tituloVitrine = document.getElementById('titulo-vitrine');
         
         function renderizarVitrine(filtroCategoria = 'todos') {
             const produtosFiltrados = produtosDewalt.filter(p => p.ativo && (filtroCategoria === 'todos' || p.categoria === filtroCategoria));
             
-            if(filtroCategoria === 'todos') {
-                tituloVitrine.textContent = 'Linha DeWalt';
-            } else {
-                const nomesFiltros = {
-                    'parafusadeira': 'Parafusadeiras',
-                    'furadeira': 'Furadeiras',
-                    'esmerilhadeira': 'Esmerilhadeiras',
-                    'bateria': 'Baterias e Carregadores',
-                    'acessorio': 'Acessórios'
-                };
-                tituloVitrine.textContent = nomesFiltros[filtroCategoria] || 'Resultados do Filtro';
-            }
-
-            if (produtosFiltrados.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full py-16 text-center">
-                        <i data-lucide="package-open" class="w-16 h-16 text-gray-600 mx-auto mb-4"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Nenhum produto cadastrado</h3>
-                        <p class="text-gray-400">Em breve adicionaremos novos equipamentos para esta categoria.</p>
-                    </div>
-                `;
-                lucide.createIcons();
-                return;
-            }
-
+            // Oculta e recria visual
             const htmlDosProdutos = produtosFiltrados.map(p => {
                 const estrelasCheias = '<i data-lucide="star" class="w-3 h-3 fill-current"></i>'.repeat(p.estrelas);
                 const estrelasVazias = '<i data-lucide="star" class="w-3 h-3 text-gray-600"></i>'.repeat(5 - p.estrelas);
 
-                // Fundo branco no quadrado da imagem 
-                // Filtro mix-blend-mode: multiply para sumir com bordas de imagens acinzentadas
+                // Cálculo inteligente do Desconto em %
+                const prOrig = parseFloat(p.precoOriginal.replace(/\./g, '').replace(',', '.'));
+                const prDesc = parseFloat(p.precoDesconto.replace(/\./g, '').replace(',', '.'));
+                let badgePercent = '';
+                if(prOrig > prDesc) {
+                    const percent = Math.round((1 - (prDesc / prOrig)) * 100);
+                    badgePercent = `<div class="absolute top-2 right-2 bg-red-600 text-white font-black text-xs px-2 py-1 rounded shadow-lg shadow-red-600/30 border border-white/20 z-20 animate-pulse">- ${percent}% OFF</div>`;
+                }
+
+                // URL Direta pro Zap
+                const msgZap = encodeURIComponent(`Olá, vi o anúncio no site e quero comprar a: ${p.nome}`);
+                const urlZap = `https://wa.me/556230997275?text=${msgZap}`;
+
                 return `
-                <article class="product-card bg-araguaia-surface border border-araguaia-border p-5 flex flex-col h-full relative group hover:shadow-xl hover:border-araguaia-yellow transition-all duration-300">
-                    ${p.tag ? `<span class="absolute top-4 left-4 ${p.tagColor} ${p.tagColor.includes('bg-white') ? '' : 'text-white'} text-[10px] font-bold uppercase px-2 py-1 z-10">${p.tag}</span>` : ''}
+                <article class="product-card bg-araguaia-surface border border-araguaia-border p-5 flex flex-col h-full relative group hover:shadow-[0_0_20px_rgba(255,184,0,0.15)] hover:border-araguaia-yellow/50 transition-all duration-300 rounded-lg">
                     
-                    <a href="produto-dewalt.html?id=${p.id}" class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-md flex items-center justify-center p-3 block cursor-pointer">
+                    ${badgePercent}
+                    ${p.tag && !badgePercent ? `<span class="absolute top-2 left-2 ${p.tagColor} text-white text-[10px] font-bold uppercase px-2 py-1 rounded z-10">${p.tag}</span>` : ''}
+                    
+                    <div class="relative w-full aspect-square mb-4 overflow-hidden bg-white rounded-md flex items-center justify-center p-3">
                         <img src="${p.imagem}" alt="${p.nome}" loading="lazy" decoding="async" class="product-img w-full h-full object-contain transition-transform duration-500" style="mix-blend-mode: multiply; filter: contrast(1.05) brightness(1.03);">
-                    </a>
+                    </div>
                     
                     <div class="flex items-center mb-2">
                         <div class="flex text-araguaia-yellow">${estrelasCheias}${estrelasVazias}</div>
-                        <span class="text-[10px] text-gray-500 ml-1">(${p.avaliacoes})</span>
+                        <span class="text-[10px] text-gray-500 ml-1">(${p.avaliacoes} avaliações)</span>
                     </div>
                     
-                    <a href="produto-dewalt.html?id=${p.id}" class="text-sm font-bold text-gray-200 line-clamp-2 mb-2 min-h-[40px] hover:text-araguaia-yellow cursor-pointer transition-colors block">
+                    <h3 class="text-sm font-bold text-gray-200 line-clamp-2 mb-2 min-h-[40px] group-hover:text-araguaia-yellow transition-colors">
                         ${p.nome}
-                    </a>
+                    </h3>
                     
-                    <div class="mt-auto pt-4 border-t border-araguaia-border flex flex-col">
-                        <span class="text-xs ${p.precoOriginal ? 'text-gray-500 line-through' : 'text-transparent select-none'}">
-                            ${p.precoOriginal ? 'R$ ' + p.precoOriginal : 'R$ 0,00'}
-                        </span>
-                        <span class="font-anton text-2xl text-white tracking-wide">R$ ${p.precoDesconto}</span>
-                        <span class="text-[10px] text-gray-500 mb-4">${p.parcelamento}</span>
-                        <a href="produto-dewalt.html?id=${p.id}" class="w-full border-2 border-araguaia-yellow text-araguaia-yellow font-bold uppercase py-2.5 text-xs text-center hover:bg-araguaia-yellow hover:text-black transition-colors duration-300 block">
-                            Ver Detalhes
+                    <div class="mt-auto pt-4 border-t border-white/5 flex flex-col">
+                        <span class="text-xs text-gray-500 line-through decoration-red-500/50">De R$ ${p.precoOriginal}</span>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-sm text-araguaia-yellow font-bold">Por</span>
+                            <span class="font-anton text-2xl text-white tracking-wide">R$ ${p.precoDesconto}</span>
+                        </div>
+                        <span class="text-[11px] font-medium text-[#25D366] mb-4 flex items-center gap-1"><i data-lucide="credit-card" class="w-3 h-3"></i> ${p.parcelamento}</span>
+                        
+                        <!-- NOVO BOTÃO WHATSAPP DIRETO -->
+                        <a href="${urlZap}" target="_blank" class="w-full bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white font-bold uppercase py-3 text-xs text-center flex items-center justify-center gap-2 hover:brightness-110 transition-all duration-300 rounded shadow-lg shadow-[#25D366]/20">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i> Comprar no WhatsApp
                         </a>
+                        
+                        <!-- SELOS DE CONFIANÇA DENTRO DO CARD -->
+                        <div class="flex items-center justify-center gap-3 mt-3 opacity-60">
+                             <span class="flex items-center gap-1 text-[9px] text-white font-medium uppercase tracking-wider"><i data-lucide="shield-check" class="w-3 h-3 text-araguaia-yellow"></i> 3 Anos Garantia</span>
+                             <span class="flex items-center gap-1 text-[9px] text-white font-medium uppercase tracking-wider"><i data-lucide="lock" class="w-3 h-3 text-green-400"></i> Compra Segura</span>
+                        </div>
                     </div>
                 </article>
                 `;
@@ -896,33 +725,6 @@
         }
 
         renderizarVitrine('todos');
-
-        // Configuração de Busca na Vitrine DeWalt
-        function configurarBusca(formElement, inputElement) {
-            if(formElement && inputElement) {
-                formElement.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const termo = inputElement.value.trim().toLowerCase();
-                    
-                    if(termo !== '') {
-                        const produtoEncontrado = produtosDewalt.find(p => p.nome.toLowerCase().includes(termo) && p.ativo);
-                        
-                        if(produtoEncontrado) {
-                            window.location.href = `produto-dewalt.html?id=${produtoEncontrado.id}`;
-                        } else {
-                            alert("Produto não encontrado na vitrine.");
-                        }
-                    }
-                });
-            }
-        }
-
-        const inputDesktop = document.querySelector('input[name="busca"]');
-        if(inputDesktop) configurarBusca(inputDesktop.closest('form'), inputDesktop);
-
-        const inputMobile = document.querySelector('input[name="busca_mobile"]');
-        if(inputMobile) configurarBusca(inputMobile.closest('form'), inputMobile);
-
     </script>
 </body>
 </html>
