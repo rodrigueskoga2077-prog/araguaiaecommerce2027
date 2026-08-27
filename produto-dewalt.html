@@ -142,7 +142,7 @@
         <span id="countdown" class="font-mono text-base md:text-lg bg-black/20 px-2 py-0.5 rounded shadow-inner">02:45:00</span>
     </div>
 
-    <!-- Header Otimizado p/ LP (Menos saídas, foco no CTA) -->
+    <!-- Header Otimizado p/ LP -->
     <header class="bg-araguaia-surface/95 backdrop-blur-md border-b border-araguaia-border sticky top-0 z-40 transition-all">
         <div class="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
             
@@ -181,7 +181,7 @@
                 <!-- Vídeos (Forçado para carregar tanto no Desktop quanto no Mobile) -->
                 <div id="hero-video-layer" class="absolute inset-0 w-full h-full"></div>
 
-                <!-- Fallback oculto por padrão (Só vai aparecer se o vídeo falhar) -->
+                <!-- Fallback oculto por padrão -->
                 <div id="hero-poster-layer" class="absolute inset-0 w-full h-full bg-white hidden">
                     <div id="poster-1" class="hero-poster absolute inset-0 w-full h-full" style="background-color: #fff; background-image: url('Furadeira e Parafusadeira a Bateria 20V.webp'); background-size: contain; background-repeat: no-repeat; background-position: center 80%;"></div>
                     <div id="poster-2" class="hero-poster absolute inset-0 w-full h-full" style="background-color: #fff; background-image: url('Esmerilhadeira Angular DeWALT.webp'); background-size: contain; background-repeat: no-repeat; background-position: center 80%;"></div>
@@ -278,7 +278,7 @@
                     <p class="text-gray-400 mt-3 font-medium">Condições válidas apenas enquanto durar o estoque da campanha.</p>
                 </div>
 
-                <!-- Filtros em formato de Pills (Otimizado p/ LP) -->
+                <!-- Filtros em formato de Pills -->
                 <div class="flex flex-wrap justify-center gap-2 mb-10">
                     <button onclick="renderizarVitrine('todos')" class="px-5 py-2 rounded-full text-xs font-bold uppercase bg-araguaia-yellow text-black shadow-md hover:scale-105 transition-all">Todos</button>
                     <button onclick="renderizarVitrine('parafusadeira')" class="px-5 py-2 rounded-full text-xs font-bold uppercase border border-araguaia-border text-gray-300 hover:bg-araguaia-surface-light hover:text-white transition-all">Parafusadeiras</button>
@@ -289,6 +289,16 @@
                 <!-- Grid de Produtos -->
                 <div id="vitrine-produtos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     <!-- JS vai popular os cards aqui -->
+                </div>
+
+                <!-- PAGINAÇÃO (Navegação para a Página 1) -->
+                <div class="flex justify-center items-center mt-16 gap-3 border-t border-araguaia-border pt-8">
+                    <a href="index.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-surface border border-araguaia-border text-gray-400 hover:text-white hover:border-araguaia-yellow transition-all font-anton text-xl shadow-sm" title="Voltar para Página 1 (STIHL)">
+                        1
+                    </a>
+                    <a href="#" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-yellow text-black font-anton text-xl border border-araguaia-yellow shadow-[0_0_15px_rgba(255,184,0,0.3)] cursor-default">
+                        2
+                    </a>
                 </div>
 
             </div>
