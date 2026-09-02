@@ -513,7 +513,7 @@
         });
     </script>
 
-    <!-- Script Hero Slider com Suporte Completo a Mobile (Android/HyperOS/iOS) e PC, com fallback para hardware fraco -->
+    <!-- Script Hero Slider com Suporte Completo a Mobile (Android/HyperOS/iOS) e PC -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const SLIDE_DURATION = 6000;
@@ -528,22 +528,13 @@
                 3: 'dewalt3.mp4'
             };
 
-            // Imagens estáticas usadas como poster de cada vídeo e como fallback total em hardware fraco.
+            // Imagens estáticas usadas como poster de cada vídeo (aparecem enquanto o vídeo carrega).
             // Troque pelos nomes reais dos frames/capas de cada vídeo quando tiver os arquivos.
             const posters = {
                 1: 'Furadeira e Parafusadeira a Bateria 20V.webp',
                 2: 'Esmerilhadeira Angular DeWALT.webp',
                 3: 'Serra Circular DeWalt.webp'
             };
-
-            // --- Detecção de hardware fraco -----------------------------------------
-            // CPUs com poucos núcleos lógicos (ex.: i3 sem GPU dedicada) costumam travar ao
-            // decodificar múltiplos vídeos simultâneos via software. Nesses casos usamos
-            // apenas imagens estáticas no hero, sem nenhum <video>.
-            const cores = navigator.hardwareConcurrency || 8;
-            const saveData = navigator.connection && navigator.connection.saveData;
-            const slowConn = navigator.connection && /2g/.test(navigator.connection.effectiveType || '');
-            const isLowPower = cores <= 4 || saveData || slowConn;
 
             const videoLayer = document.getElementById('hero-video-layer');
             const dots = document.querySelectorAll('.slider-dot');
@@ -585,48 +576,7 @@
                 autoTimer = setTimeout(nextFn, SLIDE_DURATION);
             }
 
-            // --- Modo leve: apenas imagens estáticas, sem <video> ------------------
-            function initStaticMode() {
-                Object.keys(posters).forEach((idx) => {
-                    const img = document.createElement('img');
-                    img.className = 'hero-video hero-static-bg';
-                    if (Number(idx) === 1) img.classList.add('active');
-                    img.src = posters[idx];
-                    img.alt = '';
-                    img.loading = idx === '1' ? 'eager' : 'lazy';
-                    img.decoding = 'async';
-                    img.id = 'static-' + idx;
-                    videoLayer.appendChild(img);
-                });
-
-                document.getElementById('text-1')?.classList.add('active');
-                resetDots(1, SLIDE_DURATION);
-
-                function next() {
-                    const nextIndex = currentSlide >= totalSlides ? 1 : currentSlide + 1;
-                    document.getElementById('static-' + currentSlide)?.classList.remove('active');
-                    document.getElementById('static-' + nextIndex)?.classList.add('active');
-                    goToSlideText(nextIndex);
-                    resetDots(nextIndex, SLIDE_DURATION);
-                    restartAutoTimer(next);
-                }
-
-                dots.forEach(dot => {
-                    dot.addEventListener('click', () => {
-                        const target = parseInt(dot.getAttribute('data-slide'));
-                        if (target === currentSlide) return;
-                        document.getElementById('static-' + currentSlide)?.classList.remove('active');
-                        document.getElementById('static-' + target)?.classList.add('active');
-                        goToSlideText(target);
-                        resetDots(target, SLIDE_DURATION);
-                        restartAutoTimer(next);
-                    });
-                });
-
-                restartAutoTimer(next);
-            }
-
-            // --- Modo completo: vídeos em autoplay ----------------------------------
+            // --- Vídeos em autoplay ---------------------------------------------------
             function buildVideoEl(index, preloadLevel) {
                 const v = document.createElement('video');
                 v.id = 'vid-' + index;
@@ -759,11 +709,7 @@
                 });
             }
 
-            if (isLowPower) {
-                initStaticMode();
-            } else {
-                initVideoMode();
-            }
+            initVideoMode();
         });
     </script>
 
