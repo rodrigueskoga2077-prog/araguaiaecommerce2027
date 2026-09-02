@@ -27,7 +27,6 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
 
-    <link rel="preload" as="video" href="dewalt1.mp4" type="video/mp4">
     <link rel="preload" as="image" href="logo.png.webp" fetchpriority="high">
 
     <!-- Fonts -->
@@ -82,11 +81,24 @@
             will-change: opacity, transform;
             backface-visibility: hidden;
             background-color: #080808;
+            background-size: cover;
+            background-position: center;
         }
         .hero-video.active {
             opacity: 1;
             transform: scale(1) translateZ(0);
             z-index: 1;
+        }
+
+        /* Fallback estático usado em dispositivos de baixa performance (sem GPU / poucos núcleos) */
+        .hero-static-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
         }
 
         .slide-content {
@@ -501,7 +513,7 @@
         });
     </script>
 
-    <!-- Script Hero Slider com Suporte Completo a Mobile e Injeção Segura -->
+    <!-- Script Hero Slider com Suporte Completo a Mobile (Android/HyperOS/iOS) e PC, com fallback para hardware fraco -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const SLIDE_DURATION = 6000;
@@ -510,75 +522,34 @@
             let isTransitioning = false;
             let autoTimer = null;
 
-            const sources = { 
-                1: 'dewalt1.mp4', 
-                2: 'dewalt2.mp4', 
-                3: 'dewalt3.mp4' 
+            const sources = {
+                1: 'dewalt1.mp4',
+                2: 'dewalt2.mp4',
+                3: 'dewalt3.mp4'
             };
+
+            // Imagens estáticas usadas como poster de cada vídeo e como fallback total em hardware fraco.
+            // Troque pelos nomes reais dos frames/capas de cada vídeo quando tiver os arquivos.
+            const posters = {
+                1: 'Furadeira e Parafusadeira a Bateria 20V.webp',
+                2: 'Esmerilhadeira Angular DeWALT.webp',
+                3: 'Serra Circular DeWalt.webp'
+            };
+
+            // --- Detecção de hardware fraco -----------------------------------------
+            // CPUs com poucos núcleos lógicos (ex.: i3 sem GPU dedicada) costumam travar ao
+            // decodificar múltiplos vídeos simultâneos via software. Nesses casos usamos
+            // apenas imagens estáticas no hero, sem nenhum <video>.
+            const cores = navigator.hardwareConcurrency || 8;
+            const saveData = navigator.connection && navigator.connection.saveData;
+            const slowConn = navigator.connection && /2g/.test(navigator.connection.effectiveType || '');
+            const isLowPower = cores <= 4 || saveData || slowConn;
 
             const videoLayer = document.getElementById('hero-video-layer');
             const dots = document.querySelectorAll('.slider-dot');
             const videos = {};
 
-            // Nova função "Blindada" com <source> e v.load()
-            function buildVideoEl(index, preloadLevel) {
-                const v = document.createElement('video');
-                v.id = 'vid-' + index;
-                v.className = 'hero-video absolute inset-0 w-full h-full object-cover object-center';
-                
-                v.muted = true;
-                v.defaultMuted = true;
-                v.setAttribute('muted', '');
-                v.setAttribute('playsinline', 'true');
-                v.setAttribute('webkit-playsinline', 'true');
-                v.autoplay = true;
-                v.loop = false;
-                v.preload = preloadLevel;
-                if ('fetchPriority' in v) v.fetchPriority = index === 1 ? 'high' : 'low';
-
-                const source = document.createElement('source');
-                source.src = sources[index];
-                source.type = 'video/mp4';
-                v.appendChild(source);
-
-                v.addEventListener('ended', nextSlide);
-                
-                // Força o download/preparo do vídeo no navegador mobile
-                v.load();
-                
-                return v;
-            }
-
-            // Inicializa primeiro vídeo
-            videos[1] = buildVideoEl(1, 'auto');
-            videoLayer.appendChild(videos[1]);
-            videos[1].classList.add('active');
-
-            const playFirst = () => {
-                const p = videos[1].play();
-                if (p !== undefined) {
-                    p.catch(() => {
-                        const unlock = () => {
-                            videos[currentSlide]?.play().catch(() => {});
-                            window.removeEventListener('touchstart', unlock);
-                            window.removeEventListener('click', unlock);
-                        };
-                        window.addEventListener('touchstart', unlock, { passive: true });
-                        window.addEventListener('click', unlock, { passive: true });
-                    });
-                }
-            };
-            playFirst();
-
-            function ensureVideoLoaded(index) {
-                if (videos[index]) return videos[index];
-                const v = buildVideoEl(index, 'metadata');
-                videoLayer.appendChild(v);
-                videos[index] = v;
-                return v;
-            }
-
-            function resetDots(activeIndex) {
+            function resetDots(activeIndex, durationMs) {
                 dots.forEach((dot, i) => {
                     dot.classList.remove('filling', 'done');
                     const fill = dot.querySelector('.dot-fill');
@@ -596,14 +567,94 @@
                     activeDot.classList.add('filling');
 
                     requestAnimationFrame(() => {
-                        let durationToAnimate = SLIDE_DURATION;
-                        if (videos[activeIndex] && !isNaN(videos[activeIndex].duration) && videos[activeIndex].duration > 0) {
-                            durationToAnimate = videos[activeIndex].duration * 1000;
-                        }
-                        fill.style.transition = `transform ${durationToAnimate}ms linear`;
+                        fill.style.transition = `transform ${durationMs}ms linear`;
                         fill.style.transform = 'scaleX(1)';
                     });
                 });
+            }
+
+            function goToSlideText(nextIndex) {
+                const prevIndex = currentSlide;
+                document.getElementById(`text-${prevIndex}`)?.classList.remove('active');
+                document.getElementById(`text-${nextIndex}`)?.classList.add('active');
+                currentSlide = nextIndex;
+            }
+
+            function restartAutoTimer(nextFn) {
+                if (autoTimer) clearTimeout(autoTimer);
+                autoTimer = setTimeout(nextFn, SLIDE_DURATION);
+            }
+
+            // --- Modo leve: apenas imagens estáticas, sem <video> ------------------
+            function initStaticMode() {
+                Object.keys(posters).forEach((idx) => {
+                    const img = document.createElement('img');
+                    img.className = 'hero-video hero-static-bg';
+                    if (Number(idx) === 1) img.classList.add('active');
+                    img.src = posters[idx];
+                    img.alt = '';
+                    img.loading = idx === '1' ? 'eager' : 'lazy';
+                    img.decoding = 'async';
+                    img.id = 'static-' + idx;
+                    videoLayer.appendChild(img);
+                });
+
+                document.getElementById('text-1')?.classList.add('active');
+                resetDots(1, SLIDE_DURATION);
+
+                function next() {
+                    const nextIndex = currentSlide >= totalSlides ? 1 : currentSlide + 1;
+                    document.getElementById('static-' + currentSlide)?.classList.remove('active');
+                    document.getElementById('static-' + nextIndex)?.classList.add('active');
+                    goToSlideText(nextIndex);
+                    resetDots(nextIndex, SLIDE_DURATION);
+                    restartAutoTimer(next);
+                }
+
+                dots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        const target = parseInt(dot.getAttribute('data-slide'));
+                        if (target === currentSlide) return;
+                        document.getElementById('static-' + currentSlide)?.classList.remove('active');
+                        document.getElementById('static-' + target)?.classList.add('active');
+                        goToSlideText(target);
+                        resetDots(target, SLIDE_DURATION);
+                        restartAutoTimer(next);
+                    });
+                });
+
+                restartAutoTimer(next);
+            }
+
+            // --- Modo completo: vídeos em autoplay ----------------------------------
+            function buildVideoEl(index, preloadLevel) {
+                const v = document.createElement('video');
+                v.id = 'vid-' + index;
+                v.className = 'hero-video absolute inset-0 w-full h-full object-cover object-center';
+
+                v.muted = true;
+                v.defaultMuted = true;
+                v.setAttribute('muted', '');
+                v.setAttribute('playsinline', '');
+                v.setAttribute('webkit-playsinline', '');
+                v.playsInline = true;
+                v.autoplay = true;
+                v.loop = false;
+                v.preload = preloadLevel;
+                if (posters[index]) v.poster = posters[index];
+                if ('fetchPriority' in v) v.fetchPriority = index === 1 ? 'high' : 'low';
+
+                v.src = sources[index];
+                v.addEventListener('ended', nextSlide);
+                return v;
+            }
+
+            function ensureVideoLoaded(index) {
+                if (videos[index]) return videos[index];
+                const v = buildVideoEl(index, 'metadata');
+                videoLayer.appendChild(v);
+                videos[index] = v;
+                return v;
             }
 
             function goToSlide(nextIndex) {
@@ -611,10 +662,8 @@
                 isTransitioning = true;
 
                 const prevIndex = currentSlide;
-                document.getElementById(`text-${prevIndex}`)?.classList.remove('active');
-                document.getElementById(`text-${nextIndex}`)?.classList.add('active');
-
-                resetDots(nextIndex);
+                goToSlideText(nextIndex);
+                resetDots(nextIndex, SLIDE_DURATION);
 
                 const nextVideo = ensureVideoLoaded(nextIndex);
                 const prevVideo = videos[prevIndex];
@@ -625,11 +674,9 @@
                 const doSwap = () => {
                     if (prevVideo) prevVideo.classList.remove('active');
                     nextVideo.classList.add('active');
-                    currentSlide = nextIndex;
 
-                    const upcoming = nextIndex >= totalSlides ? 1 : nextIndex + 1;
-                    ensureVideoLoaded(upcoming);
-
+                    // Só carrega o próximo vídeo quando a troca atual terminar,
+                    // em vez de manter 2 decodificando ao mesmo tempo o tempo todo.
                     setTimeout(() => {
                         if (currentSlide !== prevIndex && prevVideo) prevVideo.pause();
                         isTransitioning = false;
@@ -646,54 +693,77 @@
             function nextSlide() {
                 const next = currentSlide >= totalSlides ? 1 : currentSlide + 1;
                 goToSlide(next);
-                restartAutoTimer();
+                restartAutoTimer(nextSlide);
             }
 
-            function restartAutoTimer() {
-                if (autoTimer) clearTimeout(autoTimer);
-                autoTimer = setTimeout(nextSlide, SLIDE_DURATION);
-            }
+            function initVideoMode() {
+                videos[1] = buildVideoEl(1, 'metadata');
+                videoLayer.appendChild(videos[1]);
+                videos[1].classList.add('active');
 
-            document.getElementById('text-1')?.classList.add('active');
-            if (videos[1]) {
-                videos[1].addEventListener('loadedmetadata', () => resetDots(1), { once: true });
-                if (videos[1].readyState >= 1) resetDots(1);
-            }
-            restartAutoTimer();
+                const playFirst = () => {
+                    const p = videos[1].play();
+                    if (p !== undefined) {
+                        p.catch(() => {
+                            const unlock = () => {
+                                videos[currentSlide]?.play().catch(() => {});
+                                window.removeEventListener('touchstart', unlock);
+                                window.removeEventListener('click', unlock);
+                            };
+                            window.addEventListener('touchstart', unlock, { passive: true });
+                            window.addEventListener('click', unlock, { passive: true });
+                        });
+                    }
+                };
+                playFirst();
 
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    const target = parseInt(dot.getAttribute('data-slide'));
-                    goToSlide(target);
-                    restartAutoTimer();
-                });
-            });
-
-            const heroSection = document.getElementById('hero');
-            if ('IntersectionObserver' in window) {
-                const io = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        const activeVideo = videos[currentSlide];
-                        if (!activeVideo) return;
-                        if (entry.isIntersecting) {
-                            activeVideo.play().catch(() => {});
-                        } else {
-                            activeVideo.pause();
-                        }
-                    });
-                }, { threshold: 0.15 });
-                io.observe(heroSection);
-            }
-
-            document.addEventListener('visibilitychange', () => {
-                const activeVideo = videos[currentSlide];
-                if (!activeVideo) return;
-                if (document.hidden) {
-                    activeVideo.pause();
-                } else if (heroSection.getBoundingClientRect().top < window.innerHeight) {
-                    activeVideo.play().catch(() => {});
+                document.getElementById('text-1')?.classList.add('active');
+                if (videos[1]) {
+                    videos[1].addEventListener('loadedmetadata', () => resetDots(1, SLIDE_DURATION), { once: true });
+                    if (videos[1].readyState >= 1) resetDots(1, SLIDE_DURATION);
                 }
-            });
+                restartAutoTimer(nextSlide);
+
+                dots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        const target = parseInt(dot.getAttribute('data-slide'));
+                        goToSlide(target);
+                        restartAutoTimer(nextSlide);
+                    });
+                });
+
+                const heroSection = document.getElementById('hero');
+                if ('IntersectionObserver' in window) {
+                    const io = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            const activeVideo = videos[currentSlide];
+                            if (!activeVideo) return;
+                            if (entry.isIntersecting) {
+                                activeVideo.play().catch(() => {});
+                            } else {
+                                activeVideo.pause();
+                            }
+                        });
+                    }, { threshold: 0.15 });
+                    io.observe(heroSection);
+                }
+
+                document.addEventListener('visibilitychange', () => {
+                    const activeVideo = videos[currentSlide];
+                    if (!activeVideo) return;
+                    if (document.hidden) {
+                        activeVideo.pause();
+                    } else if (heroSection.getBoundingClientRect().top < window.innerHeight) {
+                        activeVideo.play().catch(() => {});
+                    }
+                });
+            }
+
+            if (isLowPower) {
+                initStaticMode();
+            } else {
+                initVideoMode();
+            }
         });
     </script>
 
