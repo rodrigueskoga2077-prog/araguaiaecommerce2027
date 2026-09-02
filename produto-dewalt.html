@@ -69,7 +69,7 @@
             contain-intrinsic-size: 1px 900px;
         }
 
-        /* ARQUITETURA DE VÍDEO MOBILE-FIRST ANTI-LAG */
+        /* ARQUITETURA APPLE: CROSSFADE SUAVE */
         .hero-video {
             position: absolute;
             inset: 0;
@@ -79,10 +79,10 @@
             object-position: center;
             opacity: 0;
             z-index: 0;
-            transition: opacity 0.5s ease-out; /* Transição mais rápida e seca evita travamento GPU */
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1); /* Transição de 1 segundo extremamente suave */
             will-change: opacity;
             background-color: #080808;
-            transform: translateZ(0); /* Força Aceleração de Hardware em Androids Antigos */
+            transform: translateZ(0);
         }
         .hero-video.active {
             opacity: 1;
@@ -91,9 +91,9 @@
 
         .slide-content {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(24px);
             pointer-events: none;
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: opacity, transform;
             position: absolute;
             inset: 0;
@@ -166,16 +166,14 @@
     </header>
 
     <main class="flex-grow">
-        <!-- VÍDEOS EMBUTIDOS NO HTML COM OS NOMES EXATOS DO SEU GIT -->
+        <!-- VÍDEOS EMBUTIDOS NO HTML SEM LOOP -->
         <section id="hero" class="bg-[#080808] overflow-hidden border-b border-araguaia-border relative" style="height: 82vh;">
             
             <div class="absolute inset-0 w-full h-full">
-                <!-- VÍDEO 1: dewallt1.mp4 -->
-                <video id="vid-1" class="hero-video active" src="dewallt1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
-                <!-- VÍDEO 2: dewall2.mp4 -->
-                <video id="vid-2" class="hero-video" src="dewall2.mp4" muted loop playsinline webkit-playsinline preload="metadata"></video>
-                <!-- VÍDEO 3: dewalt3.mp4 -->
-                <video id="vid-3" class="hero-video" src="dewalt3.mp4" muted loop playsinline webkit-playsinline preload="metadata"></video>
+                <!-- ATENÇÃO: Atributo "loop" foi removido. Agora eles vão tocar 1x e acionar a troca automática -->
+                <video id="vid-1" class="hero-video active" src="dewallt1.mp4" autoplay muted playsinline webkit-playsinline preload="auto"></video>
+                <video id="vid-2" class="hero-video" src="dewall2.mp4" muted playsinline webkit-playsinline preload="metadata"></video>
+                <video id="vid-3" class="hero-video" src="dewalt3.mp4" muted playsinline webkit-playsinline preload="metadata"></video>
 
                 <div class="premium-gradient absolute inset-0 z-[2] pointer-events-none"></div>
             </div>
@@ -540,13 +538,12 @@
         });
     </script>
 
-    <!-- MOTOR DE SLIDER ANTI-TRAVAMENTO (Versão Freeze-Swap) -->
+    <!-- MOTOR DE SLIDER "PADRÃO APPLE" -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const SLIDE_DURATION = 6000;
             const totalSlides = 3;
             let currentSlide = 1;
-            let autoTimer = null;
+            let fallbackTimer = null;
 
             const dots = document.querySelectorAll('.slider-dot');
             const vids = [
@@ -555,15 +552,16 @@
                 document.getElementById('vid-3')
             ];
 
-            // Força permissão de autoplay no celular com interação humana
+            // 1. Desbloqueia o Autoplay silenciosamente no primeiro toque da tela
             const unlockVideos = () => {
                 vids.forEach((v, index) => {
                     if (v) {
                         const playPromise = v.play();
                         if (playPromise !== undefined) {
                             playPromise.then(() => {
+                                // Deixa rodando apenas o slide atual
                                 if (index + 1 !== currentSlide) {
-                                    v.pause(); // Pausa instantaneamente se não for o vídeo atual
+                                    v.pause(); 
                                 }
                             }).catch(() => {});
                         }
@@ -578,7 +576,7 @@
             window.addEventListener('click', unlockVideos, { once: true, passive: true });
             window.addEventListener('scroll', unlockVideos, { once: true, passive: true });
 
-            function resetDots(activeIndex) {
+            function startDotAnimation(activeIndex, durationMs) {
                 dots.forEach((dot, i) => {
                     dot.classList.remove('filling', 'done');
                     const fill = dot.querySelector('.dot-fill');
@@ -596,7 +594,7 @@
                         const fill = activeDot.querySelector('.dot-fill');
                         requestAnimationFrame(() => {
                             if (fill) {
-                                fill.style.transition = `transform ${SLIDE_DURATION}ms linear`;
+                                fill.style.transition = `transform ${durationMs}ms linear`;
                                 fill.style.transform = 'scaleX(1)';
                             }
                         });
@@ -613,25 +611,38 @@
                 const prevVid = vids[prevIndex - 1];
                 const nextVid = vids[nextIndex - 1];
 
+                // Transição dos textos
                 document.getElementById(`text-${prevIndex}`).classList.remove('active');
                 document.getElementById(`text-${nextIndex}`).classList.add('active');
 
-                // A MÁGICA ANTI-LAG PARA O POCO X6 PRO:
-                // Em vez de deixar dois vídeos tocando e se cruzando, nós
-                // pausamos o vídeo anterior IMEDIATAMENTE. Isso desocupa o processador.
-                if (prevVid) {
-                    prevVid.classList.remove('active');
-                    prevVid.pause(); 
-                }
-
-                // Inicia o próximo vídeo "sozinho" na placa de vídeo
                 if (nextVid) {
                     nextVid.currentTime = 0;
-                    nextVid.classList.add('active');
-                    nextVid.play().catch(() => {});
+                    const playPromise = nextVid.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            // A MÁGICA DO CROSSFADE SUAVE (Efeito Apple)
+                            // Coloca o novo em cima e inicia o fade in
+                            nextVid.classList.add('active');
+                            if(prevVid) prevVid.classList.remove('active');
+                            
+                            // Aguarda 1 segundo (tempo exato do CSS transition) antes de pausar o vídeo antigo
+                            // Isso poupa a GPU do celular sem matar a transição visual
+                            setTimeout(() => { if(prevVid) prevVid.pause(); }, 1000);
+
+                            // Pega a duração real do vídeo para preencher a bolinha perfeitamente
+                            let duration = nextVid.duration && !isNaN(nextVid.duration) ? nextVid.duration * 1000 : 6000;
+                            startDotAnimation(nextIndex, duration);
+
+                        }).catch(() => {
+                            // Fallback caso o navegador bloqueie o vídeo
+                            nextVid.classList.add('active');
+                            if(prevVid) prevVid.classList.remove('active');
+                            startDotAnimation(nextIndex, 6000);
+                            startFallbackTimer();
+                        });
+                    }
                 }
-                
-                resetDots(nextIndex);
             }
 
             function nextSlide() {
@@ -639,30 +650,42 @@
                 goToSlide(next);
             }
 
-            function startTimer() {
-                if (autoTimer) clearInterval(autoTimer);
-                autoTimer = setInterval(nextSlide, SLIDE_DURATION);
+            function startFallbackTimer() {
+                if (fallbackTimer) clearTimeout(fallbackTimer);
+                fallbackTimer = setTimeout(nextSlide, 6000);
             }
 
-            resetDots(1);
-            startTimer();
-
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    const target = parseInt(dot.getAttribute('data-slide'));
-                    goToSlide(target);
-                    startTimer();
+            // O GATILHO PERFEITO: Em vez de tempo fixo, ele escuta o fim exato do vídeo
+            vids.forEach((v, index) => {
+                v.addEventListener('ended', () => {
+                    // Quando o vídeo ativo termina, puxa o próximo slide imediatamente
+                    if (currentSlide === index + 1) {
+                        if (fallbackTimer) clearTimeout(fallbackTimer);
+                        nextSlide();
+                    }
                 });
             });
 
-            // Economia de Bateria e Memória brutal: Se mudar de aba, desliga os vídeos
+            // Inicia o estado da primeira vez (vídeo 1)
+            // Tenta pegar a duração se já estiver carregada
+            let initDuration = vids[0].duration && !isNaN(vids[0].duration) ? vids[0].duration * 1000 : 6000;
+            startDotAnimation(1, initDuration);
+
+            // Clique manual nas bolinhas
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const target = parseInt(dot.getAttribute('data-slide'));
+                    if (fallbackTimer) clearTimeout(fallbackTimer);
+                    goToSlide(target);
+                });
+            });
+
+            // Se o usuário minimizar a aba, pausa tudo. Voltou, da o play novamente.
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) {
                     if (vids[currentSlide - 1]) vids[currentSlide - 1].pause();
-                    if (autoTimer) clearInterval(autoTimer);
                 } else {
                     if (vids[currentSlide - 1]) vids[currentSlide - 1].play().catch(()=>{});
-                    startTimer();
                 }
             });
         });
