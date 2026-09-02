@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://seusite.com.br">
     <meta property="og:site_name" content="Araguaia Máquinas">
     
-    <!-- Preloads com os Nomes Exatos do seu Git -->
+    <!-- Preloads com os nomes EXATOS do seu Git -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="video" href="dewallt1.mp4" type="video/mp4">
@@ -69,7 +69,7 @@
             contain-intrinsic-size: 1px 900px;
         }
 
-        /* ARQUITETURA DE VÍDEO MOBILE-FIRST (Anti-Travamento) */
+        /* ARQUITETURA DE VÍDEO MOBILE-FIRST ANTI-LAG */
         .hero-video {
             position: absolute;
             inset: 0;
@@ -79,9 +79,10 @@
             object-position: center;
             opacity: 0;
             z-index: 0;
-            transition: opacity 0.8s ease-in-out;
+            transition: opacity 0.5s ease-out; /* Transição mais rápida e seca evita travamento GPU */
             will-change: opacity;
             background-color: #080808;
+            transform: translateZ(0); /* Força Aceleração de Hardware em Androids Antigos */
         }
         .hero-video.active {
             opacity: 1;
@@ -92,7 +93,7 @@
             opacity: 0;
             transform: translateY(20px);
             pointer-events: none;
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
             will-change: opacity, transform;
             position: absolute;
             inset: 0;
@@ -116,7 +117,7 @@
         .slider-dot.done .dot-fill { transform: scaleX(1); transition: none; }
 
         .premium-gradient {
-            background: linear-gradient(90deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.8) 35%, rgba(8,8,8,0.4) 65%, rgba(8,8,8,0) 100%);
+            background: linear-gradient(90deg, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.85) 30%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0) 100%);
         }
         @media (max-width: 768px) {
             .premium-gradient {
@@ -165,7 +166,7 @@
     </header>
 
     <main class="flex-grow">
-        <!-- VÍDEOS EMBUTIDOS DIRETAMENTE NO HTML COM OS NOMES EXATOS -->
+        <!-- VÍDEOS EMBUTIDOS NO HTML COM OS NOMES EXATOS DO SEU GIT -->
         <section id="hero" class="bg-[#080808] overflow-hidden border-b border-araguaia-border relative" style="height: 82vh;">
             
             <div class="absolute inset-0 w-full h-full">
@@ -539,7 +540,7 @@
         });
     </script>
 
-    <!-- MOTOR DE SLIDER BLINDADO PARA MOBILE E PC -->
+    <!-- MOTOR DE SLIDER ANTI-TRAVAMENTO (Versão Freeze-Swap) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const SLIDE_DURATION = 6000;
@@ -554,7 +555,7 @@
                 document.getElementById('vid-3')
             ];
 
-            // 1. DESTRAVADOR DE AUTOPLAY (Android/Xiaomi/iOS Strict Mode)
+            // Força permissão de autoplay no celular com interação humana
             const unlockVideos = () => {
                 vids.forEach((v, index) => {
                     if (v) {
@@ -562,7 +563,7 @@
                         if (playPromise !== undefined) {
                             playPromise.then(() => {
                                 if (index + 1 !== currentSlide) {
-                                    v.pause();
+                                    v.pause(); // Pausa instantaneamente se não for o vídeo atual
                                 }
                             }).catch(() => {});
                         }
@@ -615,23 +616,21 @@
                 document.getElementById(`text-${prevIndex}`).classList.remove('active');
                 document.getElementById(`text-${nextIndex}`).classList.add('active');
 
-                // Prepara o próximo vídeo para crossfade
+                // A MÁGICA ANTI-LAG PARA O POCO X6 PRO:
+                // Em vez de deixar dois vídeos tocando e se cruzando, nós
+                // pausamos o vídeo anterior IMEDIATAMENTE. Isso desocupa o processador.
+                if (prevVid) {
+                    prevVid.classList.remove('active');
+                    prevVid.pause(); 
+                }
+
+                // Inicia o próximo vídeo "sozinho" na placa de vídeo
                 if (nextVid) {
                     nextVid.currentTime = 0;
-                    const playPromise = nextVid.play();
-                    
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            nextVid.classList.add('active');
-                            if(prevVid) prevVid.classList.remove('active');
-                            
-                            setTimeout(() => { if(prevVid) prevVid.pause(); }, 800);
-                        }).catch(() => {
-                            nextVid.classList.add('active');
-                            if(prevVid) prevVid.classList.remove('active');
-                        });
-                    }
+                    nextVid.classList.add('active');
+                    nextVid.play().catch(() => {});
                 }
+                
                 resetDots(nextIndex);
             }
 
@@ -656,6 +655,7 @@
                 });
             });
 
+            // Economia de Bateria e Memória brutal: Se mudar de aba, desliga os vídeos
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) {
                     if (vids[currentSlide - 1]) vids[currentSlide - 1].pause();
