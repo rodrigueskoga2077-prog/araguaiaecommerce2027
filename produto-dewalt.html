@@ -501,7 +501,7 @@
         });
     </script>
 
-    <!-- Script Hero Slider com Suporte Completo a Mobile (Android/HyperOS/iOS) e PC -->
+    <!-- Script Hero Slider com Suporte Completo a Mobile e Injeção Segura -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const SLIDE_DURATION = 6000;
@@ -510,7 +510,6 @@
             let isTransitioning = false;
             let autoTimer = null;
 
-            // Nomes de arquivos 100% padronizados e sem fragmento #t=0.1
             const sources = { 
                 1: 'dewalt1.mp4', 
                 2: 'dewalt2.mp4', 
@@ -521,25 +520,32 @@
             const dots = document.querySelectorAll('.slider-dot');
             const videos = {};
 
+            // Nova função "Blindada" com <source> e v.load()
             function buildVideoEl(index, preloadLevel) {
                 const v = document.createElement('video');
                 v.id = 'vid-' + index;
                 v.className = 'hero-video absolute inset-0 w-full h-full object-cover object-center';
                 
-                // Essencial para o Chrome / HyperOS / Poco X6 Pro liberar autoplay sem bloqueios
                 v.muted = true;
                 v.defaultMuted = true;
                 v.setAttribute('muted', '');
-                v.setAttribute('playsinline', '');
-                v.setAttribute('webkit-playsinline', '');
-                v.playsInline = true;
+                v.setAttribute('playsinline', 'true');
+                v.setAttribute('webkit-playsinline', 'true');
                 v.autoplay = true;
                 v.loop = false;
                 v.preload = preloadLevel;
                 if ('fetchPriority' in v) v.fetchPriority = index === 1 ? 'high' : 'low';
 
-                v.src = sources[index];
+                const source = document.createElement('source');
+                source.src = sources[index];
+                source.type = 'video/mp4';
+                v.appendChild(source);
+
                 v.addEventListener('ended', nextSlide);
+                
+                // Força o download/preparo do vídeo no navegador mobile
+                v.load();
+                
                 return v;
             }
 
@@ -552,7 +558,6 @@
                 const p = videos[1].play();
                 if (p !== undefined) {
                     p.catch(() => {
-                        // Desbloqueia no primeiro clique/toque de tela caso o navegador exija gesto do usuário
                         const unlock = () => {
                             videos[currentSlide]?.play().catch(() => {});
                             window.removeEventListener('touchstart', unlock);
@@ -664,7 +669,6 @@
                 });
             });
 
-            // Otimização de segundo plano / scroll para não drenar bateria
             const heroSection = document.getElementById('hero');
             if ('IntersectionObserver' in window) {
                 const io = new IntersectionObserver((entries) => {
