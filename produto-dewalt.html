@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ofertas DeWalt - Araguaia Máquinas | Ferramentas Originais</title>
 
-    <!-- Favicon -->
     <link rel="icon" type="image/webp" href="favicon.png.webp">
     <link rel="apple-touch-icon" href="favicon.png.webp">
 
-    <!-- SEO E OPEN GRAPH -->
     <meta name="description" content="Linha completa de ferramentas DeWalt originais com descontos exclusivos, frete grátis e até 10x sem juros. Araguaia Máquinas.">
     <meta name="keywords" content="DeWalt, ferramentas a bateria, Araguaia Máquinas, parafusadeira, esmerilhadeira">
     <meta name="author" content="Araguaia Máquinas">
@@ -20,13 +18,11 @@
     <meta property="og:image" content="Furadeira e Parafusadeira a Bateria 20V.webp">
     <meta property="og:url" content="https://seusite.com.br">
     <meta property="og:site_name" content="Araguaia Máquinas">
-
-    <!-- Preload do 1º vídeo e logo -->
+    
+    <!-- Preloads com os nomes corretos do seu Git -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
-
+    <link rel="preload" as="video" href="slide1.mp4" type="video/mp4">
     <link rel="preload" as="image" href="logo.png.webp" fetchpriority="high">
 
     <!-- Fonts -->
@@ -55,6 +51,7 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--color-araguaia-dark);
             color: #f4f4f4;
+            overflow-x: hidden;
         }
 
         .font-anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
@@ -66,51 +63,46 @@
         * { scrollbar-width: thin; scrollbar-color: #FFB800 #121212; }
 
         .product-card:hover .product-img { transform: scale(1.05); }
-        .hero-banner-stihl { position: relative; width: 100%; }
 
         #depoimentos, #faq, footer#footer {
             content-visibility: auto;
             contain-intrinsic-size: 1px 900px;
         }
 
+        /* ARQUITETURA DE VÍDEO MOBILE-FIRST (Anti-Travamento) */
         .hero-video {
-            opacity: 0;
-            transform: scale(1.04) translateZ(0);
-            transition: opacity 1.2s cubic-bezier(0.65, 0, 0.35, 1), transform 5s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 0;
-            will-change: opacity, transform;
-            backface-visibility: hidden;
-            background-color: #080808;
-            background-size: cover;
-            background-position: center;
-        }
-        .hero-video.active {
-            opacity: 1;
-            transform: scale(1) translateZ(0);
-            z-index: 1;
-        }
-
-        /* Fallback estático usado em dispositivos de baixa performance (sem GPU / poucos núcleos) */
-        .hero-static-bg {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
+            opacity: 0;
             z-index: 0;
+            transition: opacity 0.8s ease-in-out;
+            will-change: opacity;
+            background-color: #080808;
+        }
+        .hero-video.active {
+            opacity: 1;
+            z-index: 1;
         }
 
         .slide-content {
             opacity: 0;
-            transform: translateY(20px) translateZ(0);
+            transform: translateY(20px);
             pointer-events: none;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .slide-content.active {
             opacity: 1;
-            transform: translateY(0) translateZ(0);
+            transform: translateY(0);
             pointer-events: auto;
             z-index: 10;
         }
@@ -124,21 +116,20 @@
         .slider-dot.done .dot-fill { transform: scaleX(1); transition: none; }
 
         .premium-gradient {
-            background: linear-gradient(90deg, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.85) 30%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0) 100%);
+            background: linear-gradient(90deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.8) 35%, rgba(8,8,8,0.4) 65%, rgba(8,8,8,0) 100%);
         }
         @media (max-width: 768px) {
             .premium-gradient {
                 background: linear-gradient(180deg, rgba(8,8,8,0.4) 0%, rgba(8,8,8,0.85) 60%, rgba(8,8,8,0.98) 100%);
             }
         }
-
         details > summary { list-style: none; cursor: pointer; }
         details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- Top Bar Countdown -->
+    <!-- URGÊNCIA: Top Bar -->
     <div class="bg-red-600 text-center py-2 px-4 text-xs sm:text-sm font-bold tracking-wider text-white flex justify-center items-center flex-wrap gap-2 z-50 relative shadow-lg">
         <div class="flex items-center gap-1.5 animate-pulse">
             <i data-lucide="timer" class="w-4 h-4"></i>
@@ -174,74 +165,80 @@
     </header>
 
     <main class="flex-grow">
-        <!-- Hero Section com Vídeos Otimizados -->
-        <section id="hero" class="hero-banner-stihl bg-black overflow-hidden border-b border-araguaia-border flex flex-col relative" style="min-height: 85vh;">
-            <div class="absolute inset-0 w-full h-full bg-araguaia-dark">
-                <div id="hero-video-layer" class="absolute inset-0 w-full h-full overflow-hidden"></div>
-                <div class="premium-gradient absolute inset-0 z-[2]"></div>
+        <!-- VÍDEOS EMBUTIDOS DIRETAMENTE NO HTML -->
+        <section id="hero" class="bg-[#080808] overflow-hidden border-b border-araguaia-border relative" style="height: 82vh;">
+            
+            <div class="absolute inset-0 w-full h-full">
+                <!-- Os atributos muted e playsinline garantem o autoplay no celular -->
+                <video id="vid-1" class="hero-video active" src="slide1.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+                <video id="vid-2" class="hero-video" src="slide2.mp4" muted loop playsinline webkit-playsinline preload="metadata"></video>
+                <video id="vid-3" class="hero-video" src="slide3.mp4" muted loop playsinline webkit-playsinline preload="metadata"></video>
+
+                <div class="premium-gradient absolute inset-0 z-[2] pointer-events-none"></div>
             </div>
 
-            <div class="relative z-10 container mx-auto px-4 md:px-8 h-full flex flex-col justify-center py-20 md:py-32 flex-grow">
-                <div class="grid grid-cols-1 grid-rows-1 items-center w-full max-w-6xl">
-
-                    <!-- Slide 1 -->
-                    <div id="text-1" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu z-10">
-                        <span class="inline-block bg-red-600 text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg animate-bounce">
-                            OFERTA LIMITADA
-                        </span>
-                        <h1 class="font-anton text-[3.2rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.05] mb-6">
-                            POTÊNCIA PURA.<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800;">
-                                DURA MAIS.
+            <!-- Camada de Textos -->
+            <div class="relative z-10 container mx-auto px-4 md:px-8 h-full">
+                <div class="relative w-full h-full max-w-6xl mx-auto flex items-center">
+                    
+                    <!-- Texto Slide 1 -->
+                    <div id="text-1" class="slide-content max-w-3xl active">
+                        <div>
+                            <span class="inline-block bg-red-600 text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg animate-bounce">
+                                OFERTA LIMITADA
                             </span>
-                        </h1>
-                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            Ferramentas elétricas DeWalt originais com até 30% de desconto. Potência e durabilidade que a sua obra exige.
-                        </p>
-                        <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl rounded-md">
-                            VER OFERTAS AGORA
-                            <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
-                        </a>
+                            <h1 class="font-anton text-[3.2rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.05] mb-6">
+                                POTÊNCIA PURA.<br>
+                                <span class="block mt-1 md:mt-2 text-transparent" style="-webkit-text-stroke: 2px #FFB800;">DURA MAIS.</span>
+                            </h1>
+                            <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                                Ferramentas elétricas DeWalt originais com até 30% de desconto. Potência e durabilidade que a sua obra exige.
+                            </p>
+                            <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl rounded-md">
+                                VER OFERTAS AGORA
+                                <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Slide 2 -->
-                    <div id="text-2" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu z-10">
-                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
-                            LINHA 20V MAX*
-                        </span>
-                        <h1 class="font-anton text-[3.2rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.05] mb-6">
-                            ALTA PERFORMANCE.<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800;">
-                                SEM FIOS.
+                    <!-- Texto Slide 2 -->
+                    <div id="text-2" class="slide-content max-w-3xl">
+                        <div>
+                            <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
+                                LINHA 20V MAX*
                             </span>
-                        </h1>
-                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            A liberdade que você precisa com a força extrema da DeWalt. Compre no Pix com frete expresso.
-                        </p>
-                        <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl rounded-md">
-                            VER OFERTAS AGORA
-                            <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
-                        </a>
+                            <h1 class="font-anton text-[3.2rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.05] mb-6">
+                                ALTA PERFORMANCE.<br>
+                                <span class="block mt-1 md:mt-2 text-transparent" style="-webkit-text-stroke: 2px #FFB800;">SEM FIOS.</span>
+                            </h1>
+                            <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                                A liberdade que você precisa com a força extrema da DeWalt. Compre no Pix com frete expresso.
+                            </p>
+                            <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl rounded-md">
+                                VER OFERTAS AGORA
+                                <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Slide 3 -->
-                    <div id="text-3" class="slide-content col-start-1 row-start-1 max-w-3xl mt-12 md:mt-0 transform-gpu z-10">
-                        <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
-                            100% ORIGINAL
-                        </span>
-                        <h1 class="font-anton text-[3.2rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.05] mb-6">
-                            PROJETADA PARA<br>
-                            <span class="block mt-1 md:mt-2 text-transparent will-change-transform" style="-webkit-text-stroke: 2px #FFB800;">
-                                O TRABALHO BRUTO.
+                    <!-- Texto Slide 3 -->
+                    <div id="text-3" class="slide-content max-w-3xl">
+                        <div>
+                            <span class="inline-block bg-araguaia-yellow-dark text-white font-bold text-[10px] md:text-xs px-4 py-1.5 mb-5 uppercase tracking-widest shadow-lg">
+                                100% ORIGINAL
                             </span>
-                        </h1>
-                        <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
-                            Garantia de 3 anos direto de fábrica. Não corra riscos na sua obra. Compre com segurança na Araguaia.
-                        </p>
-                        <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl rounded-md">
-                            VER OFERTAS AGORA
-                            <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
-                        </a>
+                            <h1 class="font-anton text-[3.2rem] sm:text-[4.5rem] md:text-7xl lg:text-8xl text-white uppercase leading-[1.05] mb-6">
+                                PROJETADA PARA<br>
+                                <span class="block mt-1 md:mt-2 text-transparent" style="-webkit-text-stroke: 2px #FFB800;">O TRABALHO BRUTO.</span>
+                            </h1>
+                            <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl font-medium leading-relaxed drop-shadow-md">
+                                Garantia de 3 anos direto de fábrica. Não corra riscos na sua obra. Compre com segurança na Araguaia.
+                            </p>
+                            <a href="#destaques" class="inline-flex items-center justify-center bg-araguaia-yellow text-black font-anton text-lg md:text-xl px-8 py-4 uppercase hover:bg-white transition-colors duration-300 group shadow-xl rounded-md">
+                                VER OFERTAS AGORA
+                                <i data-lucide="arrow-down" class="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                            </a>
+                        </div>
                     </div>
 
                 </div>
@@ -275,11 +272,13 @@
                 </div>
 
                 <!-- Grid -->
-                <div id="vitrine-produtos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+                <div id="vitrine-produtos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- JS vai popular os cards aqui -->
+                </div>
 
                 <!-- Paginação -->
                 <div class="flex justify-center items-center mt-16 gap-3 border-t border-araguaia-border pt-8">
-                    <a href="index.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-surface border border-araguaia-border text-gray-400 hover:text-white hover:border-araguaia-yellow transition-all font-anton text-xl shadow-sm" title="Voltar para Página 1">
+                    <a href="index.html" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-surface border border-araguaia-border text-gray-400 hover:text-white hover:border-araguaia-yellow transition-all font-anton text-xl shadow-sm" title="Voltar para Página 1 (STIHL)">
                         1
                     </a>
                     <a href="#" class="w-12 h-12 flex items-center justify-center rounded-lg bg-araguaia-yellow text-black font-anton text-xl border border-araguaia-yellow shadow-[0_0_15px_rgba(255,184,0,0.3)] cursor-default">
@@ -401,33 +400,47 @@
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="credit-card" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
                         <h4 class="font-bold text-sm uppercase text-white">Em até 10x S/ Juros</h4>
-                        <p class="text-xs text-gray-400 mt-1">Compra 100% Protegida</p>
+                        <p class="text-xs text-gray-400 mt-1">Compra 100% Criptografada</p>
                     </div>
                     <div class="flex flex-col items-center px-4">
                         <i data-lucide="headphones" class="w-8 h-8 text-araguaia-yellow mb-2"></i>
                         <h4 class="font-bold text-sm uppercase text-white">Suporte Humano</h4>
-                        <p class="text-xs text-gray-400 mt-1">Atendimento real via WhatsApp</p>
+                        <p class="text-xs text-gray-400 mt-1">Atendimento real via Zap</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer Completo -->
     <footer id="footer" class="bg-araguaia-darker text-gray-400 pt-16 pb-8 border-t border-araguaia-border">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+                <!-- Coluna 1: Logo e Texto -->
                 <div class="lg:col-span-1">
                     <a href="index.html" class="inline-block mb-6 transition-opacity hover:opacity-90">
                         <div class="bg-[#FFB800] p-1.5 rounded-lg inline-block shadow-lg">
                             <img src="logo.png.webp" alt="Araguaia Máquinas" width="120" height="40" class="h-10 w-auto object-contain" loading="lazy" decoding="async">
                         </div>
                     </a>
+
                     <p class="text-sm mb-6 leading-relaxed text-gray-400">
                         A força que o campo precisa com a tecnologia que você confia. Especialistas em equipamentos motorizados para agro, floresta e jardim.
                     </p>
+                    <h4 class="text-white font-bold uppercase text-sm mb-4">Receba Ofertas</h4>
+                    <form action="#" method="POST" class="flex flex-col gap-2">
+                        <div class="flex">
+                            <input type="email" name="email_newsletter" placeholder="Seu melhor e-mail" required
+                                class="w-full bg-araguaia-surface border border-araguaia-border text-white px-4 py-2 text-sm focus:outline-none focus:border-araguaia-yellow rounded-l-full">
+                            <button type="submit" class="bg-araguaia-yellow text-black px-4 py-2 font-bold uppercase text-sm hover:bg-white transition-colors rounded-r-full">
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
+                <!-- Coluna 2: Endereço -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Nossa Loja</h4>
                     <ul class="flex flex-col gap-4 text-sm">
@@ -435,12 +448,15 @@
                             <i data-lucide="map-pin" class="w-5 h-5 text-araguaia-yellow flex-shrink-0 mt-0.5"></i>
                             <div>
                                 <span class="block font-bold text-white mb-1">Anápolis - GO</span>
-                                Av. Tiradentes, 30<br>Setor Central<br>CEP: 75043-045
+                                Av. Tiradentes, 30<br>
+                                Setor Central<br>
+                                CEP: 75043-045
                             </div>
                         </li>
                     </ul>
                 </div>
 
+                <!-- Coluna 3: Horários -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Atendimento</h4>
                     <ul class="flex flex-col gap-3 text-sm">
@@ -459,6 +475,7 @@
                     </ul>
                 </div>
 
+                <!-- Coluna 4: Contato -->
                 <div>
                     <h4 class="text-white font-anton text-xl uppercase tracking-wider mb-6">Fale Conosco</h4>
                     <ul class="flex flex-col gap-4 text-sm">
@@ -473,18 +490,25 @@
                 </div>
             </div>
 
+            <!-- Bottom Bar / CNPJ -->
             <div class="pt-8 border-t border-araguaia-border flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 text-center md:text-left">
                 <p>
                     <span class="font-medium text-gray-400">CNPJ: 10.655.510/0001-50</span>
+                    <br class="md:hidden">
                     <span class="hidden md:inline mx-2">|</span>
                     &copy; 2026 Araguaia Máquinas. Todos os direitos reservados.
                 </p>
-                <p class="text-[10px] text-gray-600">Este site não faz parte e não é endossado pela Meta ou Google.</p>
+                <p class="text-[10px] text-gray-600">Este site não faz parte e não é endossado pela Meta (Facebook/Instagram) ou Google.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Facebook"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-white transition-colors" aria-label="YouTube"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Script de Inicialização dos Ícones Lucide -->
+    <!-- Script Lucide Icons -->
     <script>
         function initLucide(){
             if(window.lucide) { lucide.createIcons(); }
@@ -513,207 +537,136 @@
         });
     </script>
 
-    <!-- Script Hero Slider com Suporte Completo a Mobile (Android/HyperOS/iOS) e PC -->
+    <!-- MOTOR DE SLIDER BLINDADO PARA MOBILE E PC -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const SLIDE_DURATION = 6000;
             const totalSlides = 3;
             let currentSlide = 1;
-            let isTransitioning = false;
             let autoTimer = null;
 
-            const sources = {
-                1: 'dewalt1.mp4',
-                2: 'dewalt2.mp4',
-                3: 'dewalt3.mp4'
-            };
-
-            // Imagens estáticas usadas como poster de cada vídeo (aparecem enquanto o vídeo carrega).
-            // Troque pelos nomes reais dos frames/capas de cada vídeo quando tiver os arquivos.
-            const posters = {
-                1: 'Furadeira e Parafusadeira a Bateria 20V.webp',
-                2: 'Esmerilhadeira Angular DeWALT.webp',
-                3: 'Serra Circular DeWalt.webp'
-            };
-
-            const videoLayer = document.getElementById('hero-video-layer');
             const dots = document.querySelectorAll('.slider-dot');
-            const videos = {};
+            const vids = [
+                document.getElementById('vid-1'),
+                document.getElementById('vid-2'),
+                document.getElementById('vid-3')
+            ];
 
-            function resetDots(activeIndex, durationMs) {
+            // 1. DESTRAVADOR DE AUTOPLAY (Android/Xiaomi/iOS Strict Mode)
+            const unlockVideos = () => {
+                vids.forEach((v, index) => {
+                    if (v) {
+                        const playPromise = v.play();
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
+                                if (index + 1 !== currentSlide) {
+                                    v.pause();
+                                }
+                            }).catch(() => {});
+                        }
+                    }
+                });
+                window.removeEventListener('touchstart', unlockVideos);
+                window.removeEventListener('click', unlockVideos);
+                window.removeEventListener('scroll', unlockVideos);
+            };
+            
+            window.addEventListener('touchstart', unlockVideos, { once: true, passive: true });
+            window.addEventListener('click', unlockVideos, { once: true, passive: true });
+            window.addEventListener('scroll', unlockVideos, { once: true, passive: true });
+
+            function resetDots(activeIndex) {
                 dots.forEach((dot, i) => {
                     dot.classList.remove('filling', 'done');
                     const fill = dot.querySelector('.dot-fill');
-                    if (!fill) return;
-                    fill.style.transition = 'none';
-                    fill.style.transform = 'scaleX(0)';
+                    if (fill) {
+                        fill.style.transition = 'none';
+                        fill.style.transform = 'scaleX(0)';
+                    }
                     if (i + 1 < activeIndex) dot.classList.add('done');
                 });
 
                 requestAnimationFrame(() => {
                     const activeDot = document.querySelector(`.slider-dot[data-slide="${activeIndex}"]`);
-                    if (!activeDot) return;
-                    const fill = activeDot.querySelector('.dot-fill');
-                    if (!fill) return;
-                    activeDot.classList.add('filling');
-
-                    requestAnimationFrame(() => {
-                        fill.style.transition = `transform ${durationMs}ms linear`;
-                        fill.style.transform = 'scaleX(1)';
-                    });
+                    if (activeDot) {
+                        activeDot.classList.add('filling');
+                        const fill = activeDot.querySelector('.dot-fill');
+                        requestAnimationFrame(() => {
+                            if (fill) {
+                                fill.style.transition = `transform ${SLIDE_DURATION}ms linear`;
+                                fill.style.transform = 'scaleX(1)';
+                            }
+                        });
+                    }
                 });
             }
 
-            function goToSlideText(nextIndex) {
-                const prevIndex = currentSlide;
-                document.getElementById(`text-${prevIndex}`)?.classList.remove('active');
-                document.getElementById(`text-${nextIndex}`)?.classList.add('active');
-                currentSlide = nextIndex;
-            }
-
-            function restartAutoTimer(nextFn) {
-                if (autoTimer) clearTimeout(autoTimer);
-                autoTimer = setTimeout(nextFn, SLIDE_DURATION);
-            }
-
-            // --- Vídeos em autoplay ---------------------------------------------------
-            function buildVideoEl(index, preloadLevel) {
-                const v = document.createElement('video');
-                v.id = 'vid-' + index;
-                v.className = 'hero-video absolute inset-0 w-full h-full object-cover object-center';
-
-                v.muted = true;
-                v.defaultMuted = true;
-                v.setAttribute('muted', '');
-                v.setAttribute('playsinline', '');
-                v.setAttribute('webkit-playsinline', '');
-                v.playsInline = true;
-                v.autoplay = true;
-                v.loop = false;
-                v.preload = preloadLevel;
-                if (posters[index]) v.poster = posters[index];
-                if ('fetchPriority' in v) v.fetchPriority = index === 1 ? 'high' : 'low';
-
-                v.src = sources[index];
-                v.addEventListener('ended', nextSlide);
-                return v;
-            }
-
-            function ensureVideoLoaded(index) {
-                if (videos[index]) return videos[index];
-                const v = buildVideoEl(index, 'metadata');
-                videoLayer.appendChild(v);
-                videos[index] = v;
-                return v;
-            }
-
             function goToSlide(nextIndex) {
-                if (currentSlide === nextIndex || isTransitioning) return;
-                isTransitioning = true;
+                if (currentSlide === nextIndex) return;
 
                 const prevIndex = currentSlide;
-                goToSlideText(nextIndex);
-                resetDots(nextIndex, SLIDE_DURATION);
+                currentSlide = nextIndex;
 
-                const nextVideo = ensureVideoLoaded(nextIndex);
-                const prevVideo = videos[prevIndex];
+                const prevVid = vids[prevIndex - 1];
+                const nextVid = vids[nextIndex - 1];
 
-                nextVideo.currentTime = 0;
-                const playPromise = nextVideo.play();
+                document.getElementById(`text-${prevIndex}`).classList.remove('active');
+                document.getElementById(`text-${nextIndex}`).classList.add('active');
 
-                const doSwap = () => {
-                    if (prevVideo) prevVideo.classList.remove('active');
-                    nextVideo.classList.add('active');
-
-                    // Só carrega o próximo vídeo quando a troca atual terminar,
-                    // em vez de manter 2 decodificando ao mesmo tempo o tempo todo.
-                    setTimeout(() => {
-                        if (currentSlide !== prevIndex && prevVideo) prevVideo.pause();
-                        isTransitioning = false;
-                    }, 1200);
-                };
-
-                if (playPromise !== undefined) {
-                    playPromise.then(doSwap).catch(doSwap);
-                } else {
-                    doSwap();
+                // Prepara o próximo vídeo para crossfade
+                if (nextVid) {
+                    nextVid.currentTime = 0;
+                    const playPromise = nextVid.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            nextVid.classList.add('active');
+                            if(prevVid) prevVid.classList.remove('active');
+                            
+                            setTimeout(() => { if(prevVid) prevVid.pause(); }, 800);
+                        }).catch(() => {
+                            nextVid.classList.add('active');
+                            if(prevVid) prevVid.classList.remove('active');
+                        });
+                    }
                 }
+                resetDots(nextIndex);
             }
 
             function nextSlide() {
                 const next = currentSlide >= totalSlides ? 1 : currentSlide + 1;
                 goToSlide(next);
-                restartAutoTimer(nextSlide);
             }
 
-            function initVideoMode() {
-                videos[1] = buildVideoEl(1, 'metadata');
-                videoLayer.appendChild(videos[1]);
-                videos[1].classList.add('active');
-
-                const playFirst = () => {
-                    const p = videos[1].play();
-                    if (p !== undefined) {
-                        p.catch(() => {
-                            const unlock = () => {
-                                videos[currentSlide]?.play().catch(() => {});
-                                window.removeEventListener('touchstart', unlock);
-                                window.removeEventListener('click', unlock);
-                            };
-                            window.addEventListener('touchstart', unlock, { passive: true });
-                            window.addEventListener('click', unlock, { passive: true });
-                        });
-                    }
-                };
-                playFirst();
-
-                document.getElementById('text-1')?.classList.add('active');
-                if (videos[1]) {
-                    videos[1].addEventListener('loadedmetadata', () => resetDots(1, SLIDE_DURATION), { once: true });
-                    if (videos[1].readyState >= 1) resetDots(1, SLIDE_DURATION);
-                }
-                restartAutoTimer(nextSlide);
-
-                dots.forEach(dot => {
-                    dot.addEventListener('click', () => {
-                        const target = parseInt(dot.getAttribute('data-slide'));
-                        goToSlide(target);
-                        restartAutoTimer(nextSlide);
-                    });
-                });
-
-                const heroSection = document.getElementById('hero');
-                if ('IntersectionObserver' in window) {
-                    const io = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            const activeVideo = videos[currentSlide];
-                            if (!activeVideo) return;
-                            if (entry.isIntersecting) {
-                                activeVideo.play().catch(() => {});
-                            } else {
-                                activeVideo.pause();
-                            }
-                        });
-                    }, { threshold: 0.15 });
-                    io.observe(heroSection);
-                }
-
-                document.addEventListener('visibilitychange', () => {
-                    const activeVideo = videos[currentSlide];
-                    if (!activeVideo) return;
-                    if (document.hidden) {
-                        activeVideo.pause();
-                    } else if (heroSection.getBoundingClientRect().top < window.innerHeight) {
-                        activeVideo.play().catch(() => {});
-                    }
-                });
+            function startTimer() {
+                if (autoTimer) clearInterval(autoTimer);
+                autoTimer = setInterval(nextSlide, SLIDE_DURATION);
             }
 
-            initVideoMode();
+            resetDots(1);
+            startTimer();
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const target = parseInt(dot.getAttribute('data-slide'));
+                    goToSlide(target);
+                    startTimer();
+                });
+            });
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    if (vids[currentSlide - 1]) vids[currentSlide - 1].pause();
+                    if (autoTimer) clearInterval(autoTimer);
+                } else {
+                    if (vids[currentSlide - 1]) vids[currentSlide - 1].play().catch(()=>{});
+                    startTimer();
+                }
+            });
         });
     </script>
 
-    <!-- Banco de Dados e Renderização da Vitrine -->
+    <!-- Banco de Dados e Renderização da Vitrine COMPLETOS -->
     <script>
         const produtosDewalt = [
             {
