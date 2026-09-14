@@ -130,15 +130,6 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- URGÊNCIA: Top Bar -->
-    <div class="bg-red-600 text-center py-2 px-4 text-xs sm:text-sm font-bold tracking-wider text-white flex justify-center items-center flex-wrap gap-2 z-50 relative shadow-lg">
-        <div class="flex items-center gap-1.5 animate-pulse">
-            <i data-lucide="timer" class="w-4 h-4"></i>
-            <span>OFERTA RELÂMPAGO ACABA EM:</span>
-        </div>
-        <span id="countdown" class="font-mono text-base md:text-lg bg-black/20 px-2 py-0.5 rounded shadow-inner">02:45:00</span>
-    </div>
-
     <!-- Header -->
     <header class="bg-araguaia-surface/95 backdrop-blur-md border-b border-araguaia-border sticky top-0 z-40 transition-all">
         <div class="container mx-auto px-4 py-3 md:py-4 flex items-center justify-between">
@@ -520,22 +511,6 @@
         } else {
             initLucide();
         }
-    </script>
-
-    <!-- Script Countdown -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let timeInSecs = 2 * 3600 + 45 * 60;
-            const timerEl = document.getElementById('countdown');
-
-            setInterval(() => {
-                if (timeInSecs > 0) timeInSecs--;
-                const h = String(Math.floor(timeInSecs / 3600)).padStart(2, '0');
-                const m = String(Math.floor((timeInSecs % 3600) / 60)).padStart(2, '0');
-                const s = String(timeInSecs % 60).padStart(2, '0');
-                if (timerEl) timerEl.innerText = `${h}:${m}:${s}`;
-            }, 1000);
-        });
     </script>
 
     <!-- MOTOR DE SLIDER "PADRÃO APPLE" -->
